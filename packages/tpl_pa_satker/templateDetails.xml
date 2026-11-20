@@ -32,6 +32,9 @@
         <position>home-center</position>
         <position>home-side</position>
         <position>home-strip</position>
+        <position>home-agenda</position>
+        <position>home-video</position>
+        <position>home-galeri</position>
         <position>home-welcome</position>
         <position>content-top</position>
         <position>breadcrumbs</position>

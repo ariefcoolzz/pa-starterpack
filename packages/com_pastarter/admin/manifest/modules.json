@@ -101,6 +101,39 @@
       "content": "side-sosmed.html"
     },
     {
+      "title": "Agenda Sidang",
+      "module": "mod_pa_agenda",
+      "position": "home-agenda",
+      "ordering": 1,
+      "showtitle": 0,
+      "params": {
+        "catatan": "Jadwal dapat berubah. Konfirmasi ke PTSP atau SIPP.",
+        "tautan": "{{BASE}}layanan-hukum/jadwal-sidang",
+        "items": {
+          "items0": { "jam": "08.00", "perkara": "0123/Pdt.G/2026/PA.Cth — harta bersama", "ruang": "R. Sidang 1", "majelis": "H. Nama Satu, S.H., M.H.", "status": "sidang" },
+          "items1": { "jam": "09.30", "perkara": "0147/Pdt.G/2026/PA.Cth — nafkah anak", "ruang": "R. Sidang 2", "majelis": "H. Nama Dua, S.H.", "status": "mediasi" },
+          "items2": { "jam": "10.30", "perkara": "0152/Pdt.P/2026/PA.Cth — penetapan ahli waris", "ruang": "R. Sidang 1", "majelis": "H. Nama Satu, S.H., M.H.", "status": "putusan" },
+          "items3": { "jam": "13.00", "perkara": "0158/Pdt.G/2026/PA.Cth — cerai gugat", "ruang": "R. Sidang 2", "majelis": "H. Nama Tiga, S.H.", "status": "ditunda" }
+        }
+      }
+    },
+    {
+      "title": "Video Profil",
+      "module": "mod_custom",
+      "position": "home-video",
+      "ordering": 1,
+      "showtitle": 0,
+      "content": "video.html"
+    },
+    {
+      "title": "Galeri Kegiatan",
+      "module": "mod_custom",
+      "position": "home-galeri",
+      "ordering": 1,
+      "showtitle": 0,
+      "content": "galeri.html"
+    },
+    {
       "title": "Layanan Sering Dicari",
       "module": "mod_custom",
       "position": "home-strip",

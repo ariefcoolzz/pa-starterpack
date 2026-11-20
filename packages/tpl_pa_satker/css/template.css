@@ -812,6 +812,78 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
   .pa-footer__grid { grid-template-columns: 1fr; gap: 1.25rem; }
 }
 
+/* ---------- Agenda, video, galeri ---------------------------------------- */
+
+.pa-twocol { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+
+.pa-agenda { background: #fff; border: 1px solid var(--pa-line); border-radius: 16px; padding: 1.1rem 1.2rem 1.2rem; }
+.pa-agenda__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .5rem; }
+.pa-agenda__head h2 { font-size: 1.12rem; margin: 0; }
+.pa-agenda__scroll { overflow-x: auto; }
+.pa-agenda__table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.pa-agenda__table th,
+.pa-agenda__table td { padding: .55rem .5rem; text-align: left; border-bottom: 1px solid var(--pa-line); vertical-align: top; }
+.pa-agenda__table thead th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--pa-muted); font-weight: 700; }
+.pa-agenda__table tbody th { font-weight: 700; color: var(--pa-primary); white-space: nowrap; }
+.pa-agenda__table tbody tr:last-child th,
+.pa-agenda__table tbody tr:last-child td { border-bottom: 0; }
+.pa-agenda__note { margin: .7rem 0 0; font-size: .76rem; color: var(--pa-muted); }
+
+.pa-status { display: inline-block; font-size: .72rem; font-weight: 700; border-radius: 999px; padding: .12rem .5rem; background: var(--pa-primary-light); color: var(--pa-primary); white-space: nowrap; }
+.pa-status--putusan { background: #fff1e0; color: #b45309; }
+.pa-status--mediasi { background: #e0f2fe; color: #075985; }
+.pa-status--ditunda { background: #fee2e2; color: #b91c1c; }
+
+.pa-video { position: relative; border-radius: 16px; overflow: hidden; background: #0b1f18; aspect-ratio: 16 / 10; }
+.pa-video > img { width: 100%; height: 100%; object-fit: cover; opacity: .88; }
+.pa-video__play { position: absolute; inset: 0; display: grid; place-items: center; border: 0; background: transparent; cursor: pointer; }
+.pa-video__play span { width: 64px; height: 64px; border-radius: 50%; background: var(--pa-secondary); display: grid; place-items: center; box-shadow: 0 14px 30px rgba(0, 0, 0, .35); transition: transform .15s ease; }
+.pa-video__play:hover span { transform: scale(1.06); }
+.pa-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.pa-video__kosong { position: absolute; left: 50%; bottom: .8rem; transform: translateX(-50%); background: rgba(0, 0, 0, .55); color: #fff; font-size: .78rem; padding: .3rem .7rem; border-radius: 999px; }
+
+.pa-section { scroll-margin-top: 7rem; }
+
+.pa-galeri { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.pa-galeri a { display: block; border-radius: 12px; overflow: hidden; aspect-ratio: 4 / 3; background: var(--pa-primary-light); }
+.pa-galeri img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.pa-galeri a:hover img, .pa-galeri a:focus-visible img { transform: scale(1.06); }
+
+.pa-lightbox { position: relative; border: 0; padding: 0; background: transparent; max-width: min(92vw, 1100px); }
+.pa-lightbox::backdrop { background: rgba(6, 20, 15, .82); }
+.pa-lightbox img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.pa-lightbox button { position: absolute; top: .6rem; right: .6rem; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: rgba(6, 20, 15, .72); border: 0; color: #fff; font-size: 1.35rem; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+
+@media (max-width: 1024px) {
+  .pa-twocol { grid-template-columns: minmax(0, 1fr); }
+  .pa-galeri { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .pa-galeri { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pa-agenda__scroll { overflow-x: visible; }
+  .pa-agenda__table thead { display: none; }
+  .pa-agenda__table,
+  .pa-agenda__table tbody,
+  .pa-agenda__table tr,
+  .pa-agenda__table th,
+  .pa-agenda__table td { display: block; width: auto; }
+  .pa-agenda__table tr { padding: .7rem 0; border-bottom: 1px solid var(--pa-line); }
+  .pa-agenda__table tr:last-child { border-bottom: 0; }
+  .pa-agenda__table th,
+  .pa-agenda__table td { border: 0; padding: .12rem 0; font-size: .84rem; }
+  .pa-agenda__table tbody th { font-size: .95rem; }
+  .pa-agenda__table th::before,
+  .pa-agenda__table td::before {
+    content: attr(data-label) ": ";
+    font-weight: 600;
+    color: var(--pa-muted);
+    font-size: .74rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+}
+
 /* ---------- Cetak -------------------------------------------------------- */
 
 @media print {

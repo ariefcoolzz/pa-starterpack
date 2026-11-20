@@ -132,6 +132,21 @@ $ada = function (string $pos): bool {
                 </div>
             </section>
 
+            <?php if ($ada('home-agenda') || $ada('home-video')) : ?>
+                <section class="pa-section">
+                    <div class="pa-twocol">
+                        <div><?php if ($ada('home-agenda')) : ?><jdoc:include type="modules" name="home-agenda" style="paPlain" /><?php endif; ?></div>
+                        <div><?php if ($ada('home-video')) : ?><jdoc:include type="modules" name="home-video" style="paPlain" /><?php endif; ?></div>
+                    </div>
+                </section>
+            <?php endif; ?>
+
+            <?php if ($ada('home-galeri')) : ?>
+                <section class="pa-section pa-section--white">
+                    <jdoc:include type="modules" name="home-galeri" style="paPlain" />
+                </section>
+            <?php endif; ?>
+
             <?php if ($ada('home-strip')) : ?>
                 <section class="pa-section pa-section--white">
                     <div class="pa-section__head">

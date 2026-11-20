@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+    <name>PA Agenda Sidang</name>
+    <author>Ditjen Badan Peradilan Agama</author>
+    <creationDate>2026-11</creationDate>
+    <version>1.0.0</version>
+    <description>Agenda sidang hari ini: jam, perkara, ruang, dan majelis hakim. Diisi manual dari data SIPP.</description>
+
+    <files>
+        <filename module="mod_pa_agenda">mod_pa_agenda.php</filename>
+        <folder>tmpl</folder>
+        <folder>language</folder>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_pa_agenda.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_pa_agenda.sys.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="catatan" type="text" label="Catatan di bawah tabel"
+                       default="Jadwal dapat berubah. Konfirmasi ke PTSP atau SIPP." />
+                <field name="tautan" type="url" label="Tautan jadwal lengkap" default="" />
+                <field name="items" type="subform" label="Baris agenda" multiple="true"
+                       layout="joomla.form.field.subform.repeatable-table">
+                    <form>
+                        <field name="jam" type="text" label="Jam" default="08.00" />
+                        <field name="perkara" type="text" label="Nomor / pokok perkara" />
+                        <field name="ruang" type="text" label="Ruang" default="R. Sidang 1" />
+                        <field name="majelis" type="text" label="Majelis hakim" />
+                        <field name="status" type="list" label="Status" default="sidang">
+                            <option value="sidang">Sidang</option>
+                            <option value="putusan">Putusan</option>
+                            <option value="mediasi">Mediasi</option>
+                            <option value="ditunda">Ditunda</option>
+                        </field>
+                    </form>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

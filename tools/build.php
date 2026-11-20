@@ -57,6 +57,7 @@ $targets = [
     'com_pastarter'    => $root . '/packages/com_pastarter',
     'tpl_pa_satker'    => $root . '/packages/tpl_pa_satker',
     'mod_pa_jamkerja'  => $root . '/packages/mod_pa_jamkerja',
+    'mod_pa_agenda'    => $root . '/packages/mod_pa_agenda',
 ];
 
 $hasil = [];

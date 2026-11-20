@@ -159,4 +159,60 @@
             }
         });
     });
+
+    /* --- video: muat iframe hanya setelah diklik ------------------------- */
+    document.querySelectorAll('[data-pa-video]').forEach(function (kotak) {
+        var tombol = kotak.querySelector('.pa-video__play');
+        var id = (kotak.dataset.id || '').trim();
+
+        if (!tombol) { return; }
+
+        // Tanpa ID yang sah tombol play menyesatkan: ganti dengan label status.
+        if (!/^[\w-]{11}$/.test(id)) {
+            var label = document.createElement('span');
+            label.className = 'pa-video__kosong';
+            label.textContent = 'Video profil segera hadir';
+            kotak.appendChild(label);
+            tombol.remove();
+            return;
+        }
+
+        tombol.addEventListener('click', function () {
+
+            var frame = document.createElement('iframe');
+            frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+            frame.title = 'Video profil satuan kerja';
+            frame.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture';
+            frame.allowFullscreen = true;
+            kotak.innerHTML = '';
+            kotak.appendChild(frame);
+        });
+    });
+
+    /* --- galeri: dialog lightbox tanpa pustaka ---------------------------- */
+    var tautanGaleri = document.querySelectorAll('[data-pa-lightbox]');
+
+    if (tautanGaleri.length && typeof HTMLDialogElement === 'function') {
+        var dialog = document.createElement('dialog');
+        dialog.className = 'pa-lightbox';
+        dialog.innerHTML = '<button type="button" aria-label="Tutup">×</button><img alt="">';
+        document.body.appendChild(dialog);
+
+        var gambar = dialog.querySelector('img');
+        var tutup = dialog.querySelector('button');
+
+        tutup.addEventListener('click', function () { dialog.close(); });
+        dialog.addEventListener('click', function (e) {
+            if (e.target === dialog) { dialog.close(); }
+        });
+
+        tautanGaleri.forEach(function (a) {
+            a.addEventListener('click', function (e) {
+                e.preventDefault();
+                gambar.src = a.getAttribute('href');
+                gambar.alt = a.querySelector('img') ? a.querySelector('img').alt : '';
+                dialog.showModal();
+            });
+        });
+    }
 })();

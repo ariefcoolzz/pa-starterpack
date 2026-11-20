@@ -570,6 +570,9 @@ final class Seeder
                 }, $params['catid']);
             }
 
+            // Token {{BASE}} juga dipakai di parameter (mis. tautan agenda).
+            $params = $this->gantiToken($params, $tokens);
+
             $content = '';
 
             if (!empty($def['content'])) {
@@ -605,6 +608,14 @@ final class Seeder
                     }
                 }
 
+                // Mode pengembangan: PA_REFRESH=1 memperbarui isi modul dari manifest
+                // agar perubahan tata letak bisa diuji tanpa memasang ulang situs.
+                if (getenv('PA_REFRESH') && $content !== '') {
+                    $table->content = $content;
+                    $table->params  = json_encode(array_merge(json_decode((string) $table->params, true) ?: [], $params));
+                    $table->store();
+                }
+
                 $this->log['dilewati']++;
                 $this->publishModuleEverywhere((int) $table->id);
                 continue;
@@ -631,6 +642,24 @@ final class Seeder
             $this->publishModuleEverywhere((int) $table->id);
             $this->log['dibuat']++;
         }
+    }
+
+    /**
+     * @param array<string, mixed> $nilai
+     * @param array<string, string> $tokens
+     * @return array<string, mixed>
+     */
+    private function gantiToken(array $nilai, array $tokens): array
+    {
+        foreach ($nilai as $k => $v) {
+            if (is_array($v)) {
+                $nilai[$k] = $this->gantiToken($v, $tokens);
+            } elseif (is_string($v)) {
+                $nilai[$k] = strtr($v, $tokens);
+            }
+        }
+
+        return $nilai;
     }
 
     private function modulTerpasang(string $element): bool
