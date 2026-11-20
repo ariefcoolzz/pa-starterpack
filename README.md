@@ -61,9 +61,33 @@ php tools/preview.php     # → dist/preview/index.html
 | Template CSS + pratinjau statis | selesai (menunggu persetujuan visual) |
 | Foto asli satker (gedung, PTSP, mediasi) + pipeline crop | selesai |
 | Panel aksesibilitas (teks, kontras, garis bawah, persistensi) | selesai (teruji di pratinjau) |
-| Template Joomla `index.php` + override | belum |
-| Seeder Joomla + auditor | belum |
-| Paket ekstensi + quickstart | belum |
+| Template Joomla `index.php` + override | selesai (terpasang di sandbox) |
+| Seeder Joomla (kategori, artikel, menu, modul) | selesai — idempoten (`dibuat 0` pada jalan kedua) |
+| Auditor 35 URL + estimasi skor | selesai (35 URL 200; 11 halaman tanpa placeholder) |
+| Paket ekstensi (`dist/*.zip`) | selesai |
+| Quickstart (inti + data + installer) | belum |
+
+## Lingkungan uji
+
+```
+situs   : http://pa-satker-sandbox.test   (Herd, PHP 8.4 via `herd isolate 8.4`)
+folder  : D:\projects\pa-satker-sandbox
+database: pa_starter @ 127.0.0.1:3307 (MariaDB 11.6.2), user pa_starter, prefix jos_
+admin   : user `admin` — sandi dari perintah instalasi (lihat riwayat sesi)
+CLI     : php cli/pa.php seed | audit http://pa-satker-sandbox.test
+```
+
+Catatan dev: `herd isolate` wajib dijalankan di folder sandbox, kalau tidak Herd memakai PHP 7.4
+dan Joomla menolak jalan. Kelas komponen admin berada di namespace `PA\Starter\Administrator\`
+(konvensi Joomla 6 untuk sisi administrator).
+
+## Diketahui belum beres
+
+- 5 artikel duplikat sisa seed pertama (id 53–57, landing seksi) masih ada di DB uji; aman
+  dihapus manual. Seeder sudah diperbaiki agar tidak terulang (pencarian alias global).
+- Sidebar halaman dalam belum diisi modul (halaman tampil lebar penuh).
+- Pencarian memakai `com_finder`; indeks belum dibangun (`finder:index`) sehingga hasil kosong.
+- Quickstart, dokumentasi operator, dan uji instalasi bersih belum dikerjakan.
 
 ## Lisensi
 
