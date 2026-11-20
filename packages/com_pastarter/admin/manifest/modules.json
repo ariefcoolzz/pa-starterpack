@@ -32,8 +32,9 @@
       "ordering": 1,
       "showtitle": 0,
       "params_merge": true,
+      "params_force": ["count", "pa_layout", "catid", "show_category"],
       "params": {
-        "count": 5,
+        "count": 7,
         "catid": ["{{CAT:berita}}"],
         "pa_layout": "featured",
         "show_introtext": 1,

@@ -98,7 +98,7 @@ $ada = function (string $pos): bool {
 </header>
 
 <?php if ($isHome && $ada('home-top')) : ?>
-    <div class="pa-hero"><jdoc:include type="modules" name="home-top" style="paPlain" /></div>
+    <div class="pa-wrap pa-hero-wrap"><div class="pa-hero"><jdoc:include type="modules" name="home-top" style="paPlain" /></div></div>
 <?php endif; ?>
 
 <main id="pa-main" class="pa-main">

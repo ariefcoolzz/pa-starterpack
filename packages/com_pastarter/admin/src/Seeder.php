@@ -203,6 +203,24 @@ final class Seeder
                 'images/konten/gedung-kantor-640.jpg',
                 'Masyarakat dapat memantau status perkara, jadwal sidang, dan putusan melalui Sistem Informasi Penelusuran Perkara tanpa datang ke pengadilan.',
             ],
+            [
+                'Bimbingan teknis administrasi perkara bagi pegawai baru',
+                'bimtek-administrasi-perkara-pegawai-baru',
+                'images/konten/ruang-ptsp-640.jpg',
+                'Pegawai baru mengikuti bimbingan teknis administrasi perkara, mulai pendaftaran, penetapan majelis, hingga pengelolaan berkas elektronik.',
+            ],
+            [
+                'Sidang isbat nikah terpadu bersama KUA',
+                'sidang-isbat-nikah-terpadu',
+                'images/konten/ruang-mediasi-640.jpg',
+                'Pengadilan bekerja sama dengan KUA menyelenggarakan sidang isbat nikah terpadu bagi pasangan yang belum memiliki buku nikah.',
+            ],
+            [
+                'Penguatan layanan PTSP menuju zona integritas',
+                'penguatan-layanan-ptsp-zona-integritas',
+                'images/konten/ruang-ptsp-640.jpg',
+                'Seluruh petugas PTSP mengikuti penguatan standar layanan, termasuk larangan penerimaan imbalan dan alur penanganan pengaduan masyarakat.',
+            ],
         ];
 
         $mundur = 1;
@@ -575,6 +593,11 @@ final class Seeder
                 if (!empty($def['params_merge'])) {
                     $lama = json_decode((string) $table->params, true) ?: [];
                     $baru = array_merge($params, $lama);
+
+                    // Kunci tata letak tetap dikendalikan paket agar beranda contoh konsisten.
+                    foreach ($def['params_force'] ?? [] as $kunci) {
+                        $baru[$kunci] = $params[$kunci];
+                    }
 
                     if ($baru !== $lama) {
                         $table->params = json_encode($baru);
