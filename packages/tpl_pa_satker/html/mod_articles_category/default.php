@@ -60,7 +60,7 @@ $tautanArtikel = static function ($item) use ($menuSitus): string {
             <?php foreach ($list as $item) : ?>
                 <li>
                     <time datetime="<?php echo HTMLHelper::_('date', $item->publish_up, 'c'); ?>">
-                        <?php echo HTMLHelper::_('date', $item->publish_up, 'd M'); ?>
+                        <?php echo HTMLHelper::_('date', $item->publish_up, 'd M Y'); ?>
                     </time>
                     <a href="<?php echo $tautanArtikel($item); ?>">
                         <?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>

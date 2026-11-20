@@ -118,31 +118,33 @@ $ada = function (string $pos): bool {
                 </section>
             <?php endif; ?>
 
-            <?php if ($ada('home-announce')) : ?>
-                <section class="pa-section">
-                    <div class="pa-announcebar">
-                        <span class="pa-announcebar__label">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-                                <path d="M12 3a6 6 0 0 0-6 6v4l-2 4h16l-2-4V9a6 6 0 0 0-6-6Zm0 18a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" fill="currentColor"/>
-                            </svg>
-                            Pengumuman
-                        </span>
-                        <jdoc:include type="modules" name="home-announce" style="paPlain" />
-                        <a class="pa-more" href="<?php echo $root; ?>/berita/pengumuman">Semua</a>
-                    </div>
-                </section>
-            <?php endif; ?>
-
             <section class="pa-section">
-                <div class="pa-section__head">
-                    <div>
-                        <h2>Berita terkini</h2>
-                        <p>Kegiatan pelayanan, inovasi, dan informasi terbaru dari satuan kerja.</p>
-                    </div>
-                    <a class="pa-more" href="<?php echo $root; ?>/berita/terkini">Berita lain</a>
-                </div>
                 <div class="pa-homegrid">
-                    <div class="pa-homegrid__main"><jdoc:include type="modules" name="home-center" style="paPlain" /></div>
+                    <div class="pa-homegrid__main">
+                        <?php if ($ada('home-announce')) : ?>
+                            <div class="pa-block">
+                                <div class="pa-section__head">
+                                    <div>
+                                        <h2>Pengumuman</h2>
+                                        <p>Informasi resmi terbaru dari satuan kerja.</p>
+                                    </div>
+                                    <a class="pa-more" href="<?php echo $root; ?>/berita/pengumuman">Semua</a>
+                                </div>
+                                <jdoc:include type="modules" name="home-announce" style="paPlain" />
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="pa-block">
+                            <div class="pa-section__head">
+                                <div>
+                                    <h2>Berita terkini</h2>
+                                    <p>Kegiatan pelayanan, inovasi, dan informasi terbaru dari satuan kerja.</p>
+                                </div>
+                                <a class="pa-more" href="<?php echo $root; ?>/berita/terkini">Berita lain</a>
+                            </div>
+                            <jdoc:include type="modules" name="home-center" style="paPlain" />
+                        </div>
+                    </div>
                     <div class="pa-homegrid__side"><jdoc:include type="modules" name="home-side" style="paCard" /></div>
                 </div>
             </section>

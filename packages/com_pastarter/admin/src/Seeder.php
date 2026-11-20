@@ -183,8 +183,13 @@ final class Seeder
     private function seedExtras(): void
     {
         foreach ($this->sections['extras'] as $extra) {
-            $body  = Blocks::render($extra['blocks'] ?? [], $this->tokens());
-            $slug  = $extra['section'] === '_root' ? 'dokumen' : $extra['section'];
+            $body = Blocks::render($extra['blocks'] ?? [], $this->tokens());
+
+            // Halaman tambahan (Inovasi, Opini, dsb.) adalah halaman statis di
+            // bawah menu, bukan artikel berita. Kalau ditaruh di kategori berita,
+            // ia muncul sebagai kartu tanpa gambar di beranda.
+            $slug = $extra['section'] === '_root' ? 'dokumen' : 'halaman';
+
             $this->createArticle($slug, $extra['path'], $extra['title'], $body);
         }
     }
