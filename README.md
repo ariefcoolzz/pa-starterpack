@@ -61,6 +61,8 @@ php tools/preview.php     # → dist/preview/index.html
 | Template CSS + pratinjau statis | selesai (menunggu persetujuan visual) |
 | Foto asli satker (gedung, PTSP, mediasi) + pipeline crop | selesai |
 | Panel aksesibilitas (teks, kontras, garis bawah, persistensi) | selesai (teruji di pratinjau) |
+| Beranda v2: kartu berita headline, widget sidebar, jam kerja, statistik, footer 4 kolom | selesai |
+| Modul `mod_pa_jamkerja` (status buka/tutup) | selesai |
 | Template Joomla `index.php` + override | selesai (terpasang di sandbox) |
 | Seeder Joomla (kategori, artikel, menu, modul) | selesai — idempoten (`dibuat 0` pada jalan kedua) |
 | Auditor 35 URL + estimasi skor | selesai (35 URL 200; 11 halaman tanpa placeholder) |

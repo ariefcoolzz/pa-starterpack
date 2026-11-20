@@ -1,0 +1,159 @@
+{
+  "_catatan": "Daftar modul beranda. Urutan = ordering. content = berkas HTML di folder manifest. {{CAT:slug}} diganti id kategori saat seed.",
+  "modules": [
+    {
+      "title": "Menu Utama",
+      "module": "mod_menu",
+      "position": "mainnav",
+      "ordering": 1,
+      "showtitle": 0,
+      "params": { "menutype": "mainmenu", "startLevel": 1, "endLevel": 0, "showAllChildren": 1 }
+    },
+    {
+      "title": "Hero Beranda",
+      "module": "mod_custom",
+      "position": "home-top",
+      "ordering": 1,
+      "showtitle": 0,
+      "content": "hero.html"
+    },
+    {
+      "title": "Layanan Cepat",
+      "module": "mod_custom",
+      "position": "home-quick",
+      "ordering": 1,
+      "showtitle": 0,
+      "content": "quick.html"
+    },
+    {
+      "title": "Berita Terkini",
+      "module": "mod_articles_category",
+      "position": "home-center",
+      "ordering": 1,
+      "showtitle": 0,
+      "params_merge": true,
+      "params": {
+        "count": 5,
+        "catid": ["{{CAT:berita}}"],
+        "pa_layout": "featured",
+        "show_introtext": 1,
+        "introtext_limit": 150,
+        "show_date": "published",
+        "date_format": "d M Y",
+        "article_ordering": "a.publish_up",
+        "article_ordering_direction": "DESC",
+        "show_category": 1,
+        "link_titles": 1,
+        "show_images": 1
+      }
+    },
+    {
+      "title": "Pengumuman",
+      "module": "mod_articles_category",
+      "position": "home-side",
+      "ordering": 1,
+      "showtitle": 1,
+      "params_merge": true,
+      "params": {
+        "count": 4,
+        "catid": ["{{CAT:pengumuman}}"],
+        "pa_layout": "minilist",
+        "show_introtext": 0,
+        "show_date": "published",
+        "date_format": "d M Y",
+        "article_ordering": "a.publish_up",
+        "article_ordering_direction": "DESC",
+        "show_category": 0,
+        "link_titles": 1
+      }
+    },
+    {
+      "title": "Jam Kerja Pengadilan & PTSP",
+      "module": "mod_pa_jamkerja",
+      "position": "home-side",
+      "ordering": 2,
+      "showtitle": 0,
+      "params": {}
+    },
+    {
+      "title": "Survei Kepuasan",
+      "module": "mod_custom",
+      "position": "home-side",
+      "ordering": 3,
+      "showtitle": 1,
+      "content": "side-survei.html"
+    },
+    {
+      "title": "Statistik Kunjungan",
+      "module": "mod_custom",
+      "position": "home-side",
+      "ordering": 4,
+      "showtitle": 1,
+      "content": "side-statistik.html"
+    },
+    {
+      "title": "Media Sosial",
+      "module": "mod_custom",
+      "position": "home-side",
+      "ordering": 5,
+      "showtitle": 1,
+      "content": "side-sosmed.html"
+    },
+    {
+      "title": "Layanan Sering Dicari",
+      "module": "mod_custom",
+      "position": "home-strip",
+      "ordering": 1,
+      "showtitle": 0,
+      "content": "strip.html"
+    },
+    {
+      "title": "Sambutan Ketua",
+      "module": "mod_custom",
+      "position": "home-welcome",
+      "ordering": 1,
+      "showtitle": 0,
+      "content": "welcome.html"
+    },
+    {
+      "title": "Identitas Footer",
+      "module": "mod_custom",
+      "position": "footer-1",
+      "ordering": 1,
+      "showtitle": 0,
+      "content": "footer-1.html"
+    },
+    {
+      "title": "Layanan Footer",
+      "module": "mod_custom",
+      "position": "footer-2",
+      "ordering": 1,
+      "showtitle": 1,
+      "content": "footer-2.html"
+    },
+    {
+      "title": "Tautan Footer",
+      "module": "mod_custom",
+      "position": "footer-3",
+      "ordering": 1,
+      "showtitle": 1,
+      "content": "footer-3.html"
+    },
+    {
+      "title": "Kontak Footer",
+      "module": "mod_custom",
+      "position": "footer-4",
+      "ordering": 1,
+      "showtitle": 1,
+      "content": "footer-4.html"
+    },
+    {
+      "title": "Navigasi Footer",
+      "module": "mod_menu",
+      "position": "footer-nav",
+      "ordering": 1,
+      "showtitle": 0,
+      "params": { "menutype": "footer", "startLevel": 1, "endLevel": 1 }
+    }
+  ]
+}

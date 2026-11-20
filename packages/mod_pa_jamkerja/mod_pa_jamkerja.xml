@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+    <name>PA Jam Kerja</name>
+    <author>Ditjen Badan Peradilan Agama</author>
+    <creationDate>2026-11</creationDate>
+    <version>1.0.0</version>
+    <description>Menampilkan jam layanan PTSP dan status buka/tutup tanpa permintaan jaringan.</description>
+
+    <files>
+        <filename module="mod_pa_jamkerja">mod_pa_jamkerja.php</filename>
+        <folder>tmpl</folder>
+        <folder>language</folder>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_pa_jamkerja.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_pa_jamkerja.sys.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="senin" type="text" label="Jam Senin–Kamis" default="08.00–16.30" />
+                <field name="jumat" type="text" label="Jam Jumat" default="07.30–16.00" />
+                <field name="istirahat" type="text" label="Jam istirahat" default="12.00–13.00" />
+                <field name="jam_buka" type="number" label="Jam mulai status buka" default="8" min="0" max="23" />
+                <field name="jam_tutup" type="number" label="Jam akhir status buka" default="16" min="0" max="24" />
+                <field name="zona" type="text" label="Zona waktu" default="Asia/Jakarta" />
+                <field name="catatan" type="text" label="Catatan" default="Sabtu, Minggu, dan hari libur nasional: tutup." />
+                <field name="prioritas" type="text" label="Catatan layanan prioritas" default="Layanan prioritas disabilitas, lansia, dan ibu hamil tersedia setiap hari kerja." />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

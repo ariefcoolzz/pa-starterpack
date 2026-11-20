@@ -16,8 +16,8 @@ $manifestSrc = $root . '/manifest';
 $manifestDst = $root . '/packages/com_pastarter/admin/manifest';
 @mkdir($manifestDst, 0775, true);
 
-foreach (['indicators.json', 'sections.json', 'hero.html', 'shortcuts.html'] as $berkas) {
-    copy($manifestSrc . '/' . $berkas, $manifestDst . '/' . $berkas);
+foreach (glob($manifestSrc . '/*.{json,html}', GLOB_BRACE) as $berkas) {
+    copy($berkas, $manifestDst . '/' . basename($berkas));
 }
 
 /**
@@ -54,8 +54,9 @@ function zipDir(string $dir, string $zipPath, array $skip = []): array
 }
 
 $targets = [
-    'com_pastarter' => $root . '/packages/com_pastarter',
-    'tpl_pa_satker' => $root . '/packages/tpl_pa_satker',
+    'com_pastarter'    => $root . '/packages/com_pastarter',
+    'tpl_pa_satker'    => $root . '/packages/tpl_pa_satker',
+    'mod_pa_jamkerja'  => $root . '/packages/mod_pa_jamkerja',
 ];
 
 $hasil = [];

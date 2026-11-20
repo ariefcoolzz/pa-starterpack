@@ -205,10 +205,15 @@ final class Seeder
             ],
         ];
 
+        $mundur = 1;
+
         foreach ($berita as [$title, $alias, $image, $intro]) {
             $body = '<p>' . $intro . '</p>'
                 . '<p>Contoh isi berita. Ganti dengan berita kegiatan pelayanan satker, lengkapi tanggal dan dokumentasi.</p>';
-            $this->createArticle('berita', $alias, $title, $body, $image);
+            $tanggal = Factory::getDate('-' . ($mundur * 2) . ' days')->toSql();
+            $mundur++;
+
+            $this->createArticle('berita', $alias, $title, $body, $image, $tanggal);
         }
 
         $pengumuman = [
@@ -216,12 +221,17 @@ final class Seeder
             ['Rencana Umum Pengadaan tahun berjalan', 'pengumuman-rencana-umum-pengadaan', 'RUP dapat diakses melalui halaman Pengadaan Barang dan Jasa serta SIRUP LKPP.'],
         ];
 
+        $mundur = 1;
+
         foreach ($pengumuman as [$title, $alias, $intro]) {
-            $this->createArticle('pengumuman', $alias, $title, '<p>' . $intro . '</p>');
+            $tanggal = Factory::getDate('-' . $mundur . ' days')->toSql();
+            $mundur++;
+
+            $this->createArticle('pengumuman', $alias, $title, '<p>' . $intro . '</p>', '', $tanggal);
         }
     }
 
-    private function createArticle(string $catSlug, string $alias, string $title, string $html, string $image = ''): void
+    private function createArticle(string $catSlug, string $alias, string $title, string $html, string $image = '', ?string $publishUp = null): void
     {
         $catSlug = $catSlug === '_root' ? 'dokumen' : $catSlug;
         $catId   = $this->catIds[$catSlug] ?? 0;
@@ -241,7 +251,7 @@ final class Seeder
             return;
         }
 
-        $now = Factory::getDate()->toSql();
+        $now = $publishUp ?? Factory::getDate()->toSql();
         $images = json_encode([
             'image_intro'            => $image,
             'float_intro'            => '',
@@ -509,84 +519,108 @@ final class Seeder
         return (int) $table->id;
     }
 
+    /**
+     * Modul dibaca dari manifest/modules.json: satu sumber kebenaran untuk tim,
+     * urutan, posisi, parameter, dan isi HTML (hero, pintasan, sambutan, footer).
+     */
     private function seedModules(): void
     {
+        $berkas = $this->manifestDir . '/modules.json';
+
+        if (!is_file($berkas)) {
+            return;
+        }
+
+        $data   = json_decode((string) file_get_contents($berkas), true, 512, JSON_THROW_ON_ERROR);
         $tokens = $this->tokens();
 
-        $heroFile = $this->manifestDir . '/hero.html';
-        $hero     = is_file($heroFile) ? strtr((string) file_get_contents($heroFile), $tokens) : '';
+        foreach ($data['modules'] as $def) {
+            if (!$this->modulTerpasang($def['module'])) {
+                $this->log['gagal']++;
+                continue;
+            }
 
-        $shortcutFile = $this->manifestDir . '/shortcuts.html';
-        $shortcut     = is_file($shortcutFile) ? strtr((string) file_get_contents($shortcutFile), $tokens) : '';
+            $params = $def['params'] ?? [];
 
-        $modul = [
-            ['Menu Utama', 'mod_menu', 'mainnav', 1, ['menutype' => 'mainmenu', 'startLevel' => 1, 'endLevel' => 0, 'showAllChildren' => 1], 0],
-            ['Pintasan Layanan', 'mod_custom', 'home-shortcut', 2, [], 0, $shortcut],
-            ['Hero Beranda', 'mod_custom', 'home-top', 1, [], 0, $hero],
-            ['Berita Terkini', 'mod_articles_category', 'home-center', 1, [
-                'count' => 4, 'catid' => [$this->catIds['berita'] ?? 1], 'show_introtext' => 1,
-                'introtext_limit' => 130, 'show_date' => 'published', 'date_format' => 'd F Y',
-                'article_ordering' => 'a.publish_up', 'article_ordering_direction' => 'DESC',
-                'show_category' => 1, 'link_titles' => 1, 'show_images' => 1,
-            ], 1],
-            ['Pengumuman', 'mod_articles_category', 'home-side', 1, [
-                'count' => 4, 'catid' => [$this->catIds['pengumuman'] ?? 1], 'show_introtext' => 0,
-                'show_date' => 'published', 'date_format' => 'd F Y',
-                'article_ordering' => 'a.publish_up', 'article_ordering_direction' => 'DESC',
-                'show_category' => 0, 'link_titles' => 1,
-            ], 1],
-            ['Navigasi Footer', 'mod_menu', 'footer-nav', 1, ['menutype' => 'footer', 'startLevel' => 1, 'endLevel' => 1], 0],
-            ['Identitas Footer', 'mod_custom', 'footer-1', 1, [], 0,
-                '<h2>' . htmlspecialchars($tokens['{{SITE_NAME}}'], ENT_QUOTES, 'UTF-8') . '</h2>'
-                . '<p>Jl. Keadilan Nomor 1, Kelurahan Contoh, Kecamatan Contoh Utara, 12345.<br>'
-                . 'Telepon (021) 1234567 · info@pa-contoh.go.id</p>'],
-            ['Hak Cipta', 'mod_footer', 'footer', 1, [], 0],
-        ];
+            if (isset($params['catid'])) {
+                $params['catid'] = array_map(function (string|int $c): int {
+                    if (is_string($c) && str_starts_with($c, '{{CAT:')) {
+                        return (int) ($this->catIds[substr($c, 6, -2)] ?? 0);
+                    }
 
-        foreach ($modul as $row) {
-            $name     = $row[0];
-            $module   = $row[1];
-            $position = $row[2];
-            $ordering = $row[3];
-            $params   = $row[4];
-            $showTitle = $row[5];
-            $content  = $row[6] ?? null;
+                    return (int) $c;
+                }, $params['catid']);
+            }
+
+            $content = '';
+
+            if (!empty($def['content'])) {
+                $file = $this->manifestDir . '/' . $def['content'];
+
+                if (is_file($file)) {
+                    $content = strtr((string) file_get_contents($file), $tokens);
+                }
+            }
 
             $table = new Module($this->db);
-            $table->load(['module' => $module, 'position' => $position, 'client_id' => 0]);
+            $table->load([
+                'title'     => $def['title'],
+                'module'    => $def['module'],
+                'position'  => $def['position'],
+                'client_id' => 0,
+            ]);
 
             if ($table->id) {
+                // Hanya menambah kunci parameter yang belum ada; isian operator menang.
+                if (!empty($def['params_merge'])) {
+                    $lama = json_decode((string) $table->params, true) ?: [];
+                    $baru = array_merge($params, $lama);
+
+                    if ($baru !== $lama) {
+                        $table->params = json_encode($baru);
+                        $table->store();
+                    }
+                }
+
                 $this->log['dilewati']++;
                 $this->publishModuleEverywhere((int) $table->id);
                 continue;
             }
 
-            $bind = [
-                'title'     => $name,
-                'module'    => $module,
-                'position'  => $position,
-                'ordering'  => $ordering,
+            $table->bind([
+                'title'     => $def['title'],
+                'module'    => $def['module'],
+                'position'  => $def['position'],
+                'ordering'  => (int) ($def['ordering'] ?? 0),
                 'published' => 1,
                 'access'    => 1,
                 'language'  => '*',
                 'client_id' => 0,
                 'params'    => json_encode($params),
-                'showtitle' => $showTitle,
-            ];
-
-            if ($content !== null) {
-                $bind['content'] = $content;
-            }
-
-            $table->bind($bind);
+                'showtitle' => (int) ($def['showtitle'] ?? 0),
+                'content'   => $content,
+            ]);
 
             if (!$table->store()) {
-                throw new \RuntimeException('Modul gagal: ' . $name . ' — ' . $table->getError());
+                throw new \RuntimeException('Modul gagal: ' . $def['title'] . ' — ' . $table->getError());
             }
 
             $this->publishModuleEverywhere((int) $table->id);
             $this->log['dibuat']++;
         }
+    }
+
+    private function modulTerpasang(string $element): bool
+    {
+        $q = $this->db->getQuery(true)
+            ->select('COUNT(*)')
+            ->from($this->db->quoteName('#__extensions'))
+            ->where($this->db->quoteName('type') . ' = ' . $this->db->quote('module'))
+            ->where($this->db->quoteName('element') . ' = :el')
+            ->bind(':el', $element);
+        $this->db->setQuery($q);
+
+        return (int) $this->db->loadResult() > 0;
     }
 
     private function publishModuleEverywhere(int $moduleId): void
@@ -627,6 +661,7 @@ final class Seeder
             ['system', 'finder'],
             ['system', 'sef'],
             ['content', 'loadmodule'],
+            ['content', 'emailcloak'],
         ];
 
         foreach ($daftar as [$folder, $element]) {
@@ -637,7 +672,8 @@ final class Seeder
                 continue;
             }
 
-            $table->enabled = 1;
+            // emailcloaking dimatikan: alamat surel harus terbaca tanpa JavaScript.
+            $table->enabled = $element === 'emailcloak' ? 0 : 1;
             $table->store();
         }
     }

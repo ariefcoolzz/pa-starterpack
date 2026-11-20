@@ -27,9 +27,12 @@
         <position>topbar</position>
         <position>mainnav</position>
         <position>home-top</position>
+        <position>home-quick</position>
         <position>home-shortcut</position>
         <position>home-center</position>
         <position>home-side</position>
+        <position>home-strip</position>
+        <position>home-welcome</position>
         <position>content-top</position>
         <position>breadcrumbs</position>
         <position>sidebar</position>
@@ -37,6 +40,7 @@
         <position>footer-1</position>
         <position>footer-2</position>
         <position>footer-3</position>
+        <position>footer-4</position>
         <position>footer-nav</position>
         <position>footer</position>
         <position>statistik-kunjungan</position>

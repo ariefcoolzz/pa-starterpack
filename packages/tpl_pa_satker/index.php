@@ -112,18 +112,43 @@ $ada = function (string $pos): bool {
         <?php endif; ?>
 
         <?php if ($isHome) : ?>
-            <?php if ($ada('home-shortcut')) : ?>
-                <section class="pa-section pa-section--white">
-                    <jdoc:include type="modules" name="home-shortcut" style="paPlain" />
+            <?php if ($ada('home-quick')) : ?>
+                <section class="pa-section pa-section--white pa-section--quick">
+                    <jdoc:include type="modules" name="home-quick" style="paPlain" />
                 </section>
             <?php endif; ?>
 
             <section class="pa-section">
+                <div class="pa-section__head">
+                    <div>
+                        <h2>Berita terkini</h2>
+                        <p>Kegiatan pelayanan, inovasi, dan informasi terbaru dari satuan kerja.</p>
+                    </div>
+                    <a class="pa-more" href="<?php echo $root; ?>/berita">Berita lain</a>
+                </div>
                 <div class="pa-homegrid">
-                    <div class="pa-homegrid__main"><jdoc:include type="modules" name="home-center" style="paCard" /></div>
+                    <div class="pa-homegrid__main"><jdoc:include type="modules" name="home-center" style="paPlain" /></div>
                     <div class="pa-homegrid__side"><jdoc:include type="modules" name="home-side" style="paCard" /></div>
                 </div>
             </section>
+
+            <?php if ($ada('home-strip')) : ?>
+                <section class="pa-section pa-section--white">
+                    <div class="pa-section__head">
+                        <div>
+                            <h2>Layanan yang sering dicari</h2>
+                            <p>Empat pintu masuk utama bagi masyarakat pencari keadilan.</p>
+                        </div>
+                    </div>
+                    <jdoc:include type="modules" name="home-strip" style="paPlain" />
+                </section>
+            <?php endif; ?>
+
+            <?php if ($ada('home-welcome')) : ?>
+                <section class="pa-section">
+                    <jdoc:include type="modules" name="home-welcome" style="paPlain" />
+                </section>
+            <?php endif; ?>
         <?php else : ?>
             <div class="pa-layout <?php echo $ada('sidebar') ? 'pa-layout--side' : 'pa-layout--full'; ?>">
                 <div class="pa-content">
@@ -150,6 +175,7 @@ $ada = function (string $pos): bool {
             <div><jdoc:include type="modules" name="footer-1" style="paPlain" /></div>
             <div><jdoc:include type="modules" name="footer-2" style="paPlain" /></div>
             <div><jdoc:include type="modules" name="footer-3" style="paPlain" /></div>
+            <div><jdoc:include type="modules" name="footer-4" style="paPlain" /></div>
         </div>
         <?php if ($ada('footer-nav')) : ?>
             <nav class="pa-footer__nav" aria-label="Navigasi footer">
