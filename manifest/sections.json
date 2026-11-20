@@ -1,0 +1,143 @@
+{
+  "version": "1.0.0",
+  "categories": [
+    { "slug": "profil", "title": "Profil Pengadilan" },
+    { "slug": "layanan-hukum", "title": "Layanan Hukum" },
+    { "slug": "transparansi", "title": "Transparansi" },
+    { "slug": "layanan-publik", "title": "Layanan Publik" },
+    { "slug": "berita", "title": "Berita" },
+    { "slug": "pengumuman", "title": "Pengumuman" },
+    { "slug": "opini", "title": "Opini dan Gagasan" },
+    { "slug": "dokumen", "title": "Dokumen" }
+  ],
+  "sections": [
+    {
+      "slug": "profil", "title": "Profil Pengadilan", "alias": "profil", "menu_order": 2,
+      "intro": "Visi misi, tugas pokok dan fungsi, wilayah yurisdiksi, struktur organisasi, serta profil aparatur Pengadilan Agama {{SITE_NAME}}.",
+      "blocks": [
+        {"t": "cards", "items": [
+          {"icon": "putusan", "title": "Visi dan Misi", "text": "Arah dan komitmen pengadilan", "href": "/profil/visi-misi"},
+          {"icon": "putusan", "title": "Tugas Pokok dan Fungsi", "text": "Kewenangan menurut undang-undang", "href": "/profil/tugas-fungsi"},
+          {"icon": "jadwal", "title": "Wilayah Yurisdiksi", "text": "Daftar kecamatan dan peta", "href": "/profil/wilayah-yurisdiksi"},
+          {"icon": "siwas", "title": "Struktur Organisasi", "text": "Bagan dan pejabat", "href": "/profil/struktur-organisasi"},
+          {"icon": "prodeo", "title": "Alamat dan Kontak", "text": "Lokasi, telepon, surel", "href": "/profil/alamat-kontak"},
+          {"icon": "survei", "title": "Pejabat dan Pegawai", "text": "Profil aparatur", "href": "/profil/pejabat-pegawai"}
+        ]}
+      ]
+    },
+    {
+      "slug": "layanan-hukum", "title": "Layanan Hukum", "alias": "layanan-hukum", "menu_order": 3,
+      "intro": "Informasi kepaniteraan: penelusuran perkara, jadwal sidang, panjar biaya, prosedur berperkara, panggilan ghaib, dan layanan elektronik.",
+      "blocks": [
+        {"t": "cards", "items": [
+          {"icon": "sipp", "title": "SIPP", "text": "Penelusuran perkara dan jadwal sidang", "href": "/layanan-hukum/sipp"},
+          {"icon": "jadwal", "title": "Jadwal Sidang", "text": "Agenda persidangan harian", "href": "/layanan-hukum/jadwal-sidang"},
+          {"icon": "statistik", "title": "Statistik Perkara", "text": "Sisa, masuk, putus", "href": "/layanan-hukum/statistik-perkara"},
+          {"icon": "panjar", "title": "Panjar Biaya", "text": "Rincian biaya dan radius", "href": "/layanan-hukum/panjar-biaya"},
+          {"icon": "putusan", "title": "Prosedur Berperkara", "text": "Enam alur prosedur", "href": "/layanan-hukum/prosedur-berperkara"},
+          {"icon": "prodeo", "title": "Hak Pencari Keadilan", "text": "Prodeo dan posbakum", "href": "/layanan-hukum/hak-pencari-keadilan"},
+          {"icon": "siwas", "title": "Panggilan Ghaib", "text": "Daftar dan relaas", "href": "/layanan-hukum/panggilan-ghaib"},
+          {"icon": "ecourt", "title": "e-Court", "text": "Berperkara secara elektronik", "href": "/layanan-hukum/ecourt"},
+          {"icon": "putusan", "title": "Direktori Putusan", "text": "Telusur putusan MA RI", "href": "/layanan-hukum/direktori-putusan"}
+        ]}
+      ]
+    },
+    {
+      "slug": "transparansi", "title": "Transparansi", "alias": "transparansi", "menu_order": 4,
+      "intro": "Dokumen perencanaan dan kinerja, laporan keuangan, pengadaan barang dan jasa, serta laporan harta kekayaan pejabat.",
+      "blocks": [
+        {"t": "cards", "items": [
+          {"icon": "putusan", "title": "Dokumen SAKIP", "text": "Renstra, RKT, PK, IKU, LKjIP", "href": "/transparansi/renstra"},
+          {"icon": "panjar", "title": "Laporan Keuangan", "text": "DIPA, LRA, CALK", "href": "/transparansi/dipa"},
+          {"icon": "statistik", "title": "Pengadaan Barang dan Jasa", "text": "Rencana umum pengadaan", "href": "/transparansi/pengadaan"},
+          {"icon": "siwas", "title": "LHKPN", "text": "Harta kekayaan pejabat", "href": "/transparansi/lhkpn"}
+        ]}
+      ]
+    },
+    {
+      "slug": "layanan-publik", "title": "Layanan Publik & Pengaduan", "alias": "layanan-publik", "menu_order": 5,
+      "intro": "Maklumat pelayanan, layanan informasi PPID, pengaduan masyarakat, layanan kelompok rentan, dan hasil survei pelayanan.",
+      "blocks": [
+        {"t": "cards", "items": [
+          {"icon": "survei", "title": "Maklumat Pelayanan", "text": "Janji dan standar layanan", "href": "/layanan-publik/maklumat-pelayanan"},
+          {"icon": "posbakum", "title": "Layanan Informasi (PPID)", "text": "Permohonan dan laporan akses", "href": "/layanan-publik/ppid"},
+          {"icon": "siwas", "title": "Pengaduan Masyarakat", "text": "SIWAS dan rekapitulasi", "href": "/layanan-publik/rekapitulasi-pengaduan"},
+          {"icon": "disabilitas", "title": "Kelompok Rentan", "text": "Fasilitas dan pendampingan", "href": "/layanan-publik/disabilitas"},
+          {"icon": "statistik", "title": "Survei Pelayanan", "text": "SKM, SPAK, SPKP", "href": "/layanan-publik/survei"}
+        ]}
+      ]
+    },
+    {
+      "slug": "berita", "title": "Berita & Publikasi", "alias": "berita", "menu_order": 6,
+      "intro": "Publikasi kegiatan pelayanan, inovasi satuan kerja, serta opini dan gagasan aparatur peradilan.",
+      "blocks": [
+        {"t": "cards", "items": [
+          {"icon": "putusan", "title": "Berita Pelayanan", "text": "Kegiatan dan layanan", "href": "/berita"},
+          {"icon": "sipp", "title": "Inovasi Layanan", "text": "Terobosan satuan kerja", "href": "/berita/inovasi"},
+          {"icon": "posbakum", "title": "Opini dan Gagasan", "text": "Tulisan aparatur", "href": "/berita/opini"}
+        ]}
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "id": "extra-hak", "section": "layanan-hukum", "path": "hak-pencari-keadilan", "title": "Hak Pencari Keadilan",
+      "blocks": [
+        {"t": "intro", "text": "Setiap pencari keadilan berhak memperoleh bantuan hukum, pembebasan biaya perkara, dan pelayanan yang setara."},
+        {"t": "steps", "items": [
+          {"title": "Bantuan hukum cuma-cuma (prodeo)", "text": "Bagi masyarakat tidak mampu, dibuktikan surat keterangan dari kelurahan/desa. Tautan syarat: !Belum diunggah"},
+          {"title": "Pos Bantuan Hukum (Posbakum)", "text": "Konsultasi, pendampingan, dan pembuatan surat gugatan tanpa biaya. Tautan jadwal layanan: !Belum diunggah"},
+          {"title": "Layanan prioritas", "text": "Ibu hamil, penyandang disabilitas, lanjut usia, dan anak mendapat prioritas pelayanan."}
+        ]},
+        {"t": "image", "src": "images/flyer/prodeo-posbakum.png", "alt": "Bantuan hukum cuma-cuma prodeo dan posbakum"}
+      ]
+    },
+    {
+      "id": "extra-ppid", "section": "layanan-publik", "path": "ppid", "title": "Layanan Informasi (PPID)",
+      "blocks": [
+        {"t": "intro", "text": "Pejabat Pengelola Informasi dan Dokumentasi (PPID) Pengadilan Agama {{SITE_NAME}} melayani permohonan informasi publik sesuai Keputusan Ketua Mahkamah Agung Nomor 2-144/KMA/SK/VIII/2022."},
+        {"t": "cta", "items": [
+          {"label": "Formulir permohonan informasi", "href": "#"},
+          {"label": "Laporan layanan akses informasi", "href": "/layanan-publik/laporan-akses-informasi"}
+        ]},
+        {"t": "note", "text": "Ganti tautan formulir dengan berkas formulir PDF/Docx milik satker."}
+      ]
+    },
+    {
+      "id": "extra-disabilitas", "section": "layanan-publik", "path": "disabilitas", "title": "Layanan Kelompok Rentan",
+      "blocks": [
+        {"t": "intro", "text": "Fasilitas dan pendampingan bagi penyandang disabilitas, perempuan, anak, dan lanjut usia."},
+        {"t": "list", "items": [
+          "Jalur pemandu (guiding block) dan ramp",
+          "Kursi roda dan ruang tunggu prioritas",
+          "Toilet aksesibel dan ruang menyusui",
+          "Petugas pendamping dan juru bahasa isyarat atas permintaan",
+          "Ruang sidang ramah anak dan perempuan"
+        ]},
+        {"t": "image", "src": "images/flyer/layanan-disabilitas.png", "alt": "Layanan ramah kelompok rentan dan disabilitas"}
+      ]
+    },
+    {
+      "id": "extra-inovasi", "section": "berita", "path": "inovasi", "title": "Inovasi Layanan",
+      "blocks": [
+        {"t": "intro", "text": "Publikasi inovasi layanan Pengadilan Agama {{SITE_NAME}} yang berorientasi pada kemudahan pencari keadilan."},
+        {"t": "note", "text": "Tulis inovasi sebagai berita: masalah, solusi, dampak terukur. Hindari liputan seremonial."}
+      ]
+    },
+    {
+      "id": "extra-opini", "section": "berita", "path": "opini", "title": "Opini dan Gagasan",
+      "blocks": [
+        {"t": "intro", "text": "Ruang publikasi opini aparatur peradilan tentang reformasi birokrasi, tugas, dan fungsi pengadilan."},
+        {"t": "note", "text": "Satu artikel per gagasan. Cantumkan nama penulis beserta jabatan."}
+      ]
+    },
+    {
+      "id": "extra-peta", "section": "_root", "path": "peta-sinova", "title": "Peta Kesiapan SINOVA",
+      "menutype": "hidden", "noindex": true,
+      "blocks": [
+        {"t": "intro", "text": "Halaman bantu operator: daftar butir penilaian beserta URL yang diinput ke SINOVA. Halaman ini tidak dinilai dan tidak ditampilkan di menu."},
+        {"t": "sinova-table"}
+      ]
+    }
+  ]
+}

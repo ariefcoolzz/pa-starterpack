@@ -1,0 +1,30 @@
+{
+  "name": "badilag/pa-starterpack",
+  "description": "Starterpack website satker Peradilan Agama - Joomla 6.2 - SK Dirjen Badilag 2722/DJA/SK.TI1/X/2026",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=8.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "PA\\Starter\\": "packages/com_pastarter/admin/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PA\\Starter\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  },
+  "config": {
+    "platform": {
+      "php": "8.4.0"
+    }
+  }
+}
