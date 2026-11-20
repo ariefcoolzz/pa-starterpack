@@ -64,6 +64,9 @@
             toggle.addEventListener('click', function () {
                 var open = nav.classList.toggle('is-open');
                 toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                // Panel menu panjang; sembunyikan tombol aksesibilitas agar tidak
+                // menutupi butir menu di bagian bawah.
+                document.body.classList.toggle('pa-nav-open', open);
             });
         }
 
