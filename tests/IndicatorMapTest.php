@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PA\Starter\Tests;
 
-use PA\Starter\Pure\IndicatorMap;
+use PA\Starter\Administrator\Pure\IndicatorMap;
 use PHPUnit\Framework\TestCase;
 
 final class IndicatorMapTest extends TestCase

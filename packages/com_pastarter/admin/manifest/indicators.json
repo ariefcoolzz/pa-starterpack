@@ -1,0 +1,470 @@
+{
+  "version": "1.0.0",
+  "sk": "2722/DJA/SK.TI1/X/2026",
+  "sk_date": "2026-10-12",
+  "satker_type": "pa",
+  "note": "Satu butir = satu URL. path gabungan = /<section>/<path>; section _root berarti /<path>.",
+  "indicators": [
+    {
+      "id": "wajib-1.1", "aspect": "wajib", "no": "1.1", "title": "Visi dan Misi Pengadilan",
+      "section": "profil", "path": "visi-misi",
+      "criterion": "1. Visi Pengadilan; 2. Misi Pengadilan",
+      "checks": ["has:h1", "has:visi", "has:misi"],
+      "blocks": [
+        {"t": "intro", "text": "Visi dan misi {{SITE_NAME}} sebagaimana ditetapkan dalam dokumen perencanaan strategis satuan kerja."},
+        {"t": "quote", "text": "Terwujudnya {{SITE_NAME}} yang agung, bersih, dan melayani."},
+        {"t": "list", "items": [
+          "Menjaga kemandirian badan peradilan.",
+          "Memberikan pelayanan hukum yang berkeadilan kepada pencari keadilan.",
+          "Meningkatkan kualitas kepemimpinan dan integritas aparatur.",
+          "Meningkatkan kredibilitas, transparansi, dan akuntabilitas pengadilan."
+        ]},
+        {"t": "note", "text": "Ganti visi dan misi dengan kutipan resmi dari Renstra satker. Jangan mengubah struktur halaman."}
+      ]
+    },
+    {
+      "id": "wajib-1.2", "aspect": "wajib", "no": "1.2", "title": "Tugas Pokok dan Fungsi Pengadilan",
+      "section": "profil", "path": "tugas-fungsi",
+      "criterion": "1. Tugas Pokok Pengadilan; 2. Fungsi Pengadilan",
+      "checks": ["has:h1", "has:tugas", "has:fungsi"],
+      "blocks": [
+        {"t": "intro", "text": "Berdasarkan Undang-Undang Nomor 7 Tahun 1989 tentang Peradilan Agama sebagaimana diubah terakhir dengan Undang-Undang Nomor 50 Tahun 2009, Pengadilan Agama bertugas memeriksa, memutus, dan menyelesaikan perkara tingkat pertama antara orang-orang beragama Islam."},
+        {"t": "list", "items": [
+          "Perkawinan", "Waris", "Wasiat", "Hibah", "Wakaf", "Zakat", "Infaq", "Shadaqah", "Ekonomi syariah"
+        ]},
+        {"t": "intro", "text": "Fungsi pengadilan meliputi fungsi peradilan, fungsi pembinaan, fungsi pengawasan, fungsi administratif, dan fungsi pelayanan publik."}
+      ]
+    },
+    {
+      "id": "wajib-1.3", "aspect": "wajib", "no": "1.3", "title": "Wilayah Yurisdiksi",
+      "section": "profil", "path": "wilayah-yurisdiksi",
+      "criterion": "1. Nama kecamatan; 2. Peta wilayah yurisdiksi",
+      "checks": ["has:h1", "has:kecamatan", "has:peta"],
+      "blocks": [
+        {"t": "intro", "text": "Wilayah hukum {{SITE_NAME}} meliputi kecamatan berikut:"},
+        {"t": "list", "items": ["Kecamatan Contoh Utara", "Kecamatan Contoh Selatan", "Kecamatan Contoh Timur", "Kecamatan Contoh Barat", "Kecamatan Contoh Tengah"]},
+        {"t": "image", "src": "images/sample/peta-yurisdiksi.png", "alt": "Peta wilayah yurisdiksi {{SITE_NAME}}"},
+        {"t": "note", "text": "Unggah peta wilayah (JPG/PNG, maksimal 1 MB) ke images/sample/peta-yurisdiksi.png, lalu ganti daftar kecamatan sesuai wilayah hukum sebenarnya."}
+      ]
+    },
+    {
+      "id": "wajib-1.4", "aspect": "wajib", "no": "1.4", "title": "Struktur Organisasi",
+      "section": "profil", "path": "struktur-organisasi",
+      "criterion": "1. Diagram struktur; 2. Nama pejabat; 3. Nama jabatan",
+      "checks": ["has:h1", "has:diagram", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Struktur organisasi {{SITE_NAME}}. Staf dan tenaga honorer tidak ditampilkan dalam diagram sesuai ketentuan penilaian."},
+        {"t": "image", "src": "images/sample/struktur-organisasi.png", "alt": "Diagram struktur organisasi {{SITE_NAME}}"},
+        {"t": "table", "head": ["Jabatan", "Nama Pejabat"], "rows": [
+          ["Ketua", "!Nama Ketua"],
+          ["Wakil Ketua", "!Nama Wakil Ketua"],
+          ["Hakim", "!Nama Hakim"],
+          ["Panitera", "!Nama Panitera"],
+          ["Sekretaris", "!Nama Sekretaris"]
+        ]},
+        {"t": "note", "text": "Buat diagram dengan aplikasi apa pun, simpan sebagai images/sample/struktur-organisasi.png (lebar minimal 1000 px), lalu isi nama pejabat yang menjabat saat ini."}
+      ]
+    },
+    {
+      "id": "wajib-1.5", "aspect": "wajib", "no": "1.5", "title": "Alamat dan Kontak Pengadilan",
+      "section": "profil", "path": "alamat-kontak",
+      "criterion": "Alamat lengkap, email, URL situs, foto gedung kantor",
+      "checks": ["has:h1", "has:alamat", "has:email"],
+      "blocks": [
+        {"t": "intro", "text": "Alamat dan saluran komunikasi resmi {{SITE_NAME}}."},
+        {"t": "table", "head": ["Keterangan", "Isi"], "rows": [
+          ["Jalan", "Jl. Keadilan Nomor 1"],
+          ["Desa/Kelurahan", "Kelurahan Contoh"],
+          ["Kecamatan", "Kecamatan Contoh Utara"],
+          ["Provinsi dan kode pos", "Contoh 12345"],
+          ["Telepon", "(021) 1234567"],
+          ["Surel", "info@pa-contoh.go.id"],
+          ["Situs web", "https://pa-contoh.go.id"]
+        ]},
+        {"t": "image", "src": "images/konten/gedung-kantor.jpg", "alt": "Foto gedung kantor {{SITE_NAME}}"},
+        {"t": "note", "text": "Ganti seluruh isi tabel dengan data satker. Foto gedung dapat diganti di images/konten/gedung-kantor.jpg."}
+      ]
+    },
+    {
+      "id": "wajib-2.1", "aspect": "wajib", "no": "2.1", "title": "e-Court Mahkamah Agung RI",
+      "section": "layanan-hukum", "path": "ecourt",
+      "criterion": "1. Informasi/definisi e-Court; 2. Tautan ke e-Court",
+      "checks": ["has:h1", "has:ecourt", "has:link"],
+      "blocks": [
+        {"t": "intro", "text": "e-Court adalah layanan elektronik Mahkamah Agung RI bagi pengguna terdaftar dan pengguna lain untuk berperkara secara daring, meliputi pendaftaran perkara (e-Filing), taksiran dan pembayaran panjar (e-SKUM dan e-Payment), pemanggilan (e-Summons), serta persidangan (e-Litigation)."},
+        {"t": "list", "items": ["e-Filing: pendaftaran perkara secara daring", "e-SKUM: taksiran panjar biaya perkara", "e-Payment: pembayaran panjar secara elektronik", "e-Summons: pemanggilan elektronik", "e-Litigation: persidangan elektronik"]},
+        {"t": "cta", "items": [{"label": "Buka Portal e-Court Mahkamah Agung RI", "href": "https://ecourt.mahkamahagung.go.id"}]}
+      ]
+    },
+    {
+      "id": "wajib-2.2", "aspect": "wajib", "no": "2.2", "title": "Direktori Putusan Mahkamah Agung RI",
+      "section": "layanan-hukum", "path": "direktori-putusan",
+      "criterion": "1. Tautan Direktori Putusan; 2. Tautan khusus satuan kerja",
+      "checks": ["has:h1", "has:link"],
+      "blocks": [
+        {"t": "intro", "text": "Putusan {{SITE_NAME}} dapat ditelusuri melalui Direktori Putusan Mahkamah Agung RI."},
+        {"t": "cta", "items": [
+          {"label": "Direktori Putusan Mahkamah Agung RI", "href": "https://putusan3.mahkamahagung.go.id"},
+          {"label": "Putusan {{SITE_NAME}} (ganti tautan)", "href": "#"}
+        ]},
+        {"t": "note", "text": "Ganti tautan kedua dengan alamat profil pengadilan pada Direktori Putusan, misalnya https://putusan3.mahkamahagung.go.id/pengadilan/profil/pengadilan/pa-....html"}
+      ]
+    },
+    {
+      "id": "wajib-2.3", "aspect": "wajib", "no": "2.3", "title": "Prosedur Berperkara",
+      "section": "layanan-hukum", "path": "prosedur-berperkara",
+      "criterion": "Tingkat pertama, banding, kasasi, peninjauan kembali, pengambilan produk, gugatan sederhana",
+      "checks": ["has:h1", "has:6-prosedur"],
+      "blocks": [
+        {"t": "intro", "text": "Enam prosedur berperkara yang wajib tersedia bagi pencari keadilan."},
+        {"t": "steps", "items": [
+          {"title": "Prosedur tingkat pertama", "text": "Pendaftaran gugatan/permohonan, pembayaran panjar, penetapan majelis, mediasi, pembuktian, putusan. Tautan berkas: !Belum diunggah"},
+          {"title": "Prosedur banding", "text": "Pernyataan banding, memori dan kontra memori, pengiriman berkas ke Pengadilan Tinggi Agama. Tautan berkas: !Belum diunggah"},
+          {"title": "Prosedur kasasi", "text": "Permohonan kasasi, memori kasasi, pengiriman berkas ke Mahkamah Agung. Tautan berkas: !Belum diunggah"},
+          {"title": "Prosedur peninjauan kembali", "text": "Permohonan PK beserta alasan, pengiriman berkas ke Mahkamah Agung. Tautan berkas: !Belum diunggah"},
+          {"title": "Pengambilan produk pengadilan", "text": "Syarat dan alur pengambilan salinan putusan, akta cerai, dan produk lain. Tautan berkas: !Belum diunggah"},
+          {"title": "Gugatan sederhana ekonomi syariah", "text": "Ruang lingkup, syarat nilai gugatan, dan tahapan persidangan. Tautan berkas: !Belum diunggah"}
+        ]},
+        {"t": "image", "src": "images/konten/ruang-mediasi.jpg", "alt": "Ruang mediasi Pengadilan Agama"},
+        {"t": "image", "src": "images/flyer/alur-berperkara.png", "alt": "Alur berperkara di Pengadilan Agama"}
+      ]
+    },
+    {
+      "id": "wajib-2.4", "aspect": "wajib", "no": "2.4", "title": "Biaya Proses Berperkara",
+      "section": "layanan-hukum", "path": "panjar-biaya",
+      "criterion": "Rincian biaya proses berperkara",
+      "checks": ["has:h1", "has:table", "has:sk"],
+      "blocks": [
+        {"t": "intro", "text": "Rincian panjar biaya perkara dan radius biaya panggilan yang berlaku di {{SITE_NAME}}."},
+        {"t": "table", "head": ["Jenis perkara", "Panjar biaya", "Radius"], "rows": [
+          ["Cerai gugat", "Rp 500.000", "I"],
+          ["Cerai talak", "Rp 550.000", "I"],
+          ["Itsbat nikah", "Rp 300.000", "II"],
+          ["Waris", "Rp 750.000", "II"],
+          ["Ekonomi syariah", "Rp 1.000.000", "III"]
+        ]},
+        {"t": "files", "years": [2026], "doc": "Surat Keputusan panjar biaya dan radius panggilan"},
+        {"t": "image", "src": "images/flyer/panjar-biaya.png", "alt": "Contoh panjar biaya perkara dan radius panggilan"},
+        {"t": "note", "text": "Angka pada tabel adalah contoh. Ganti dengan panjar yang ditetapkan SK Ketua Pengadilan tahun berjalan dan unggah SK-nya."}
+      ]
+    },
+    {
+      "id": "wajib-3.1", "aspect": "wajib", "no": "3.1", "title": "Profil Pejabat dan Pegawai",
+      "section": "profil", "path": "pejabat-pegawai",
+      "criterion": "Daftar nama, foto, gelar, pangkat, TMT, pendidikan, riwayat jabatan",
+      "checks": ["has:h1", "has:cards"],
+      "blocks": [
+        {"t": "intro", "text": "Profil singkat aparatur {{SITE_NAME}}. Data dapat diselaraskan dengan SIMTEPA Badilag."},
+        {"t": "cards", "items": [
+          {"icon": "putusan", "title": "Ketua", "text": "Nama pejabat, pangkat/golongan, TMT jabatan"},
+          {"icon": "putusan", "title": "Wakil Ketua", "text": "Nama pejabat, pangkat/golongan, TMT jabatan"},
+          {"icon": "putusan", "title": "Hakim", "text": "Nama pejabat, pangkat/golongan, TMT jabatan"},
+          {"icon": "putusan", "title": "Panitera", "text": "Nama pejabat, pangkat/golongan, TMT jabatan"},
+          {"icon": "putusan", "title": "Sekretaris", "text": "Nama pejabat, pangkat/golongan, TMT jabatan"},
+          {"icon": "putusan", "title": "Pejabat struktural lain", "text": "Panitera muda, kepala subbagian"}
+        ]},
+        {"t": "note", "text": "Ganti setiap kartu dengan data pejabat/pegawai: foto, nama lengkap dan gelar, pangkat/golongan, TMT jabatan, riwayat pendidikan, dan riwayat jabatan."}
+      ]
+    },
+    {
+      "id": "wajib-4.1", "aspect": "wajib", "no": "4.1", "title": "Standar dan Maklumat Pelayanan",
+      "section": "layanan-publik", "path": "maklumat-pelayanan",
+      "criterion": "Standar pelayanan dan maklumat pelayanan pengadilan",
+      "checks": ["has:h1", "has:maklumat"],
+      "blocks": [
+        {"t": "intro", "text": "Standar pelayanan dan maklumat pelayanan {{SITE_NAME}}."},
+        {"t": "quote", "text": "Dengan ini kami menyatakan sanggup menyelenggarakan pelayanan sesuai standar pelayanan yang telah ditetapkan, dan apabila tidak menepati janji ini kami siap menerima sanksi sesuai ketentuan peraturan perundang-undangan."},
+        {"t": "files", "years": [2026], "doc": "SK standar pelayanan dan maklumat pelayanan"},
+        {"t": "image", "src": "images/konten/ruang-ptsp.jpg", "alt": "Layanan terpadu satu pintu Pengadilan Agama"}
+      ]
+    },
+
+    {
+      "id": "berkala-1.1", "aspect": "berkala", "no": "1.1", "title": "Rencana Aksi Kinerja",
+      "section": "transparansi", "path": "rencana-aksi-kinerja",
+      "criterion": "Daftar dan tautan Rencana Aksi Kinerja 5 tahun terakhir",
+      "checks": ["has:h1", "has:table", "min-links:5"],
+      "blocks": [
+        {"t": "intro", "text": "Daftar dokumen Rencana Aksi Kinerja {{SITE_NAME}} lima tahun terakhir."},
+        {"t": "files", "years": [2026, 2025, 2024, 2023, 2022], "doc": "Rencana Aksi Kinerja"}
+      ]
+    },
+    {
+      "id": "berkala-1.2", "aspect": "berkala", "no": "1.2", "title": "Laporan Pelaksanaan Kegiatan",
+      "section": "transparansi", "path": "laporan-tahunan",
+      "criterion": "Daftar dan tautan laporan tahunan 5 tahun terakhir",
+      "checks": ["has:h1", "has:table", "min-links:5"],
+      "blocks": [
+        {"t": "intro", "text": "Laporan tahunan atau laporan pelaksanaan kegiatan {{SITE_NAME}} lima tahun terakhir."},
+        {"t": "files", "years": [2025, 2024, 2023, 2022, 2021], "doc": "Laporan tahunan"}
+      ]
+    },
+    {
+      "id": "berkala-2.1", "aspect": "berkala", "no": "2.1", "title": "Sistem Informasi Penelusuran Perkara (SIPP)",
+      "section": "layanan-hukum", "path": "sipp",
+      "criterion": "Tautan menuju aplikasi SIPP versi website satuan kerja",
+      "checks": ["has:h1", "has:link"],
+      "blocks": [
+        {"t": "intro", "text": "Penelusuran perkara, jadwal sidang, dan status perkara {{SITE_NAME}} dilakukan melalui Sistem Informasi Penelusuran Perkara (SIPP)."},
+        {"t": "cta", "items": [{"label": "Buka SIPP {{SITE_NAME}}", "href": "https://sipp.pa-contoh.go.id"}]},
+        {"t": "note", "text": "Ganti tautan dengan alamat SIPP satker yang sebenarnya."}
+      ]
+    },
+    {
+      "id": "berkala-2.2", "aspect": "berkala", "no": "2.2", "title": "Agenda dan Jadwal Persidangan",
+      "section": "layanan-hukum", "path": "jadwal-sidang",
+      "criterion": "Jadwal persidangan per hari",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Jadwal persidangan {{SITE_NAME}}. Jadwal terbaru selalu tersedia pada SIPP satker."},
+        {"t": "table", "head": ["Hari/Tanggal", "Nomor perkara", "Agenda", "Ruang sidang"], "rows": [
+          ["Senin, contoh", "!0001/Pdt.G/{{TAHUN}}/PA.Cth", "Sidang pertama dan mediasi", "Ruang sidang I"],
+          ["Senin, contoh", "!0002/Pdt.P/{{TAHUN}}/PA.Cth", "Pembuktian", "Ruang sidang II"],
+          ["Selasa, contoh", "!0003/Pdt.G/{{TAHUN}}/PA.Cth", "Kesimpulan", "Ruang sidang I"]
+        ]},
+        {"t": "note", "text": "Perbarui tabel setiap hari, atau arahkan pembaca ke SIPP. Baris bertanda placeholder harus diganti nomor perkara sebenarnya."}
+      ]
+    },
+    {
+      "id": "berkala-2.3", "aspect": "berkala", "no": "2.3", "title": "Statistik Perkara",
+      "section": "layanan-hukum", "path": "statistik-perkara",
+      "criterion": "Sisa bulan lalu, masuk, putus, sisa saat ini",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Keadaan perkara {{SITE_NAME}} per bulan pada tahun {{TAHUN}}."},
+        {"t": "table", "head": ["Bulan", "Sisa bulan lalu", "Masuk", "Putus", "Sisa saat ini"], "rows": [
+          ["Januari", "0", "0", "0", "0"], ["Februari", "0", "0", "0", "0"], ["Maret", "0", "0", "0", "0"],
+          ["April", "0", "0", "0", "0"], ["Mei", "0", "0", "0", "0"], ["Juni", "0", "0", "0", "0"],
+          ["Juli", "0", "0", "0", "0"], ["Agustus", "0", "0", "0", "0"], ["September", "0", "0", "0", "0"],
+          ["Oktober", "0", "0", "0", "0"], ["November", "0", "0", "0", "0"], ["Desember", "0", "0", "0", "0"]
+        ]},
+        {"t": "note", "text": "Isi angka dari laporan bulanan SIPP. Angka nol pada tabel contoh bukan data sebenarnya."}
+      ]
+    },
+    {
+      "id": "berkala-2.4", "aspect": "berkala", "no": "2.4", "title": "Panggilan Ghaib",
+      "section": "layanan-hukum", "path": "panggilan-ghaib",
+      "criterion": "Nama pihak, nomor perkara, tanggal sidang, tautan relaas",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Daftar panggilan ghaib (pemanggilan tanpa kehadiran tergugat) {{SITE_NAME}}."},
+        {"t": "table", "head": ["Nama pihak", "Nomor perkara", "Tanggal sidang", "Dokumen relaas"], "rows": [
+          ["!Nama Tergugat", "!0001/Pdt.G/{{TAHUN}}/PA.Cth", "!tanggal", "!Lihat relaas"]
+        ]},
+        {"t": "note", "text": "Unggah relaas ke images/dokumen/ghaib/ lalu ganti tautan. Hapus baris contoh bila belum ada perkara ghaib."}
+      ]
+    },
+    {
+      "id": "berkala-2.5", "aspect": "berkala", "no": "2.5", "title": "Laporan Penggunaan Biaya Perkara",
+      "section": "layanan-hukum", "path": "biaya-perkara",
+      "criterion": "Rincian penggunaan biaya perkara per bulan",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Rincian penggunaan biaya perkara {{SITE_NAME}} per bulan."},
+        {"t": "table", "head": ["Bulan", "Jumlah perkara", "Biaya masuk", "Biaya keluar"], "rows": [
+          ["Januari", "0", "Rp 0", "Rp 0"], ["Februari", "0", "Rp 0", "Rp 0"], ["Maret", "0", "Rp 0", "Rp 0"],
+          ["April", "0", "Rp 0", "Rp 0"], ["Mei", "0", "Rp 0", "Rp 0"], ["Juni", "0", "Rp 0", "Rp 0"]
+        ]},
+        {"t": "note", "text": "Lengkapi dua belas bulan dan unggah laporan asli bila tersedia."}
+      ]
+    },
+    {
+      "id": "berkala-2.6", "aspect": "berkala", "no": "2.6", "title": "Laporan Pengembalian Sisa Panjar",
+      "section": "layanan-hukum", "path": "sisa-panjar",
+      "criterion": "Rincian pengembalian sisa panjar per bulan",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Rincian pengembalian sisa panjar biaya perkara {{SITE_NAME}} per bulan."},
+        {"t": "table", "head": ["Bulan", "Jumlah perkara", "Total dikembalikan"], "rows": [
+          ["Januari", "0", "Rp 0"], ["Februari", "0", "Rp 0"], ["Maret", "0", "Rp 0"], ["April", "0", "Rp 0"]
+        ]},
+        {"t": "note", "text": "Lengkapi dua belas bulan sesuai laporan keuangan perkara."}
+      ]
+    },
+    {
+      "id": "berkala-3.1", "aspect": "berkala", "no": "3.1", "title": "Laporan Harta Kekayaan Penyelenggara Negara",
+      "section": "transparansi", "path": "lhkpn",
+      "criterion": "Daftar pejabat, tahun lapor, tautan ikhtisar kekayaan minimal 2 tahun",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Daftar pejabat {{SITE_NAME}} yang wajib menyampaikan LHKPN beserta tautan ikhtisar kekayaan."},
+        {"t": "table", "head": ["Nama pejabat", "Jabatan", "Tahun lapor", "Ikhtisar kekayaan"], "rows": [
+          ["!Nama Ketua", "Ketua", "!2026", "!Lihat ikhtisar"],
+          ["!Nama Wakil Ketua", "Wakil Ketua", "!2026", "!Lihat ikhtisar"],
+          ["!Nama Panitera", "Panitera", "!2026", "!Lihat ikhtisar"],
+          ["!Nama Sekretaris", "Sekretaris", "!2026", "!Lihat ikhtisar"]
+        ]},
+        {"t": "note", "text": "Unggah ikhtisar kekayaan (bukan laporan lengkap) ke images/dokumen/lhkpn/ dan ganti tautan. Dokumen minimal dua tahun terakhir."}
+      ]
+    },
+    {
+      "id": "berkala-3.2", "aspect": "berkala", "no": "3.2", "title": "Daftar Isian Pelaksanaan Anggaran (DIPA)",
+      "section": "transparansi", "path": "dipa",
+      "criterion": "DIPA, rencana penggunaan anggaran, realisasi DIPA",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Dokumen pelaksanaan anggaran {{SITE_NAME}} tahun {{TAHUN}}."},
+        {"t": "files", "years": [2026], "doc": "DIPA, rencana penggunaan anggaran, dan realisasi"},
+        {"t": "note", "text": "Unggah tiga dokumen: DIPA, rencana penggunaan anggaran, dan realisasi DIPA terbaru."}
+      ]
+    },
+    {
+      "id": "berkala-3.3", "aspect": "berkala", "no": "3.3", "title": "Laporan Realisasi Anggaran (LRA)",
+      "section": "transparansi", "path": "lra",
+      "criterion": "Laporan Realisasi Anggaran",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Laporan Realisasi Anggaran {{SITE_NAME}}."},
+        {"t": "files", "years": [2026], "doc": "Laporan Realisasi Anggaran"}
+      ]
+    },
+    {
+      "id": "berkala-3.4", "aspect": "berkala", "no": "3.4", "title": "Catatan atas Laporan Keuangan (CALK)",
+      "section": "transparansi", "path": "calk",
+      "criterion": "Catatan atas Laporan Keuangan",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Catatan atas Laporan Keuangan {{SITE_NAME}}."},
+        {"t": "files", "years": [2026], "doc": "Catatan atas Laporan Keuangan"}
+      ]
+    },
+    {
+      "id": "berkala-3.5", "aspect": "berkala", "no": "3.5", "title": "Pengadaan Barang dan Jasa",
+      "section": "transparansi", "path": "pengadaan",
+      "criterion": "Rencana Umum Pengadaan Barang dan Jasa",
+      "checks": ["has:h1", "has:link"],
+      "blocks": [
+        {"t": "intro", "text": "Rencana Umum Pengadaan (RUP) Barang dan Jasa {{SITE_NAME}}."},
+        {"t": "cta", "items": [{"label": "Lihat RUP pada SIRUP LKPP", "href": "https://sirup.lkpp.go.id"}]},
+        {"t": "files", "years": [2026], "doc": "Dokumen pengadaan dan pengumuman"}
+      ]
+    },
+    {
+      "id": "berkala-3.6", "aspect": "berkala", "no": "3.6", "title": "Rencana Strategis (Renstra)",
+      "section": "transparansi", "path": "renstra",
+      "criterion": "Rancangan/Renstra/Reviu Renstra minimal 5 tahun terakhir",
+      "checks": ["has:h1", "has:table", "min-links:5"],
+      "blocks": [
+        {"t": "intro", "text": "Dokumen Rencana Strategis {{SITE_NAME}}."},
+        {"t": "files", "years": [2026, 2025, 2024, 2023, 2022], "doc": "Renstra atau reviu Renstra"}
+      ]
+    },
+    {
+      "id": "berkala-3.7", "aspect": "berkala", "no": "3.7", "title": "Rencana Kinerja Tahunan (RKT)",
+      "section": "transparansi", "path": "rkt",
+      "criterion": "RKT minimal 5 tahun terakhir",
+      "checks": ["has:h1", "has:table", "min-links:5"],
+      "blocks": [
+        {"t": "intro", "text": "Dokumen Rencana Kinerja Tahunan {{SITE_NAME}}."},
+        {"t": "files", "years": [2026, 2025, 2024, 2023, 2022], "doc": "Rencana Kinerja Tahunan"}
+      ]
+    },
+    {
+      "id": "berkala-3.8", "aspect": "berkala", "no": "3.8", "title": "Rencana Aksi Kinerja Tahun Berjalan",
+      "section": "transparansi", "path": "rencana-aksi-tahun-berjalan",
+      "criterion": "Rencana Aksi Kinerja minimal tahun saat ini",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Rencana Aksi Kinerja {{SITE_NAME}} tahun berjalan."},
+        {"t": "files", "years": [2026], "doc": "Rencana Aksi Kinerja tahun berjalan"}
+      ]
+    },
+    {
+      "id": "berkala-3.9", "aspect": "berkala", "no": "3.9", "title": "Perjanjian Kinerja (PK)",
+      "section": "transparansi", "path": "perjanjian-kinerja",
+      "criterion": "PK minimal 5 tahun terakhir",
+      "checks": ["has:h1", "has:table", "min-links:5"],
+      "blocks": [
+        {"t": "intro", "text": "Dokumen Perjanjian Kinerja {{SITE_NAME}}."},
+        {"t": "files", "years": [2026, 2025, 2024, 2023, 2022], "doc": "Perjanjian Kinerja"}
+      ]
+    },
+    {
+      "id": "berkala-3.10", "aspect": "berkala", "no": "3.10", "title": "Indikator Kinerja Utama (IKU) dan Reviu IKU",
+      "section": "transparansi", "path": "iku",
+      "criterion": "IKU atau Reviu IKU minimal 5 tahun terakhir",
+      "checks": ["has:h1", "has:table", "min-links:5"],
+      "blocks": [
+        {"t": "intro", "text": "Dokumen Indikator Kinerja Utama dan reviu IKU {{SITE_NAME}}."},
+        {"t": "files", "years": [2026, 2025, 2024, 2023, 2022], "doc": "IKU atau reviu IKU"}
+      ]
+    },
+    {
+      "id": "berkala-3.11", "aspect": "berkala", "no": "3.11", "title": "Laporan Kinerja Instansi Pemerintah (LKjIP)",
+      "section": "transparansi", "path": "lkjip",
+      "criterion": "LKjIP minimal 5 tahun terakhir",
+      "checks": ["has:h1", "has:table", "min-links:5"],
+      "blocks": [
+        {"t": "intro", "text": "Laporan Kinerja Instansi Pemerintah {{SITE_NAME}}."},
+        {"t": "files", "years": [2025, 2024, 2023, 2022, 2021], "doc": "LKjIP"}
+      ]
+    },
+    {
+      "id": "berkala-4.1", "aspect": "berkala", "no": "4.1", "title": "Laporan Akses Informasi Publik",
+      "section": "layanan-publik", "path": "laporan-akses-informasi",
+      "criterion": "Jumlah permohonan, waktu pelayanan, dikabulkan/ditolak, alasan penolakan",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Rekapitulasi pelayanan permohonan informasi publik {{SITE_NAME}}."},
+        {"t": "table", "head": ["Tahun", "Permohonan diterima", "Rata-rata waktu", "Dikabulkan", "Ditolak", "Alasan penolakan"], "rows": [
+          ["2026", "0", "0 hari", "0", "0", "!Belum ada"],
+          ["2025", "0", "0 hari", "0", "0", "!Belum ada"]
+        ]},
+        {"t": "note", "text": "Isi angka dari buku register layanan informasi. Alasan penolakan mengacu pada UU Keterbukaan Informasi Publik."}
+      ]
+    },
+    {
+      "id": "berkala-4.2", "aspect": "berkala", "no": "4.2", "title": "Rekapitulasi Pengaduan Masyarakat",
+      "section": "layanan-publik", "path": "rekapitulasi-pengaduan",
+      "criterion": "Inisial pelapor, jenis pelanggaran, deskripsi, tindak lanjut, hukuman disiplin",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Rekapitulasi pengaduan masyarakat yang diterima {{SITE_NAME}}. Identitas pelapor ditulis dalam inisial."},
+        {"t": "table", "head": ["Inisial pelapor", "Jenis pelanggaran", "Deskripsi singkat", "Tindak lanjut", "Hukuman disiplin"], "rows": [
+          ["!A.B.", "!Jenis", "!Deskripsi singkat", "!Status pemeriksaan", "!Hukuman"]
+        ]},
+        {"t": "note", "text": "Hapus baris contoh bila belum ada pengaduan. Jangan menampilkan identitas lengkap pelapor."}
+      ]
+    },
+    {
+      "id": "berkala-4.3", "aspect": "berkala", "no": "4.3", "title": "Hukuman Disiplin Hasil Pengawasan",
+      "section": "layanan-publik", "path": "hukuman-disiplin",
+      "criterion": "Inisial, jenis pelanggaran, deskripsi, tindak lanjut, hukuman disiplin",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Rekapitulasi hukuman disiplin hasil pengawasan pada {{SITE_NAME}}."},
+        {"t": "table", "head": ["Inisial", "Jenis pelanggaran", "Deskripsi singkat", "Tindak lanjut", "Hukuman disiplin"], "rows": [
+          ["!A.B.", "!Jenis", "!Deskripsi singkat", "!Status", "!Hukuman"]
+        ]},
+        {"t": "note", "text": "Hapus baris contoh bila belum ada hukuman disiplin pada periode ini."}
+      ]
+    },
+    {
+      "id": "berkala-4.4", "aspect": "berkala", "no": "4.4", "title": "Survei Pelayanan Masyarakat",
+      "section": "layanan-publik", "path": "survei",
+      "criterion": "Nilai dan laporan SKM, SPAK, SPKP",
+      "checks": ["has:h1", "has:scores"],
+      "blocks": [
+        {"t": "intro", "text": "Hasil survei pelayanan publik {{SITE_NAME}}."},
+        {"t": "scores", "items": [
+          {"label": "Survei Kepuasan Masyarakat (SKM)", "value": "—"},
+          {"label": "Survei Persepsi Anti Korupsi (SPAK)", "value": "—"},
+          {"label": "Survei Persepsi Kualitas Pelayanan (SPKP)", "value": "—"}
+        ]},
+        {"t": "files", "years": [2026], "doc": "Laporan hasil survei"},
+        {"t": "note", "text": "Isi nilai dari laporan survei terakhir dan unggah laporannya. Nilai kosong lebih baik daripada angka karangan."}
+      ]
+    },
+    {
+      "id": "berkala-5.1", "aspect": "berkala", "no": "5.1", "title": "Statistik Kunjungan Website",
+      "section": "_root", "path": "statistik-kunjungan",
+      "criterion": "Statistik pengunjung website dengan rentang waktu tertentu",
+      "checks": ["has:h1", "has:table"],
+      "blocks": [
+        {"t": "intro", "text": "Statistik kunjungan situs {{SITE_NAME}}, dihitung oleh modul Statistik Kunjungan."},
+        {"t": "note", "text": "Angka pada tabel di bawah diisi otomatis oleh modul Statistik Kunjungan. Tidak perlu disunting manual."},
+        {"t": "module", "position": "statistik-kunjungan"}
+      ]
+    }
+  ]
+}

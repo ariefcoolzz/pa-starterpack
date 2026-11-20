@@ -8,7 +8,8 @@
     { "slug": "berita", "title": "Berita" },
     { "slug": "pengumuman", "title": "Pengumuman" },
     { "slug": "opini", "title": "Opini dan Gagasan" },
-    { "slug": "dokumen", "title": "Dokumen" }
+    { "slug": "dokumen", "title": "Dokumen" },
+    { "slug": "halaman", "title": "Halaman" }
   ],
   "sections": [
     {

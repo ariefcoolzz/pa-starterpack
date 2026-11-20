@@ -1,0 +1,14 @@
+{
+    "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+    "name": "pa_satker",
+    "version": "1.0.0",
+    "description": "Aset template pa_satker (Joomla 6)",
+    "license": "GPL-2.0-or-later",
+    "assets": [
+        {
+            "name": "pa.template",
+            "type": "style",
+            "uri": "template.css"
+        }
+    ]
+}

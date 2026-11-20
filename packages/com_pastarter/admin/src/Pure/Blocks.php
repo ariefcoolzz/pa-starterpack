@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PA\Starter\Pure;
+namespace PA\Starter\Administrator\Pure;
 
 /**
  * Perender blok konten manifest menjadi HTML.

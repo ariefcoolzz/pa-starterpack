@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PA\Starter\Tests;
 
-use PA\Starter\Pure\Scoring;
+use PA\Starter\Administrator\Pure\Scoring;
 use PHPUnit\Framework\TestCase;
 
 final class ScoringTest extends TestCase

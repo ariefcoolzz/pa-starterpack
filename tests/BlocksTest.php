@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PA\Starter\Tests;
 
-use PA\Starter\Pure\Blocks;
+use PA\Starter\Administrator\Pure\Blocks;
 use PHPUnit\Framework\TestCase;
 
 final class BlocksTest extends TestCase

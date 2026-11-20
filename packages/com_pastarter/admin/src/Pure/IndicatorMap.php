@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PA\Starter\Pure;
+namespace PA\Starter\Administrator\Pure;
 
 /**
  * Sumber kebenaran kontrak URL: 35 indikator + halaman tambahan.

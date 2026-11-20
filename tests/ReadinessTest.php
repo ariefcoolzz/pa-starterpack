@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PA\Starter\Tests;
 
-use PA\Starter\Pure\Readiness;
+use PA\Starter\Administrator\Pure\Readiness;
 use PHPUnit\Framework\TestCase;
 
 final class ReadinessTest extends TestCase

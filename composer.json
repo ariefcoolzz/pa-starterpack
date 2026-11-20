@@ -11,7 +11,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PA\\Starter\\": "packages/com_pastarter/admin/src/"
+      "PA\\Starter\\Administrator\\": "packages/com_pastarter/admin/src/"
     }
   },
   "autoload-dev": {
