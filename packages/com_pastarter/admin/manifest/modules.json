@@ -59,7 +59,7 @@
       "params": {
         "count": 4,
         "catid": ["{{CAT:pengumuman}}"],
-        "pa_layout": "bar",
+        "pa_layout": "strip",
         "show_introtext": 0,
         "show_date": "published",
         "date_format": "d M Y",

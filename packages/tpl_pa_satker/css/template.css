@@ -131,11 +131,21 @@ small { font-size: .875em; }
 }
 
 /* ---------- Pengumuman & alih bahasa ------------------------------------ */
-.pa-announ { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.75rem; }
+.pa-announcebar { display: flex; align-items: center; gap: 1rem; background: linear-gradient(90deg, #eaf5ef 0%, #f7fbf9 55%, #fff 100%); border: 1px solid var(--pa-line); border-left: 4px solid var(--pa-secondary); border-radius: 14px; padding: .7rem 1rem; }
+.pa-announcebar__label { display: inline-flex; align-items: center; gap: .45rem; font-weight: 700; font-size: .88rem; color: var(--pa-primary); white-space: nowrap; }
+.pa-announcebar .pa-more { white-space: nowrap; margin-left: auto; }
+
+.pa-announ { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.75rem; flex: 1; }
 .pa-announ li { display: flex; gap: .7rem; align-items: baseline; padding: .55rem 0; border-bottom: 1px dashed var(--pa-line); }
 .pa-announ time { flex: 0 0 auto; font-size: .72rem; font-weight: 700; letter-spacing: .02em; color: var(--pa-primary); background: var(--pa-primary-light); border-radius: 6px; padding: .15rem .45rem; }
 .pa-announ a { color: var(--pa-ink); text-decoration: none; font-weight: 600; font-size: .92rem; line-height: 1.35; }
 .pa-announ a:hover { color: var(--pa-primary); }
+
+.pa-announ--strip { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.35rem; min-width: 0; }
+.pa-announ--strip li { border: 0; padding: 0; align-items: baseline; }
+.pa-announ--strip li + li { border-left: 1px solid var(--pa-line); padding-left: 1.35rem; }
+.pa-announ--strip time { background: transparent; padding: 0; font-size: .74rem; color: var(--pa-muted); }
+.pa-announ--strip a { font-size: .88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 42ch; }
 
 /* Alih bahasa */
 .pa-bahasa { display: grid; gap: .5rem; }
@@ -146,6 +156,10 @@ small { font-size: .875em; }
 
 @media (max-width: 760px) {
   .pa-announ { grid-template-columns: minmax(0, 1fr); }
+  .pa-announcebar { flex-wrap: wrap; gap: .5rem .9rem; }
+  .pa-announcebar .pa-more { margin-left: 0; }
+  .pa-announ--strip a { max-width: 100%; white-space: normal; }
+  .pa-announ--strip li + li { border-left: 0; padding-left: 0; }
 }
 
 

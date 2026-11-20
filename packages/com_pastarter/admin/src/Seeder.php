@@ -136,9 +136,21 @@ final class Seeder
                 'metadata'  => '{}',
             ]);
 
-            if (!$table->check() || !$table->store()) {
+            if (!$table->check()) {
                 throw new \RuntimeException('Kategori gagal: ' . $cat['title'] . ' — ' . $table->getError());
             }
+
+            // Nested set: tanpa setLocation(), store() menyimpan parent_id = 0 dan
+            // level = 0 sehingga tampilan kategori (dan URL artikel) berakhir 404
+            // "Category not found".
+            $table->setLocation(1, 'last-child');
+
+            if (!$table->store()) {
+                throw new \RuntimeException('Kategori gagal: ' . $cat['title'] . ' — ' . $table->getError());
+            }
+
+            $table->path = $alias;
+            $table->store();
 
             $this->catIds[$cat['slug']] = (int) $table->id;
             $this->log['dibuat']++;
@@ -425,6 +437,10 @@ final class Seeder
                     'parent_id' => $sectionMenuId,
                 ]);
             }
+
+            if ($section['slug'] === 'berita') {
+                $this->createCategoryMenus((int) $sectionMenuId);
+            }
         }
 
         // Halaman tersembunyi tanpa induk: indikator & tambahan ber-section _root
@@ -473,6 +489,41 @@ final class Seeder
     }
 
     /** @param array<string, mixed> $data */
+    /**
+     * Item menu bertipe daftar kategori. Ini yang membuat tautan artikel
+     * berita/pengumuman berbentuk /berita/<alias>, bukan
+     * /component/content/article/<alias>?catid=.. (Joomla hanya membentuk URL
+     * SEF artikel bila ada item menu untuk kategorinya).
+     */
+    private function createCategoryMenus(int $parentId): void
+    {
+        $daftar = [
+            ['Berita Terkini', 'terkini', 'kategori-berita'],
+            ['Pengumuman', 'pengumuman', 'kategori-pengumuman'],
+        ];
+
+        foreach ($daftar as [$judul, $alias, $aliasKategori]) {
+            $q = $this->db->getQuery(true)
+                ->select($this->db->quoteName('id'))
+                ->from($this->db->quoteName('#__categories'))
+                ->where($this->db->quoteName('alias') . ' = ' . $this->db->quote($aliasKategori))
+                ->where($this->db->quoteName('extension') . ' = ' . $this->db->quote('com_content'));
+            $catId = (int) $this->db->setQuery($q)->loadResult();
+
+            if ($catId === 0) {
+                continue;
+            }
+
+            $this->menuItem([
+                'menutype'  => 'mainmenu',
+                'title'     => $judul,
+                'alias'     => $alias,
+                'link'      => 'index.php?option=com_content&view=category&id=' . $catId,
+                'parent_id' => $parentId,
+            ]);
+        }
+    }
+
     private function menuItem(array $data): int
     {
         $table = new Menu($this->db);

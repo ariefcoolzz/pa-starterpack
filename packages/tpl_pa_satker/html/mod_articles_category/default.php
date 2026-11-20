@@ -5,6 +5,7 @@
  */
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Content\Site\Helper\RouteHelper;
@@ -17,18 +18,51 @@ $kelas     = $layout === 'featured' ? 'pa-news--featured' : '';
 $showCat   = (int) ($modParams?->get('show_category', 1) ?? 1);
 $showIntro = (int) ($modParams?->get('show_introtext', 1) ?? 1);
 $introLen  = (int) ($modParams?->get('introtext_limit', 140) ?? 140);
+
+/*
+ * Tautan artikel memakai Itemid item menu daftar kategori. Tanpa Itemid,
+ * Joomla tidak menemukan basis SEF kategori dan menghasilkan
+ * /component/content/article/<alias>?catid=.. — tampak rusak bagi pengunjung.
+ */
+$menuSitus     = Factory::getApplication()->getMenu('site');
+$tautanArtikel = static function ($item) use ($menuSitus): string {
+    $catid = (int) ($item->catid ?? 0);
+    $alias = (string) ($item->alias ?? '');
+
+    if ($catid > 0 && $alias !== '') {
+        $cocok = $menuSitus->getItems('link', 'index.php?option=com_content&view=category&id=' . $catid, true);
+
+        if (!empty($cocok)) {
+            $menu   = is_array($cocok) ? reset($cocok) : $cocok;
+            $prefix = trim((string) ($menu->route ?? $menu->path ?? ''), '/');
+
+            if ($prefix !== '') {
+                // Jalur menu daftar kategori + alias artikel = URL yang sudah
+                // terbukti merespons 200 (lihat verifikasi di README).
+                return \Joomla\CMS\Uri\Uri::root(true) . '/' . $prefix . '/' . $alias;
+            }
+        }
+    }
+
+    $slug = (int) $item->id . ':' . $alias;
+
+    return Route::_(
+        'index.php?option=com_content&view=article&id=' . $slug
+        . ($catid > 0 ? '&catid=' . $catid : '')
+    );
+};
 ?>
 <?php if ($list === []) : ?>
     <p class="pa-muted">Belum ada artikel pada kategori ini.</p>
 <?php else : ?>
-    <?php if ($layout === 'bar') : ?>
-        <ul class="pa-announ">
+    <?php if ($layout === 'bar' || $layout === 'strip') : ?>
+        <ul class="pa-announ<?php echo $layout === 'strip' ? ' pa-announ--strip' : ''; ?>">
             <?php foreach ($list as $item) : ?>
                 <li>
                     <time datetime="<?php echo HTMLHelper::_('date', $item->publish_up, 'c'); ?>">
                         <?php echo HTMLHelper::_('date', $item->publish_up, 'd M'); ?>
                     </time>
-                    <a href="<?php echo Route::_(RouteHelper::getArticleRoute($item->id, $item->catid, $item->language ?? '*')); ?>">
+                    <a href="<?php echo $tautanArtikel($item); ?>">
                         <?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
                     </a>
                 </li>
@@ -53,7 +87,7 @@ $introLen  = (int) ($modParams?->get('introtext_limit', 140) ?? 140);
                         <?php if ($showCat === 1 && !empty($item->category_title)) : ?>
                             <span class="pa-tag"><?php echo htmlspecialchars((string) $item->category_title, ENT_QUOTES, 'UTF-8'); ?></span>
                         <?php endif; ?>
-                        <h3><a href="<?php echo Route::_(RouteHelper::getArticleRoute($item->id, $item->catid, $item->language ?? '*')); ?>">
+                        <h3><a href="<?php echo $tautanArtikel($item); ?>">
                             <?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
                         </a></h3>
                         <?php if ($showIntro === 1) : ?>

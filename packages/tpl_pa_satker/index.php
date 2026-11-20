@@ -120,14 +120,16 @@ $ada = function (string $pos): bool {
 
             <?php if ($ada('home-announce')) : ?>
                 <section class="pa-section">
-                    <div class="pa-section__head">
-                        <div>
-                            <h2>Pengumuman</h2>
-                            <p>Informasi resmi terbaru dari satuan kerja.</p>
-                        </div>
-                        <a class="pa-more" href="<?php echo $root; ?>/pengumuman">Semua pengumuman</a>
+                    <div class="pa-announcebar">
+                        <span class="pa-announcebar__label">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                                <path d="M12 3a6 6 0 0 0-6 6v4l-2 4h16l-2-4V9a6 6 0 0 0-6-6Zm0 18a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3Z" fill="currentColor"/>
+                            </svg>
+                            Pengumuman
+                        </span>
+                        <jdoc:include type="modules" name="home-announce" style="paPlain" />
+                        <a class="pa-more" href="<?php echo $root; ?>/berita/pengumuman">Semua</a>
                     </div>
-                    <jdoc:include type="modules" name="home-announce" style="paPlain" />
                 </section>
             <?php endif; ?>
 
@@ -137,7 +139,7 @@ $ada = function (string $pos): bool {
                         <h2>Berita terkini</h2>
                         <p>Kegiatan pelayanan, inovasi, dan informasi terbaru dari satuan kerja.</p>
                     </div>
-                    <a class="pa-more" href="<?php echo $root; ?>/berita">Berita lain</a>
+                    <a class="pa-more" href="<?php echo $root; ?>/berita/terkini">Berita lain</a>
                 </div>
                 <div class="pa-homegrid">
                     <div class="pa-homegrid__main"><jdoc:include type="modules" name="home-center" style="paPlain" /></div>
