@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+    <name>PA Alih Bahasa</name>
+    <author>Ditjen Badan Peradilan Agama</author>
+    <creationDate>2026-11</creationDate>
+    <version>1.0.0</version>
+    <description>Pengalih bahasa berbasis bahasa konten Joomla. Bila hanya satu bahasa aktif, versi lain ditandai belum tersedia.</description>
+
+    <files>
+        <filename module="mod_pa_bahasa">mod_pa_bahasa.php</filename>
+        <folder>tmpl</folder>
+        <folder>language</folder>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_pa_bahasa.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_pa_bahasa.sys.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="catatan" type="text" label="Catatan bila versi lain belum aktif"
+                       default="Versi bahasa Inggris belum tersedia." />
+                <field name="tampilkan_kode" type="radio" label="Tampilkan kode bahasa" default="1"
+                       class="btn-group btn-group-yesno">
+                    <option value="1">JAB</option>
+                    <option value="0">TIDAK</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

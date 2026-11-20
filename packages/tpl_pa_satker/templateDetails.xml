@@ -28,6 +28,7 @@
         <position>mainnav</position>
         <position>home-top</position>
         <position>home-quick</position>
+        <position>home-announce</position>
         <position>home-shortcut</position>
         <position>home-center</position>
         <position>home-side</position>

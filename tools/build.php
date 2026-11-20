@@ -58,6 +58,7 @@ $targets = [
     'tpl_pa_satker'    => $root . '/packages/tpl_pa_satker',
     'mod_pa_jamkerja'  => $root . '/packages/mod_pa_jamkerja',
     'mod_pa_agenda'    => $root . '/packages/mod_pa_agenda',
+    'mod_pa_bahasa'    => $root . '/packages/mod_pa_bahasa',
 ];
 
 $hasil = [];

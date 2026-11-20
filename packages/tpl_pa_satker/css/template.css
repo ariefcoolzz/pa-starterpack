@@ -130,8 +130,28 @@ small { font-size: .875em; }
   cursor: pointer;
 }
 
-/* ---------- Navigasi ----------------------------------------------------- */
+/* ---------- Pengumuman & alih bahasa ------------------------------------ */
+.pa-announ { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.75rem; }
+.pa-announ li { display: flex; gap: .7rem; align-items: baseline; padding: .55rem 0; border-bottom: 1px dashed var(--pa-line); }
+.pa-announ time { flex: 0 0 auto; font-size: .72rem; font-weight: 700; letter-spacing: .02em; color: var(--pa-primary); background: var(--pa-primary-light); border-radius: 6px; padding: .15rem .45rem; }
+.pa-announ a { color: var(--pa-ink); text-decoration: none; font-weight: 600; font-size: .92rem; line-height: 1.35; }
+.pa-announ a:hover { color: var(--pa-primary); }
+
+/* Alih bahasa */
+.pa-bahasa { display: grid; gap: .5rem; }
+.pa-bahasa__item { display: flex; align-items: center; justify-content: space-between; gap: .6rem; padding: .5rem .7rem; border: 1px solid var(--pa-line); border-radius: 10px; text-decoration: none; color: var(--pa-ink); font-size: .9rem; font-weight: 600; }
+.pa-bahasa__item.is-active { border-color: var(--pa-primary); background: var(--pa-primary-light); color: var(--pa-primary); }
+.pa-bahasa__item[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.pa-bahasa__kode { font-size: .74rem; font-weight: 700; letter-spacing: .04em; color: var(--pa-muted); text-transform: uppercase; }
+
+@media (max-width: 760px) {
+  .pa-announ { grid-template-columns: minmax(0, 1fr); }
+}
+
+
 body.pa-nav-open .pa-a11y { display: none; }
+
+/* ---------- Navigasi ----------------------------------------------------- */
 
 .pa-nav { background: transparent; padding: .55rem 0 .75rem; }
 .pa-nav ul { list-style: none; margin: 0; padding: 0; }
@@ -315,7 +335,7 @@ body.pa-nav-open .pa-a11y { display: none; }
 
 /* ---------- Layout halaman dalam ---------------------------------------- */
 
-.pa-main { padding: 2rem 0 3rem; }
+.pa-main { padding: 1.5rem 0 3rem; }
 .pa-layout { display: grid; gap: 1.75rem; }
 .pa-layout--side { grid-template-columns: minmax(0, 1fr) 320px; align-items: start; }
 .pa-content {
@@ -479,11 +499,14 @@ body.pa-nav-open .pa-a11y { display: none; }
 
 /* ---------- Beranda ------------------------------------------------------ */
 
-.pa-section { padding: 2.4rem 0; }
-.pa-section--white { background: #fff; }
-.pa-section__head { margin-bottom: 1.3rem; }
-.pa-section__head h2 { margin-bottom: .25rem; }
-.pa-section__head p { color: var(--pa-muted); margin: 0; }
+/* Ritme vertikal tunggal: jarak antar blok 2.25rem, blok putih jadi kartu. */
+.pa-section { padding: 0; margin: 0 0 2.25rem; }
+.pa-section:last-child { margin-bottom: 0; }
+.pa-section--white { background: #fff; border-radius: 18px; padding: 1.6rem 1.75rem; }
+.pa-section--quick { padding: 1.1rem 1.3rem; }
+.pa-section__head { margin-bottom: 1.1rem; }
+.pa-section__head h2 { margin-bottom: 0; }
+.pa-section__head p { color: var(--pa-muted); margin: .2rem 0 0; }
 
 .pa-shortcuts {
   list-style: none;
@@ -512,13 +535,13 @@ body.pa-nav-open .pa-a11y { display: none; }
 .pa-shortcut strong { color: var(--pa-primary); }
 .pa-shortcut span { font-size: .85rem; color: var(--pa-muted); }
 
-.pa-homegrid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 1.5rem; align-items: stretch; }
-.pa-panel { background: #fff; border-radius: var(--pa-radius); box-shadow: var(--pa-shadow); padding: 1.15rem; height: 100%; }
+.pa-homegrid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 1.35rem; align-items: stretch; }
+.pa-panel { background: #fff; border-radius: var(--pa-radius); box-shadow: var(--pa-shadow); padding: 1rem 1.1rem; height: 100%; }
 .pa-panel__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 2px solid var(--pa-primary-light); padding-bottom: .5rem; margin-bottom: .8rem; }
 .pa-panel__head h2, .pa-panel__head h3 { margin: 0; font-size: 1.05rem; }
 .pa-panel__head a { font-size: .85rem; font-weight: 700; text-decoration: none; }
 
-.pa-news { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.pa-news { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); align-content: start; }
 .pa-news article { display: grid; gap: .4rem; }
 .pa-news img { border-radius: var(--pa-radius-sm); aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
 .pa-news time { font-size: .78rem; color: var(--pa-muted); text-transform: uppercase; letter-spacing: .04em; }
@@ -702,7 +725,7 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
 
 /* ---------- Beranda v2: kartu berita, widget, jam kerja ------------------ */
 
-.pa-section__head { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.1rem; }
+.pa-section__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.1rem; }
 .pa-section__head h2 { font-size: 1.35rem; margin: 0; position: relative; padding-left: .8rem; }
 .pa-section__head h2::before { content: ""; position: absolute; left: 0; top: .18em; bottom: .18em; width: 4px; border-radius: 4px; background: var(--pa-secondary); }
 .pa-section__head p { margin: .25rem 0 0; color: var(--pa-muted); font-size: .9rem; }
@@ -713,7 +736,7 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
 .pa-quickbar { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .75rem; list-style: none; margin: 0; padding: 0; }
 .pa-quick {
   display: grid; justify-items: center; gap: .35rem; text-align: center; text-decoration: none;
-  background: #fff; border: 1px solid var(--pa-line); border-radius: 14px; padding: 1rem .6rem;
+  background: #fff; border: 1px solid var(--pa-line); border-radius: 14px; padding: .85rem .6rem; align-content: center;
   color: var(--pa-ink); transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
 }
 .pa-quick:hover { border-color: var(--pa-primary); box-shadow: var(--pa-shadow); transform: translateY(-2px); }
@@ -726,9 +749,10 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
 .pa-news--featured > li:first-child { grid-column: 1 / -1; }
 .pa-news--featured > li:first-child article { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
 .pa-news--featured > li:first-child img { aspect-ratio: auto; height: 100%; min-height: 250px; }
-.pa-news--featured > li:first-child .pa-news__body { padding: 1.25rem 1.35rem; align-content: center; }
+.pa-news--featured > li:first-child .pa-news__body { padding: 1.4rem 1.5rem; justify-content: center; gap: .5rem; }
 .pa-news--featured > li:first-child h3 { font-size: 1.4rem; line-height: 1.25; }
 .pa-news--featured > li:first-child p { font-size: .95rem; -webkit-line-clamp: 4; }
+.pa-news--featured > li:first-child .pa-news__body time { margin-top: .2rem; padding-top: 0; text-align: left; }
 
 .pa-news li article {
   background: #fff; border: 1px solid var(--pa-line); border-radius: 16px; overflow: hidden;
@@ -737,7 +761,8 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
 }
 .pa-news li article:hover { box-shadow: 0 14px 30px -18px rgba(6, 40, 30, .45); transform: translateY(-2px); }
 .pa-news li article > img { border-radius: 0; aspect-ratio: 16 / 10; }
-.pa-news__body { display: grid; gap: .35rem; padding: .9rem 1rem 1.1rem; align-content: start; }
+.pa-news__body { display: flex; flex-direction: column; gap: .35rem; padding: .9rem 1rem 1rem; }
+.pa-news__body time { margin-top: auto; padding-top: .35rem; }
 .pa-news h3 { margin: 0; font-size: 1.02rem; line-height: 1.3; }
 .pa-news h3 a { color: var(--pa-ink); text-decoration: none; }
 .pa-news h3 a:hover { color: var(--pa-primary); }
@@ -755,7 +780,7 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
 .pa-minilist a:hover { color: var(--pa-primary); }
 
 /* Jam kerja */
-.pa-jam { background: linear-gradient(160deg, #056e4f 0%, #034634 100%); color: #fff; border-radius: 16px; padding: 1.1rem 1.15rem; box-shadow: var(--pa-shadow); }
+.pa-jam { background: linear-gradient(160deg, #056e4f 0%, #034634 100%); color: #fff; border-radius: 16px; padding: 1rem 1.1rem; box-shadow: var(--pa-shadow); }
 .pa-jam h2 { color: #fff; font-size: 1rem; margin: 0 0 .35rem; display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
 .pa-jam__status { display: inline-flex; align-items: center; gap: .35rem; font-size: .72rem; font-weight: 700; background: rgba(255, 255, 255, .16); border-radius: 999px; padding: .2rem .55rem; }
 .pa-jam__dot { width: 8px; height: 8px; border-radius: 50%; background: #7ee787; }
@@ -763,8 +788,8 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
 .pa-jam dl { display: grid; grid-template-columns: auto 1fr; gap: .3rem .9rem; margin: .85rem 0 0; font-size: .85rem; }
 .pa-jam dt { opacity: .82; }
 .pa-jam dd { margin: 0; text-align: right; font-weight: 700; }
-.pa-jam__note { margin: .8rem 0 0; font-size: .74rem; opacity: .8; }
-.pa-jam__prioritas { margin-top: .8rem; padding-top: .7rem; border-top: 1px solid rgba(255, 255, 255, .2); font-size: .78rem; }
+.pa-jam__note { margin: .6rem 0 0; font-size: .74rem; opacity: .8; }
+.pa-jam__prioritas { margin: .6rem 0 0; padding-top: .6rem; border-top: 1px solid rgba(255, 255, 255, .2); font-size: .78rem; }
 
 /* Strip layanan empat kolom */
 .pa-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
@@ -891,4 +916,11 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
   body.pa { background: #fff; }
   .pa-content { box-shadow: none; padding: 0; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .75em; color: #555; }
+}
+
+/* Tombol aksesibilitas sedikit lebih ringkas di layar lebar */
+@media (min-width: 861px) {
+  .pa-a11y { left: .8rem; bottom: .8rem; }
+  .pa-a11y__toggle { font-size: .8rem; padding: .5rem .75rem; opacity: .92; }
+  .pa-a11y__toggle:hover, .pa-a11y__toggle:focus-visible { opacity: 1; }
 }

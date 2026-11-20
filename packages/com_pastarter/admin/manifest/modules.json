@@ -51,14 +51,15 @@
     {
       "title": "Pengumuman",
       "module": "mod_articles_category",
-      "position": "home-side",
+      "position": "home-announce",
       "ordering": 1,
-      "showtitle": 1,
+      "showtitle": 0,
       "params_merge": true,
+      "params_force": ["count", "pa_layout", "catid", "show_category"],
       "params": {
         "count": 4,
         "catid": ["{{CAT:pengumuman}}"],
-        "pa_layout": "minilist",
+        "pa_layout": "bar",
         "show_introtext": 0,
         "show_date": "published",
         "date_format": "d M Y",
@@ -66,6 +67,17 @@
         "article_ordering_direction": "DESC",
         "show_category": 0,
         "link_titles": 1
+      }
+    },
+    {
+      "title": "Alih Bahasa",
+      "module": "mod_pa_bahasa",
+      "position": "home-side",
+      "ordering": 1,
+      "showtitle": 1,
+      "params": {
+        "catatan": "Versi bahasa Inggris belum tersedia.",
+        "tampilkan_kode": 1
       }
     },
     {

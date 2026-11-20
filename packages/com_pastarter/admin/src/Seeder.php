@@ -59,6 +59,7 @@ final class Seeder
         $this->seedExtras();
         $this->seedNews();
         $this->seedMenus();
+        $this->ensureContentLanguage();
         $this->seedModules();
         $this->setTemplateStyle();
         $this->enablePlugins();
@@ -642,6 +643,43 @@ final class Seeder
             $this->publishModuleEverywhere((int) $table->id);
             $this->log['dibuat']++;
         }
+    }
+
+    /**
+     * Pastikan bahasa konten Indonesia tersedia agar modul alih bahasa punya
+     * dua pilihan. Tidak mengubah bahasa situs, hanya daftar bahasa konten.
+     */
+    private function ensureContentLanguage(): void
+    {
+        $db = $this->db;
+
+        $q = $db->getQuery(true)
+            ->select('COUNT(*)')
+            ->from($db->quoteName('#__languages'))
+            ->where($db->quoteName('lang_code') . ' = ' . $db->quote('id-ID'));
+        $db->setQuery($q);
+
+        if ((int) $db->loadResult() > 0) {
+            return;
+        }
+
+        $baris = (object) [
+            'asset_id'      => 0,
+            'lang_code'     => 'id-ID',
+            'title'         => 'Indonesian (Indonesia)',
+            'title_native'  => 'Bahasa Indonesia',
+            'sef'           => 'id',
+            'image'         => 'id',
+            'description'   => 'Bahasa Indonesia',
+            'metakey'       => '',
+            'metadesc'      => '',
+            'sitename'      => '',
+            'published'     => 1,
+            'access'        => 1,
+            'ordering'      => 1,
+        ];
+
+        $db->insertObject('#__languages', $baris, 'lang_id');
     }
 
     /**

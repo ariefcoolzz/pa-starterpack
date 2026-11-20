@@ -118,6 +118,19 @@ $ada = function (string $pos): bool {
                 </section>
             <?php endif; ?>
 
+            <?php if ($ada('home-announce')) : ?>
+                <section class="pa-section">
+                    <div class="pa-section__head">
+                        <div>
+                            <h2>Pengumuman</h2>
+                            <p>Informasi resmi terbaru dari satuan kerja.</p>
+                        </div>
+                        <a class="pa-more" href="<?php echo $root; ?>/pengumuman">Semua pengumuman</a>
+                    </div>
+                    <jdoc:include type="modules" name="home-announce" style="paPlain" />
+                </section>
+            <?php endif; ?>
+
             <section class="pa-section">
                 <div class="pa-section__head">
                     <div>
