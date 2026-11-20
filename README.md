@@ -59,6 +59,8 @@ php tools/preview.php     # → dist/preview/index.html
 | Logika murni + tes (23 tes) | selesai |
 | Aset visual contoh | selesai |
 | Template CSS + pratinjau statis | selesai (menunggu persetujuan visual) |
+| Foto asli satker (gedung, PTSP, mediasi) + pipeline crop | selesai |
+| Panel aksesibilitas (teks, kontras, garis bawah, persistensi) | selesai (teruji di pratinjau) |
 | Template Joomla `index.php` + override | belum |
 | Seeder Joomla + auditor | belum |
 | Paket ekstensi + quickstart | belum |

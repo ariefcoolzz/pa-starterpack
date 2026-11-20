@@ -81,8 +81,8 @@
           ["Surel", "info@pa-contoh.go.id"],
           ["Situs web", "https://pa-contoh.go.id"]
         ]},
-        {"t": "image", "src": "images/sample/gedung-kantor.jpg", "alt": "Foto gedung kantor {{SITE_NAME}}"},
-        {"t": "note", "text": "Ganti seluruh isi tabel dan unggah foto gedung kantor ke images/sample/gedung-kantor.jpg."}
+        {"t": "image", "src": "images/konten/gedung-kantor.jpg", "alt": "Foto gedung kantor {{SITE_NAME}}"},
+        {"t": "note", "text": "Ganti seluruh isi tabel dengan data satker. Foto gedung dapat diganti di images/konten/gedung-kantor.jpg."}
       ]
     },
     {
@@ -125,6 +125,7 @@
           {"title": "Pengambilan produk pengadilan", "text": "Syarat dan alur pengambilan salinan putusan, akta cerai, dan produk lain. Tautan berkas: !Belum diunggah"},
           {"title": "Gugatan sederhana ekonomi syariah", "text": "Ruang lingkup, syarat nilai gugatan, dan tahapan persidangan. Tautan berkas: !Belum diunggah"}
         ]},
+        {"t": "image", "src": "images/konten/ruang-mediasi.jpg", "alt": "Ruang mediasi Pengadilan Agama"},
         {"t": "image", "src": "images/flyer/alur-berperkara.png", "alt": "Alur berperkara di Pengadilan Agama"}
       ]
     },
@@ -174,7 +175,7 @@
         {"t": "intro", "text": "Standar pelayanan dan maklumat pelayanan {{SITE_NAME}}."},
         {"t": "quote", "text": "Dengan ini kami menyatakan sanggup menyelenggarakan pelayanan sesuai standar pelayanan yang telah ditetapkan, dan apabila tidak menepati janji ini kami siap menerima sanksi sesuai ketentuan peraturan perundang-undangan."},
         {"t": "files", "years": [2026], "doc": "SK standar pelayanan dan maklumat pelayanan"},
-        {"t": "image", "src": "images/flyer/layanan-disabilitas.png", "alt": "Layanan ramah kelompok rentan dan disabilitas"}
+        {"t": "image", "src": "images/konten/ruang-ptsp.jpg", "alt": "Layanan terpadu satu pintu Pengadilan Agama"}
       ]
     },
 

@@ -225,6 +225,24 @@ PRATINJAU STATIS — data contoh, bukan situs Joomla. Tautan antarhalaman berfun
     <p class="pa-footer__sk">Standar Tata Kelola Website: SK Dirjen Badilag No. 2722/DJA/SK.TI1/X/2026 tanggal 12 Oktober 2026.</p>
   </div>
 </footer>
+<div class="pa-a11y">
+  <div class="pa-a11y__panel" id="pa-a11y-panel" hidden role="group" aria-label="Sarana aksesibilitas">
+    <h2>Sarana aksesibilitas</h2>
+    <div class="pa-a11y__row"><span>Ukuran teks</span>
+      <span class="pa-a11y__group">
+        <button type="button" data-a11y="font" data-tahap="0" aria-pressed="true" aria-label="Ukuran teks normal">A</button>
+        <button type="button" data-a11y="font" data-tahap="1" aria-pressed="false" aria-label="Perbesar teks satu langkah">A+</button>
+        <button type="button" data-a11y="font" data-tahap="2" aria-pressed="false" aria-label="Perbesar teks dua langkah">A++</button>
+      </span>
+    </div>
+    <button type="button" data-a11y="contrast" aria-pressed="false">Kontras tinggi</button>
+    <button type="button" data-a11y="garis" aria-pressed="false">Garis bawah tautan</button>
+    <button type="button" data-a11y="reset">Atur ulang tampilan</button>
+    <p class="pa-a11y__hint">Struktur halaman sudah ramah pembaca layar. Gunakan Tab untuk berpindah antarelemen.</p>
+  </div>
+  <button type="button" class="pa-a11y__toggle" data-a11y="open" aria-expanded="false" aria-controls="pa-a11y-panel">Aksesibilitas</button>
+</div>
+
 <div class="pa-bottomline"><div class="pa-wrap"><span>© {$year} {$site}</span><span>Dikelola oleh Tim IT satuan kerja</span></div></div>
 </body>
 </html>
@@ -301,10 +319,10 @@ foreach ($shortcuts as [$icon, $title, $text, $href]) {
 }
 
 $news = [
-    ['Sidang keliling di kecamatan terjauh', 'Pelayanan Masyarakat', 'images/slider/hero-1.jpg', 'layanan-hukum-jadwal-sidang.html'],
-    ['Pendaftaran perkara daring lewat e-Court', 'Inovasi Layanan', 'images/slider/hero-2.jpg', 'layanan-hukum-ecourt.html'],
-    ['Pendampingan bagi penyandang disabilitas', 'Layanan Inklusif', 'images/slider/hero-3.jpg', 'layanan-publik-disabilitas.html'],
-    ['Penelusuran perkara lewat SIPP', 'Kepaniteraan', 'images/slider/hero-1.jpg', 'layanan-hukum-sipp.html'],
+    ['Sidang keliling di kecamatan terjauh', 'Pelayanan Masyarakat', 'images/konten/ruang-ptsp-640.jpg', 'layanan-hukum-jadwal-sidang.html'],
+    ['Mediasi sebagai jalur utama penyelesaian sengketa', 'Layanan Kepaniteraan', 'images/konten/ruang-mediasi-640.jpg', 'layanan-hukum-prosedur-berperkara.html'],
+    ['Pendampingan bagi penyandang disabilitas', 'Layanan Inklusif', 'images/konten/ruang-ptsp-640.jpg', 'layanan-publik-disabilitas.html'],
+    ['Penelusuran perkara lewat SIPP', 'Kepaniteraan', 'images/konten/gedung-kantor-640.jpg', 'layanan-hukum-sipp.html'],
 ];
 
 $newsHtml = '';
@@ -463,6 +481,7 @@ foreach (array_merge($indAll, $sections['extras']) as $row) {
 rcopy($root . '/packages/tpl_pa_satker/css/template.css', $out . '/css/template.css');
 rcopy($root . '/packages/tpl_pa_satker/js/template.js', $out . '/js/template.js');
 rcopy($root . '/assets/slider', $out . '/images/slider');
+rcopy($root . '/assets/konten', $out . '/images/konten');
 rcopy($root . '/assets/ikon', $out . '/images/ikon');
 rcopy($root . '/assets/flyer', $out . '/images/flyer');
 rcopy($root . '/assets/logo', $out . '/images/logo');
