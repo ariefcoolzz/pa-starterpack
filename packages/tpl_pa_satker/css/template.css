@@ -150,11 +150,11 @@ small { font-size: .875em; }
 /* Kartu pengumuman satu kolom */
 .pa-announ--cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: .6rem; }
 .pa-announ--cards > li { border: 0; padding: 0; display: block; }
-.pa-announ__card { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; gap: 1rem; align-items: center; padding: .7rem .95rem .7rem .7rem; background: #fff; border: 1px solid var(--pa-line); border-radius: 12px; text-decoration: none; color: inherit; transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+.pa-announ__card { display: grid; grid-template-columns: 70px minmax(0, 1fr) auto; gap: 1rem; align-items: center; padding: .7rem .95rem .7rem .7rem; background: #fff; border: 1px solid var(--pa-line); border-radius: 12px; text-decoration: none; color: inherit; transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
 .pa-announ__card:hover, .pa-announ__card:focus-visible { border-color: var(--pa-primary); box-shadow: 0 12px 26px -18px rgba(6, 40, 30, .55); transform: translateY(-1px); }
-.pa-announ__date { display: grid; justify-items: center; gap: .1rem; background: var(--pa-primary-light); border-radius: 10px; padding: .4rem .25rem; line-height: 1; }
-.pa-announ__day { font-size: 1.2rem; font-weight: 800; color: var(--pa-primary); }
-.pa-announ__month { font-size: .66rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--pa-muted); white-space: nowrap; }
+.pa-announ__date { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .18rem; min-height: 3.4rem; background: var(--pa-primary-light); border-radius: 10px; padding: .4rem .2rem; line-height: 1; text-align: center; }
+.pa-announ__day { font-size: 1.3rem; font-weight: 800; line-height: 1; color: var(--pa-primary); }
+.pa-announ__month { font-size: .68rem; font-weight: 700; line-height: 1; letter-spacing: .02em; text-transform: uppercase; color: var(--pa-muted); white-space: nowrap; }
 .pa-announ__title { font-size: .95rem; font-weight: 600; line-height: 1.35; color: var(--pa-ink); }
 .pa-announ__card:hover .pa-announ__title { color: var(--pa-primary); }
 .pa-announ__arrow { font-size: 1.35rem; line-height: 1; color: var(--pa-muted); }
@@ -168,8 +168,9 @@ small { font-size: .875em; }
 
 @media (max-width: 760px) {
   .pa-announ { grid-template-columns: minmax(0, 1fr); }
-  .pa-announ__card { grid-template-columns: 54px minmax(0, 1fr) auto; gap: .7rem; padding: .65rem .8rem .65rem .6rem; }
-  .pa-announ__day { font-size: 1.05rem; }
+  .pa-announ__card { grid-template-columns: 62px minmax(0, 1fr) auto; gap: .7rem; padding: .65rem .8rem .65rem .6rem; }
+  .pa-announ__day { font-size: 1.15rem; }
+  .pa-announ__date { min-height: 3.1rem; }
   .pa-announcebar { flex-wrap: wrap; gap: .5rem .9rem; }
   .pa-announcebar .pa-more { margin-left: 0; }
   .pa-announ--strip a { max-width: 100%; white-space: normal; }
