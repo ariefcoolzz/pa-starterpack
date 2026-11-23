@@ -55,7 +55,22 @@ $tautanArtikel = static function ($item) use ($menuSitus): string {
 <?php if ($list === []) : ?>
     <p class="pa-muted">Belum ada artikel pada kategori ini.</p>
 <?php else : ?>
-    <?php if ($layout === 'bar' || $layout === 'strip') : ?>
+    <?php if ($layout === 'cards') : ?>
+        <ul class="pa-announ pa-announ--cards">
+            <?php foreach ($list as $item) : ?>
+                <li>
+                    <a class="pa-announ__card" href="<?php echo $tautanArtikel($item); ?>">
+                        <time class="pa-announ__date" datetime="<?php echo HTMLHelper::_('date', $item->publish_up, 'c'); ?>">
+                            <span class="pa-announ__day"><?php echo HTMLHelper::_('date', $item->publish_up, 'd'); ?></span>
+                            <span class="pa-announ__month"><?php echo HTMLHelper::_('date', $item->publish_up, 'M Y'); ?></span>
+                        </time>
+                        <span class="pa-announ__title"><?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?></span>
+                        <span class="pa-announ__arrow" aria-hidden="true">&rsaquo;</span>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php elseif ($layout === 'bar' || $layout === 'strip') : ?>
         <ul class="pa-announ<?php echo $layout === 'strip' ? ' pa-announ--strip' : ''; ?>">
             <?php foreach ($list as $item) : ?>
                 <li>
