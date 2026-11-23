@@ -15,8 +15,8 @@ declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use PA\Starter\Pure\Blocks;
-use PA\Starter\Pure\IndicatorMap;
+use PA\Starter\Administrator\Pure\Blocks;
+use PA\Starter\Administrator\Pure\IndicatorMap;
 
 $root  = dirname(__DIR__);
 $out   = $root . '/dist/preview';
