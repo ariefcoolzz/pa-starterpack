@@ -15,6 +15,12 @@ namespace PA\Starter\Administrator\Pure;
 final class Blocks
 {
     /**
+     * Catatan operator di manifest adalah panduan penyuntingan, bukan isi
+     * halaman publik. Matikan agar tidak ikut tercetak ke artikel seed.
+     */
+    public static bool $tampilkanCatatan = false;
+
+    /**
      * @param array<int, array<string, mixed>> $blocks
      * @param array<string, string> $tokens
      * @param array<string, string> $pre
@@ -39,8 +45,10 @@ final class Blocks
     {
         return match ($b['t'] ?? '') {
             'intro'   => '<p class="pa-intro">' . self::inline((string) $b['text'], $tokens) . "</p>\n",
-            'note'    => '<div class="pa-note" role="note"><span class="pa-note__label">Catatan operator</span><p>'
-                         . self::inline((string) $b['text'], $tokens) . "</p></div>\n",
+            'note'    => self::$tampilkanCatatan
+                         ? '<div class="pa-note" role="note"><span class="pa-note__label">Catatan operator</span><p>'
+                         . self::inline((string) $b['text'], $tokens) . "</p></div>\n"
+                         : '',
             'quote'   => '<blockquote class="pa-quote"><p>' . self::inline((string) $b['text'], $tokens) . "</p></blockquote>\n",
             'list'    => self::listing($b['items'] ?? [], $tokens),
             'table'   => self::table($b, $tokens),
