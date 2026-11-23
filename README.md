@@ -62,6 +62,7 @@ php tools/preview.php     # → dist/preview/index.html
 | Foto asli satker (gedung, PTSP, mediasi) + pipeline crop | selesai |
 | Panel aksesibilitas (teks, kontras, garis bawah, persistensi) | selesai (teruji di pratinjau) |
 | Beranda v2: kartu berita headline, widget sidebar, jam kerja, statistik, footer 4 kolom | selesai |
+| Halaman artikel pola Badilag (judul tengah, meta penulis/terbit/dibaca, gambar utama, satu kolom) | selesai |
 | Pengumuman beranda sebagai bilah ringkas (`strip`) | selesai |
 | Menu daftar kategori (Berita Terkini, Pengumuman) + tautan artikel SEF | selesai — 0 tautan internal 404 |
 | Agenda sidang beranda (`mod_pa_agenda`, subform) | selesai |
