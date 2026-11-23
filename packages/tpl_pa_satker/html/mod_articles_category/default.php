@@ -85,11 +85,27 @@ $tautanArtikel = static function ($item) use ($menuSitus): string {
         </ul>
     <?php else : ?>
     <ul class="pa-news <?php echo $kelas; ?> <?php echo $class; ?>">
-        <?php foreach ($list as $item) : ?>
+        <?php foreach ($list as $posisi => $item) : ?>
             <?php
             $images = json_decode((string) ($item->images ?? '{}'), true) ?: [];
             $src    = (string) ($images['image_intro'] ?? '');
             $alt    = (string) ($images['image_intro_alt'] ?? $item->title);
+
+            /*
+             * Ringkasan diambil dari introtext; bila kosong (artikel yang seluruh
+             * isinya ditaruh di kolom "isi penuh"), dipotong dari fulltext supaya
+             * kartu berita tidak menggantung kosong di bawah judul. Kartu utama
+             * diberi jatah lebih panjang karena ruangnya lebih lega.
+             */
+            $sumber  = trim((string) ($item->introtext ?? '')) !== ''
+                ? (string) $item->introtext
+                : (string) ($item->fulltext ?? '');
+            $ringkas = trim((string) preg_replace('/\s+/u', ' ', strip_tags($sumber)));
+            $batas   = $posisi === 0 ? max($introLen, 215) : $introLen;
+
+            if ($ringkas !== '') {
+                $ringkas = HTMLHelper::_('string.truncate', $ringkas, $batas, true, false);
+            }
             ?>
             <li>
                 <article>
@@ -105,8 +121,8 @@ $tautanArtikel = static function ($item) use ($menuSitus): string {
                         <h3><a href="<?php echo $tautanArtikel($item); ?>">
                             <?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?>
                         </a></h3>
-                        <?php if ($showIntro === 1) : ?>
-                            <p><?php echo HTMLHelper::_('string.truncate', strip_tags((string) ($item->introtext ?? '')), $introLen); ?></p>
+                        <?php if ($showIntro === 1 && $ringkas !== '') : ?>
+                            <p class="pa-news__excerpt"><?php echo htmlspecialchars($ringkas, ENT_QUOTES, 'UTF-8'); ?></p>
                         <?php endif; ?>
                         <time datetime="<?php echo HTMLHelper::_('date', $item->publish_up, 'c'); ?>">
                             <?php echo HTMLHelper::_('date', $item->publish_up, 'd M Y'); ?>

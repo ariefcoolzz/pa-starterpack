@@ -267,6 +267,25 @@ final class Seeder
         }
     }
 
+    /**
+     * Pisahkan paragraf pertama ke introtext, sisanya ke fulltext.
+     * Dengan begitu ringkasan kartu berita terisi dan artikel tetap utuh
+     * saat dibuka (intro + isi penuh disambung Joomla).
+     *
+     * @return array{0: string, 1: string}
+     */
+    private function pisahIsi(string $html): array
+    {
+        if (preg_match('#\s*(<p\b.*?</p>)#is', $html, $m, PREG_OFFSET_CAPTURE) === 1) {
+            $intro = trim($m[1][0]);
+            $sisa  = trim((string) substr($html, $m[1][1] + strlen($intro)));
+
+            return [$intro, $sisa];
+        }
+
+        return [trim($html), ''];
+    }
+
     private function createArticle(string $catSlug, string $alias, string $title, string $html, string $image = '', ?string $publishUp = null): void
     {
         $catSlug = $catSlug === '_root' ? 'dokumen' : $catSlug;
@@ -288,6 +307,9 @@ final class Seeder
         }
 
         $now = $publishUp ?? Factory::getDate()->toSql();
+
+        [$intro, $isi] = $this->pisahIsi($html);
+
         $images = json_encode([
             'image_intro'            => $image,
             'float_intro'            => '',
@@ -302,8 +324,8 @@ final class Seeder
         $table->bind([
             'title'        => $title,
             'alias'        => $alias,
-            'introtext'    => '',
-            'fulltext'     => $html,
+            'introtext'    => $intro,
+            'fulltext'     => $isi,
             'catid'        => $catId,
             'state'        => 1,
             'access'       => 1,

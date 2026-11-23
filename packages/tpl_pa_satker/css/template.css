@@ -795,6 +795,8 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
 .pa-news li article > img { border-radius: 0; aspect-ratio: 16 / 10; }
 .pa-news__body { display: flex; flex-direction: column; gap: .35rem; padding: .9rem 1rem 1rem; }
 .pa-news__body time { margin-top: auto; padding-top: .35rem; }
+.pa-news__excerpt { font-size: .88rem; line-height: 1.55; color: var(--pa-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.pa-news--featured > li:first-child .pa-news__excerpt { display: block; -webkit-line-clamp: unset; overflow: visible; font-size: .95rem; max-width: 62ch; }
 .pa-news h3 { margin: 0; font-size: 1.02rem; line-height: 1.3; }
 .pa-news h3 a { color: var(--pa-ink); text-decoration: none; }
 .pa-news h3 a:hover { color: var(--pa-primary); }
@@ -957,4 +959,15 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
   .pa-a11y { left: .8rem; bottom: .8rem; }
   .pa-a11y__toggle { font-size: .8rem; padding: .5rem .75rem; opacity: .92; }
   .pa-a11y__toggle:hover, .pa-a11y__toggle:focus-visible { opacity: 1; }
+}
+
+/* Ringkasan kartu utama: batasi 3 baris di layar sempit (ditaruh di akhir
+   berkas agar menang urutan terhadap aturan dasar). */
+@media (max-width: 760px) {
+  .pa-news--featured > li:first-child .pa-news__excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
