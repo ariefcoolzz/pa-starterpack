@@ -234,7 +234,13 @@ $ada = function (string $pos): bool {
         <button type="button" data-a11y="reset">Atur ulang tampilan</button>
         <p class="pa-a11y__hint">Struktur halaman sudah ramah pembaca layar. Gunakan Tab untuk berpindah antarelemen.</p>
     </div>
-    <button type="button" class="pa-a11y__toggle" data-a11y="open" aria-expanded="false" aria-controls="pa-a11y-panel">Aksesibilitas</button>
+    <button type="button" class="pa-a11y__toggle" data-a11y="open" aria-expanded="false" aria-controls="pa-a11y-panel" aria-label="Aksesibilitas">
+        <svg class="pa-a11y__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="4" r="2" fill="currentColor"/>
+            <path d="M11 7h2l.7 5H18l2.4 7.4-1.9.6-2-6.2H12.8V17l-2.2 4-1.8-.9 2-3.8V8.4c0-.8.6-1.4 1.2-1.4Z" fill="currentColor"/>
+        </svg>
+        <span class="pa-a11y__label">Aksesibilitas</span>
+    </button>
 </div>
 
 <div class="pa-bottomline"><div class="pa-wrap">

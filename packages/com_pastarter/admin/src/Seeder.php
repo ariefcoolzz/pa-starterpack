@@ -61,10 +61,44 @@ final class Seeder
         $this->seedMenus();
         $this->ensureContentLanguage();
         $this->seedModules();
+        $this->rapikanBreadcrumb();
         $this->setTemplateStyle();
         $this->enablePlugins();
 
         return $this->log;
+    }
+
+    /**
+     * Modul breadcrumbs bawaan Joomla memakai teks "Home" untuk tautan
+     * beranda. Diganti "Beranda" agar seragam dengan istilah situs satker.
+     */
+    private function rapikanBreadcrumb(): void
+    {
+        $q = $this->db->getQuery(true)
+            ->select($this->db->quoteName(['id', 'params']))
+            ->from($this->db->quoteName('#__modules'))
+            ->where($this->db->quoteName('module') . ' = ' . $this->db->quote('mod_breadcrumbs'));
+
+        $rows = $this->db->setQuery($q)->loadObjectList();
+
+        foreach ($rows as $row) {
+            $params = json_decode((string) $row->params, true) ?: [];
+
+            if (($params['homeText'] ?? '') === 'Beranda') {
+                continue;
+            }
+
+            $params['homeText']  = 'Beranda';
+            $params['showHere']  = 0;
+            $params['showHome']  = 1;
+
+            $this->db->setQuery(
+                $this->db->getQuery(true)
+                    ->update($this->db->quoteName('#__modules'))
+                    ->set($this->db->quoteName('params') . ' = ' . $this->db->quote(json_encode($params, JSON_UNESCAPED_UNICODE)))
+                    ->where($this->db->quoteName('id') . ' = ' . (int) $row->id)
+            )->execute();
+        }
     }
 
     private function loadManifest(): void
@@ -241,11 +275,50 @@ final class Seeder
             ],
         ];
 
+        /*
+         * Paragraf lanjutan supaya halaman artikel punya isi yang wajar dibaca,
+         * bukan satu paragraf contoh. Ringkas, tanpa klaim angka yang tidak ada.
+         */
+        $lanjutan = [
+            'sidang-keliling-kecamatan-terjauh' => [
+                'Sidang dilaksanakan di aula kantor kecamatan dengan majelis hakim, panitera pengganti, dan petugas PTSP. Agenda meliputi perkara perceraian, harta bersama, serta penetapan permohonan yang sudah terdaftar.',
+                'Pemohon diimbau membawa berkas asli untuk pemeriksaan di lokasi. Jadwal dan daftar perkara dapat diperiksa pada menu Jadwal Persidangan atau melalui layanan informasi pengadilan.',
+            ],
+            'mediasi-jalur-utama-penyelesaian-sengketa' => [
+                'Mediasi dipimpin mediator bersertifikat yang tercatat di pengadilan. Para pihak dapat menghadirkan kuasa hukum dan menyampaikan usulan kesepakatan secara tertulis.',
+                'Kesepakatan yang tercapai dituangkan dalam akta perdamaian dan berkekuatan hukum tetap. Perkara yang tidak mencapai kesepakatan dilanjutkan ke pemeriksaan pokok perkara.',
+            ],
+            'layanan-prioritas-penyandang-disabilitas' => [
+                'Fasilitas yang tersedia antara lain jalur pemandu, kursi roda, toilet aksesibel, dan petugas pendamping. Loket prioritas melayani penyandang disabilitas, lansia, ibu hamil, dan pengunjung yang sakit.',
+                'Pengunjung dapat menyampaikan kebutuhan khusus kepada petugas PTSP saat mengambil nomor antrean agar pendampingan disiapkan sejak awal.',
+            ],
+            'penelusuran-perkara-lewat-sipp' => [
+                'SIPP menampilkan informasi pendaftaran perkara, penetapan majelis, jadwal sidang, hingga putusan yang telah diunggah. Data diperbarui petugas kepaniteraan setiap hari kerja.',
+                'Apabila data belum tampil, pengunjung dapat menghubungi meja informasi dengan menyebutkan nomor perkara. Salinan putusan tersedia pada halaman Putusan.',
+            ],
+            'bimtek-administrasi-perkara-pegawai-baru' => [
+                'Materi bimbingan mencakup penerimaan perkara, pengisian buku register, penetapan majelis, dan pengelolaan berkas elektronik melalui aplikasi peradilan.',
+                'Peserta mempraktikkan alur berkas pada perangkat masing-masing dan mengikuti evaluasi tertulis di akhir kegiatan.',
+            ],
+            'sidang-isbat-nikah-terpadu' => [
+                'Sidang isbat nikah terpadu dihadiri petugas KUA dan pencatat nikah setempat. Peserta membawa fotokopi KTP, kartu keluarga, dan keterangan asal-usul perkawinan.',
+                'Setelah penetapan dibacakan, peserta memperoleh salinan yang dapat digunakan untuk penerbitan buku nikah di KUA.',
+            ],
+            'penguatan-layanan-ptsp-zona-integritas' => [
+                'Penguatan mencakup standar pelayanan, disiplin waktu, dan penanganan pengaduan masyarakat. Petugas menandatangani pakta integritas sebagai bagian dari pembinaan.',
+                'Evaluasi layanan dilakukan berkala melalui survei kepuasan masyarakat dan pemantauan data antrean.',
+            ],
+        ];
+
         $mundur = 1;
 
         foreach ($berita as [$title, $alias, $image, $intro]) {
-            $body = '<p>' . $intro . '</p>'
-                . '<p>Contoh isi berita. Ganti dengan berita kegiatan pelayanan satker, lengkapi tanggal dan dokumentasi.</p>';
+            $body = '<p>' . $intro . '</p>';
+
+            foreach ($lanjutan[$alias] ?? [] as $paragraf) {
+                $body .= '<p>' . $paragraf . '</p>';
+            }
+
             $tanggal = Factory::getDate('-' . ($mundur * 2) . ' days')->toSql();
             $mundur++;
 
@@ -263,8 +336,41 @@ final class Seeder
             $tanggal = Factory::getDate('-' . $mundur . ' days')->toSql();
             $mundur++;
 
-            $this->createArticle('pengumuman', $alias, $title, '<p>' . $intro . '</p>', '', $tanggal);
+            $this->createArticle(
+                'pengumuman',
+                $alias,
+                $title,
+                '<p>' . $intro . '</p>'
+                . '<p>Informasi lengkap dapat ditanyakan pada meja layanan PTSP setiap hari kerja, atau melalui kanal pengaduan resmi satuan kerja.</p>',
+                '',
+                $tanggal
+            );
         }
+    }
+
+    /**
+     * Nama penulis yang tampil di halaman artikel diambil dari tabel pengguna.
+     * Artikel seed dibuat lewat CLI sehingga tidak punya identitas login;
+     * created_by diarahkan ke pengguna Super User agar kolom "Ditulis" terisi.
+     */
+    private function adminUserId(): int
+    {
+        static $id = null;
+
+        if ($id !== null) {
+            return $id;
+        }
+
+        $q = $this->db->getQuery(true)
+            ->select('DISTINCT ' . $this->db->quoteName('u.id'))
+            ->from($this->db->quoteName('#__users', 'u'))
+            ->join('INNER', $this->db->quoteName('#__user_usergroup_map', 'm') . ' ON m.user_id = u.id')
+            ->where('m.group_id = 8')
+            ->order($this->db->quoteName('u.id') . ' ASC');
+
+        $id = (int) ($this->db->setQuery($q, 0, 1)->loadResult() ?: 0);
+
+        return $id;
     }
 
     /**
@@ -301,6 +407,22 @@ final class Seeder
         $table->load(['alias' => $alias]);
 
         if ($table->id) {
+            // Mode pengembangan: PA_REFRESH=1 menulis ulang isi artikel seed
+            // supaya perubahan paragraf di seeder ikut terpakai tanpa reset DB.
+            if (getenv('PA_REFRESH')) {
+                [$introBaru, $isiBaru] = $this->pisahIsi($html);
+
+                $table->introtext  = $introBaru;
+                $table->fulltext   = $isiBaru;
+                $table->created_by = $table->created_by ?: $this->adminUserId();
+                $table->modified   = Factory::getDate()->toSql();
+                $table->store();
+
+                $this->log['diperbarui'] = ($this->log['diperbarui'] ?? 0) + 1;
+
+                return;
+            }
+
             $this->log['dilewati']++;
 
             return;
@@ -331,7 +453,7 @@ final class Seeder
             'access'       => 1,
             'language'     => '*',
             'created'      => $now,
-            'created_by'   => (int) (Factory::getApplication()->getIdentity()->id ?? 0),
+            'created_by'   => (int) (Factory::getApplication()->getIdentity()->id ?: $this->adminUserId()),
             'modified'     => $now,
             'publish_up'   => $now,
             'publish_down' => null,
