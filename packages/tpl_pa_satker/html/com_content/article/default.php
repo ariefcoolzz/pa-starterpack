@@ -41,10 +41,6 @@ if ($catid > 0) {
 ?>
 <article class="pa-article">
     <header class="pa-article__head">
-        <?php if (!empty($item->category_title)) : ?>
-            <span class="pa-tag"><?php echo htmlspecialchars((string) $item->category_title, ENT_QUOTES, 'UTF-8'); ?></span>
-        <?php endif; ?>
-
         <h1 class="pa-article__title"><?php echo htmlspecialchars($item->title, ENT_QUOTES, 'UTF-8'); ?></h1>
 
         <p class="pa-article__meta">
