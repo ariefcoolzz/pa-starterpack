@@ -586,6 +586,9 @@ body.pa-nav-open .pa-a11y { display: none; }
 
 .pa-tag {
   display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  align-self: flex-start;
   font-size: .72rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -796,7 +799,7 @@ body.pa-underline a { text-decoration: underline !important; text-underline-offs
 .pa-news h3 a { color: var(--pa-ink); text-decoration: none; }
 .pa-news h3 a:hover { color: var(--pa-primary); }
 .pa-news p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.pa-news .pa-tag { justify-self: start; margin-bottom: .1rem; }
+.pa-news .pa-tag { justify-self: start; align-self: flex-start; margin-bottom: .1rem; }
 
 /* Widget sidebar */
 .pa-homegrid__main { display: grid; gap: 1.75rem; align-content: start; min-width: 0; }
