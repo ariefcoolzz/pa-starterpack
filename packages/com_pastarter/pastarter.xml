@@ -6,15 +6,21 @@
     <version>1.0.0</version>
     <description>Starterpack website satker Peradilan Agama: pemasangan konten awal (kategori, artikel, menu, modul) dan audit kesiapan penilaian SINOVA.</description>
     <namespace path="src">PA\Starter</namespace>
+    <scriptfile>script.php</scriptfile>
 
     <administration>
         <menu img="class:checkin">PA Starter</menu>
+        <submenu>
+            <menu link="option=com_pastarter&amp;view=seed">Pasang Konten Awal</menu>
+            <menu link="option=com_pastarter&amp;view=audit">Audit Kesiapan SINOVA</menu>
+        </submenu>
         <files folder="admin">
             <folder>services</folder>
             <folder>src</folder>
             <folder>tmpl</folder>
             <folder>language</folder>
             <folder>manifest</folder>
+            <folder>assets</folder>
         </files>
         <languages folder="admin/language">
             <language tag="en-GB">en-GB/en-GB.com_pastarter.ini</language>

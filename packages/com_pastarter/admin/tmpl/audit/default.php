@@ -1,12 +1,17 @@
 <?php
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Router\Route;
+
 /** @var array<string, mixed> $report */
 $report = $this->report;
 $est    = $report['estimate'] ?? [];
 ?>
-<div class="alert alert-info">
-    <strong>Perkiraan mandiri, bukan nilai resmi.</strong> Nilai resmi ditetapkan Tim Penilai melalui aplikasi SINOVA.
+<div class="alert alert-info d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div>
+        <strong>Perkiraan mandiri, bukan nilai resmi.</strong> Nilai resmi ditetapkan Tim Penilai melalui aplikasi SINOVA.
+    </div>
+    <a href="<?php echo Route::_('index.php?option=com_pastarter&view=seed'); ?>" class="btn btn-sm btn-outline-primary">Kembali ke Pasang Konten Awal</a>
 </div>
 
 <div class="row mb-3">

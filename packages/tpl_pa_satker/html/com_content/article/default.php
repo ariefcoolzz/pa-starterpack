@@ -21,7 +21,7 @@ $src     = (string) ($gambar['image_intro'] ?? '');
 $alt     = (string) ($gambar['image_intro_alt'] ?? $item->title);
 $caption = (string) ($gambar['image_intro_caption'] ?? '');
 
-$penulis = trim((string) ($item->author ?? ''));
+$penulis = trim((string) ($item->created_by_alias ?: ($item->author ?? '')));
 $hits    = (int) ($item->hits ?? 0);
 
 // Tautan kembali ke daftar artikel memakai menu kategori bila tersedia,

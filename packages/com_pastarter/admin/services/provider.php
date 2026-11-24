@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Dispatcher\ComponentDispatcherFactoryInterface;
 use Joomla\CMS\Extension\ComponentInterface;
 use Joomla\CMS\Extension\Service\Provider\ComponentDispatcherFactory;
 use Joomla\CMS\Extension\Service\Provider\MVCFactory;
@@ -14,20 +15,16 @@ use PA\Starter\Administrator\Extension\PastarterComponent;
 return new class () implements ServiceProviderInterface {
     public function register(Container $container): void
     {
-        $container->registerServiceProvider(new MVCFactory('\\PA\\Starter\\Administrator'));
-        $container->registerServiceProvider(new ComponentDispatcherFactory('\\PA\\Starter\\Administrator'));
+        $container->registerServiceProvider(new MVCFactory('\\PA\\Starter'));
+        $container->registerServiceProvider(new ComponentDispatcherFactory('\\PA\\Starter'));
 
         $container->set(
             ComponentInterface::class,
             function (Container $container) {
                 $component = new PastarterComponent(
-                    $container->get(MVCFactoryInterface::class),
-                    $container
+                    $container->get(ComponentDispatcherFactoryInterface::class)
                 );
-                $component->setDispatcher(
-                    $container->get(\Joomla\CMS\Dispatcher\ComponentDispatcherFactoryInterface::class)
-                        ->createDispatcher($component)
-                );
+                $component->setMVCFactory($container->get(MVCFactoryInterface::class));
 
                 return $component;
             }

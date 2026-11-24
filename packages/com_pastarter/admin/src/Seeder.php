@@ -124,10 +124,15 @@ final class Seeder
 
     private function tokens(): array
     {
+        $app  = Factory::getApplication();
+        $base = (PHP_SAPI === 'cli' || $app->isClient('cli'))
+            ? '/'
+            : rtrim(\Joomla\CMS\Uri\Uri::root(true), '/') . '/';
+
         return [
-            '{{SITE_NAME}}' => Factory::getApplication()->get('sitename', 'Pengadilan Agama'),
+            '{{SITE_NAME}}' => $app->get('sitename', 'Pengadilan Agama'),
             '{{TAHUN}}'     => date('Y'),
-            '{{BASE}}'      => \Joomla\CMS\Uri\Uri::root(true) . '/',
+            '{{BASE}}'      => $base,
         ];
     }
 
@@ -407,6 +412,8 @@ final class Seeder
         $table->load(['alias' => $alias]);
 
         if ($table->id) {
+            $this->ensureWorkflowAssociation((int) $table->id);
+
             // Mode pengembangan: PA_REFRESH=1 menulis ulang isi artikel seed
             // supaya perubahan paragraf di seeder ikut terpakai tanpa reset DB.
             if (getenv('PA_REFRESH')) {
@@ -453,7 +460,7 @@ final class Seeder
             'access'       => 1,
             'language'     => '*',
             'created'      => $now,
-            'created_by'   => (int) (Factory::getApplication()->getIdentity()->id ?: $this->adminUserId()),
+            'created_by'   => (int) (Factory::getApplication()->getIdentity()?->id ?: $this->adminUserId()),
             'modified'     => $now,
             'publish_up'   => $now,
             'publish_down' => null,
@@ -473,22 +480,89 @@ final class Seeder
             throw new \RuntimeException('Artikel gagal: ' . $title . ' — ' . $table->getError());
         }
 
+        $this->ensureWorkflowAssociation((int) $table->id);
         $this->log['dibuat']++;
+    }
+
+    /**
+     * Joomla 6 menyaring daftar artikel admin (Content -> Articles) melalui
+     * INNER JOIN #__workflow_associations. Tanpa baris ini, artikel hasil seed
+     * tampil di situs publik tetapi tidak muncul di daftar admin.
+     */
+    private function ensureWorkflowAssociation(int $articleId): void
+    {
+        if ($articleId <= 0) {
+            return;
+        }
+
+        $q = $this->db->getQuery(true)
+            ->select('COUNT(*)')
+            ->from($this->db->quoteName('#__workflow_associations'))
+            ->where($this->db->quoteName('item_id') . ' = :aid')
+            ->where($this->db->quoteName('extension') . ' = ' . $this->db->quote('com_content.article'))
+            ->bind(':aid', $articleId, \Joomla\Database\ParameterType::INTEGER);
+        $this->db->setQuery($q);
+
+        if ((int) $this->db->loadResult() > 0) {
+            return;
+        }
+
+        static $defaultStageId = null;
+
+        if ($defaultStageId === null) {
+            $sq = $this->db->getQuery(true)
+                ->select($this->db->quoteName('id'))
+                ->from($this->db->quoteName('#__workflow_stages'))
+                ->where($this->db->quoteName('default') . ' = 1')
+                ->order($this->db->quoteName('id') . ' ASC');
+            $this->db->setQuery($sq, 0, 1);
+            $defaultStageId = (int) ($this->db->loadResult() ?: 1);
+        }
+
+        $assoc = (object) [
+            'item_id'   => $articleId,
+            'stage_id'  => $defaultStageId,
+            'extension' => 'com_content.article',
+        ];
+        $this->db->insertObject('#__workflow_associations', $assoc);
     }
 
     private function articleId(string $catSlug, string $alias): int
     {
         $catSlug = $catSlug === '_root' ? 'dokumen' : $catSlug;
+        $catId   = (int) ($this->catIds[$catSlug] ?? 0);
+
+        if ($catId > 0) {
+            $q = $this->db->getQuery(true)
+                ->select($this->db->quoteName('id'))
+                ->from($this->db->quoteName('#__content'))
+                ->where($this->db->quoteName('alias') . ' = :al')
+                ->where($this->db->quoteName('catid') . ' = :ci')
+                ->bind(':al', $alias)
+                ->bind(':ci', $catId, \Joomla\Database\ParameterType::INTEGER);
+            $this->db->setQuery($q, 0, 1);
+            $id = (int) $this->db->loadResult();
+
+            if ($id > 0) {
+                return $id;
+            }
+        }
+
+        // Fallback alias global agar situs lama yang artikelnya masih di kategori lama tetap tersambung.
         $q = $this->db->getQuery(true)
             ->select($this->db->quoteName('id'))
             ->from($this->db->quoteName('#__content'))
             ->where($this->db->quoteName('alias') . ' = :al')
-            ->where($this->db->quoteName('catid') . ' = :ci')
-            ->bind(':al', $alias)
-            ->bind(':ci', $this->catIds[$catSlug], \Joomla\Database\ParameterType::INTEGER);
-        $this->db->setQuery($q);
+            ->order($this->db->quoteName('id') . ' ASC')
+            ->bind(':al', $alias);
+        $this->db->setQuery($q, 0, 1);
+        $id = (int) $this->db->loadResult();
 
-        return (int) $this->db->loadResult();
+        if ($id === 0) {
+            throw new \RuntimeException("Artikel untuk menu tidak ditemukan: {$alias} (kategori {$catSlug})");
+        }
+
+        return $id;
     }
 
     private function ensureMenuType(string $menutype, string $title): void
@@ -510,20 +584,32 @@ final class Seeder
 
     private function seedMenus(): void
     {
+        $this->ensureMenuType('mainmenu', 'Menu Utama');
         $this->ensureMenuType('hidden', 'Halaman tersembunyi');
         $this->ensureMenuType('footer', 'Navigasi footer');
 
-        // Menu contoh bawaan Joomla ("main") dibuang agar navigasi hanya berisi 6 menu SK.
+        // Menu contoh bawaan Joomla ("main" frontend) dibuang agar navigasi hanya berisi 6 menu SK.
+        // Batasi client_id = 0 karena menu komponen administrator juga memakai menutype = 'main'.
         $this->db->setQuery('DELETE FROM ' . $this->db->quoteName('#__menu')
-            . ' WHERE ' . $this->db->quoteName('menutype') . ' = ' . $this->db->quote('main'))->execute();
+            . ' WHERE ' . $this->db->quoteName('menutype') . ' = ' . $this->db->quote('main')
+            . ' AND ' . $this->db->quoteName('client_id') . ' = 0')->execute();
         $this->db->setQuery('DELETE FROM ' . $this->db->quoteName('#__menu_types')
-            . ' WHERE ' . $this->db->quoteName('menutype') . ' = ' . $this->db->quote('main'))->execute();
+            . ' WHERE ' . $this->db->quoteName('menutype') . ' = ' . $this->db->quote('main')
+            . ' AND ' . $this->db->quoteName('client_id') . ' = 0')->execute();
 
         $root = 1;
 
-        // Tepat satu item home.
+        // Tepat satu item home di sisi publik.
         $this->db->setQuery('UPDATE ' . $this->db->quoteName('#__menu')
-            . ' SET ' . $this->db->quoteName('home') . ' = 0 WHERE ' . $this->db->quoteName('home') . ' = 1')->execute();
+            . ' SET ' . $this->db->quoteName('home') . ' = 0'
+            . ' WHERE ' . $this->db->quoteName('home') . ' = 1'
+            . ' AND ' . $this->db->quoteName('client_id') . ' = 0')->execute();
+
+        // Hapus item bawaan Joomla "Home" (alias 'home') setelah flag home direset.
+        $homeLama = new Menu($this->db);
+        if ($homeLama->load(['menutype' => 'mainmenu', 'alias' => 'home', 'client_id' => 0])) {
+            $homeLama->delete();
+        }
 
         // Beranda (home)
         $homeId = $this->menuItem([
@@ -542,12 +628,13 @@ final class Seeder
         $this->db->setQuery('UPDATE ' . $this->db->quoteName('#__menu')
             . ' SET ' . $this->db->quoteName('home') . ' = 0'
             . ' WHERE ' . $this->db->quoteName('id') . ' <> ' . (int) $homeId
-            . ' AND ' . $this->db->quoteName('home') . ' = 1')->execute();
+            . ' AND ' . $this->db->quoteName('home') . ' = 1'
+            . ' AND ' . $this->db->quoteName('client_id') . ' = 0')->execute();
 
         // Seksi + indikator. Seksi menjadi anak akar agar URL = /<seksi>/<butir>,
         // bukan /beranda/<seksi>/<butir>.
         foreach ($this->sections['sections'] as $section) {
-            $landingId = $this->articleId($section['slug'], $section['alias']);
+            $landingId = $this->articleId('halaman', $section['alias']);
 
             $sectionMenuId = $this->menuItem([
                 'menutype'  => 'mainmenu',
@@ -577,7 +664,7 @@ final class Seeder
                     continue;
                 }
 
-                $id = $this->articleId($extra['section'], $extra['path']);
+                $id = $this->articleId('halaman', $extra['path']);
                 $this->menuItem([
                     'menutype'  => 'mainmenu',
                     'title'     => $extra['title'],
@@ -626,7 +713,7 @@ final class Seeder
         // Footer: tautan seksi. Alias diberi awalan karena Joomla memeriksa
         // keunikan alias per parent tanpa melihat menutype.
         foreach ($this->sections['sections'] as $section) {
-            $landingId = $this->articleId($section['slug'], $section['alias']);
+            $landingId = $this->articleId('halaman', $section['alias']);
             $this->menuItem([
                 'menutype'  => 'footer',
                 'title'     => $section['title'],
@@ -635,6 +722,9 @@ final class Seeder
                 'parent_id' => $root,
             ]);
         }
+
+        // Jaga integritas nested-set lft/rgt setelah penghapusan dan penyisipan menu.
+        (new Menu($this->db))->rebuild();
     }
 
     /** @param array<string, mixed> $data */
@@ -935,10 +1025,22 @@ final class Seeder
 
     private function setTemplateStyle(): void
     {
+        $q = $this->db->getQuery(true)
+            ->select('COUNT(*)')
+            ->from($this->db->quoteName('#__template_styles'))
+            ->where($this->db->quoteName('template') . ' = ' . $this->db->quote('pa_satker'))
+            ->where($this->db->quoteName('client_id') . ' = 0');
+        $this->db->setQuery($q);
+
+        if ((int) $this->db->loadResult() === 0) {
+            return;
+        }
+
         $this->db->setQuery(
             'UPDATE ' . $this->db->quoteName('#__template_styles')
             . ' SET ' . $this->db->quoteName('home') . ' = (CASE WHEN '
-            . $this->db->quoteName('template') . " = 'pa_satker' THEN 1 ELSE 0 END)"
+            . $this->db->quoteName('template') . " = 'pa_satker' THEN '1' ELSE '0' END)"
+            . ' WHERE ' . $this->db->quoteName('client_id') . ' = 0'
         )->execute();
     }
 
@@ -958,12 +1060,14 @@ final class Seeder
             $table = new Extension($this->db);
             $table->load(['type' => 'plugin', 'folder' => $folder, 'element' => $element, 'client_id' => 0]);
 
-            if (!$table->extension_id || (int) $table->enabled === 1) {
+            // emailcloaking dimatikan: alamat surel harus terbaca tanpa JavaScript.
+            $target = $element === 'emailcloak' ? 0 : 1;
+
+            if (!$table->extension_id || (int) $table->enabled === $target) {
                 continue;
             }
 
-            // emailcloaking dimatikan: alamat surel harus terbaca tanpa JavaScript.
-            $table->enabled = $element === 'emailcloak' ? 0 : 1;
+            $table->enabled = $target;
             $table->store();
         }
     }

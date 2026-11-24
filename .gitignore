@@ -1,6 +1,7 @@
 /vendor/
 /dist/
 /.phpunit.cache/
+/packages/com_pastarter/admin/assets/
 *.log
 .DS_Store
 Thumbs.db
