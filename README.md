@@ -11,8 +11,8 @@ sudah beralamat tetap dari menu item.
 
 > Proyek komunitas, bukan produk resmi Mahkamah Agung RI atau Ditjen Badilag.
 > Tampilan mengacu pada situs Badilag dan situs satker yang sudah berjalan.
-> Logo resmi Mahkamah Agung RI tidak disertakan dalam paket; unggah sendiri
-> melalui panel admin sesuai identitas satker.
+> Logo Mahkamah Agung RI disertakan untuk kebutuhan situs resmi satuan kerja;
+> unggah logo masing-masing satker melalui panel admin.
 
 ![Beranda](docs/screenshots/beranda.webp)
 ![Halaman artikel](docs/screenshots/artikel.webp)
@@ -77,8 +77,8 @@ sudah beralamat tetap dari menu item.
 | Komponen | Versi |
 |---|---|
 | Joomla | 6.2.x |
-| PHP | 8.3 atau lebih baru untuk Joomla (diuji pada PHP 8.4), ekstensi `intl`, `mbstring`, `gd`, `mysqli`, `json`, `fileinfo` |
-| Database | MariaDB 10.4+ atau MySQL 8.0.13+ |
+| PHP | 8.3 atau lebih baru untuk Joomla (diuji pada PHP 8.4), ekstensi `intl`, `mbstring`, `gd`, `mysqli`, `json`, `fileinfo`, `zip` |
+| Database | MariaDB 10.4+ atau MySQL 8.0.13+ (`utf8mb4_unicode_ci`) |
 | Web server | Apache 2.4 dengan `mod_rewrite`, Nginx, atau LiteSpeed |
 | Composer | Hanya untuk pengembang (menjalankan tes) |
 
@@ -87,41 +87,57 @@ sudah beralamat tetap dari menu item.
 Cara ini tidak memerlukan terminal. Cocok untuk satker yang situsnya sudah jalan
 dan hanya ingin mengganti tampilan serta menambah halaman indikator.
 
-1. Unduh berkas dari folder `dist/` pada repositori ini, atau bangun sendiri dengan
-   `php tools/build.php`:
-
-   ```
-   dist/tpl_pa_satker.zip
-   dist/com_pastarter.zip
-   dist/mod_pa_agenda.zip
-   dist/mod_pa_jamkerja.zip
-   dist/mod_pa_bahasa.zip
-   ```
-
+1. Unduh paket rilis dari halaman
+   [**Releases**](https://github.com/ariefcoolzz/pa-starterpack/releases/latest)
+   (atau bangun sendiri dari sumber dengan `php tools/build.php --docs --release`):
+   - **Disarankan (1x unggah):** `pkg_pastarter.zip` — memasang template, komponen,
+     tiga modul, dan aset contoh sekaligus.
+   - **Arsip lengkap:** `pa-starterpack-ekstensi-v1.0.0.zip` — berisi `pkg_pastarter.zip`,
+     folder `ekstensi/` (5 zip terpisah bila batas unggah server kecil), `SINOVA-URL-MAP.csv`,
+     `CHECKSUMS.sha256`, dan `PANDUAN-INSTALASI.txt`.
 2. Masuk ke panel admin Joomla, buka **System → Install → Extensions**.
-3. Unggah kelima berkas satu per satu, atau seret semuanya sekaligus ke area unggah.
-4. Buka **System → Site Templates**, pilih `pa_satker`, lalu klik **Default**.
-5. Buka **Components → PA Starter**, jalankan **Seed data contoh**. Proses ini membuat
-   kategori berita, artikel, 35 halaman indikator, menu, dan modul beranda.
-6. Buka **Components → PA Starter → Audit**, lalu periksa hasilnya. Halaman yang masih
-   memuat placeholder ditandai agar bisa dilengkapi.
+3. Unggah `pkg_pastarter.zip` pada tab *Upload Package File* (atau unggah kelima
+   berkas di `ekstensi/` satu per satu). Aset gambar bawaan otomatis disalin ke
+   folder `/images/` tanpa menimpa berkas milik satker yang sudah ada.
+4. Buka **System → Site Template Styles**, pilih `pa_satker - Default`, lalu klik **Default**.
+5. Buka **Components → PA Starter → Pasang Konten Awal**, lalu klik **Pasang konten awal**.
+   Proses ini membuat kategori, 35 halaman indikator, halaman tambahan, berita contoh,
+   menu, dan modul beranda secara idempoten.
+6. Buka **Components → PA Starter → Audit Kesiapan SINOVA**, lalu periksa hasilnya. Halaman
+   yang masih memuat placeholder ditandai agar bisa dilengkapi.
 
 Data contoh memakai nama "Pengadilan Agama Contoh". Ganti identitas satker sebelum
-situs dibuka ke publik.
+situs dibuka ke publik. Rincian lengkap tersedia di `PANDUAN-INSTALASI.txt` di dalam
+arsip unduhan.
 
 ## Instalasi dari nol
 
-1. Unduh Joomla 6.2 dari situs resmi Joomla, ekstrak ke folder situs
-   (misalnya `public_html` atau `C:\xampp\htdocs\pa-contoh`).
-2. Buat database kosong, misalnya `pa_satker`, dengan collation `utf8mb4_unicode_ci`.
-3. Buka alamat situs di browser, ikuti pemasangan Joomla: pilih bahasa Indonesia,
-   isi data database, buat akun Super User, lalu selesaikan pemasangan.
-4. Hapus folder `installation/` bila installer belum melakukannya sendiri.
-5. Pasang kelima paket dari `dist/` seperti pada bagian sebelumnya, lalu jalankan
-   seeder dan audit.
+### Jalur 1 — Paket Quickstart (disarankan, siap pakai)
 
-Untuk server Linux, atur document root ke folder tempat Joomla dipasang, aktifkan
-`mod_rewrite`, dan arahkan seluruh permintaan ke `index.php`. Contoh konfigurasi Nginx:
+1. Unduh `pa-starterpack-quickstart-joomla62-v1.0.0.zip` dari halaman
+   [**Releases**](https://github.com/ariefcoolzz/pa-starterpack/releases/latest)
+   (atau bangun dari sumber dengan `php tools/build-quickstart.php`).
+2. Buat database kosong, misalnya `pa_satker`, dengan collation `utf8mb4_unicode_ci`.
+3. Ekstrak seluruh isi folder `joomla/` ke document root situs
+   (misalnya `public_html` atau `C:\xampp\htdocs\pa-contoh`), dan salin/ubah nama
+   `htaccess.txt` menjadi `.htaccess` (untuk Apache/LiteSpeed).
+4. Buka alamat situs di browser dan ikuti wizard pemasangan Joomla 6 (nama situs,
+   akun Super User, serta kredensial database). Template, komponen, modul, aset, dan
+   35 halaman indikator SINOVA terpasang otomatis pada tahap instalasi database.
+5. Klik **Complete & Remove Installation Folder** di layar akhir (atau hapus folder
+   `installation/` secara manual), lalu masuk ke `/administrator/` dan pastikan
+   **System → Global Configuration → Site → SEO** mengaktifkan *Search Engine Friendly URLs*
+   dan *Use URL Rewriting*.
+
+### Jalur 2 — Joomla 6.2 polos + `pkg_pastarter.zip`
+
+1. Unduh Joomla 6.2 dari situs resmi Joomla, ekstrak ke document root situs, lalu
+   selesaikan wizard pemasangan hingga folder `installation/` terhapus.
+2. Pasang `pkg_pastarter.zip` melalui **System → Install → Extensions**, lalu ikuti
+   langkah 4–6 pada bagian [Instalasi pada situs Joomla 6.2 yang sudah ada](#instalasi-pada-situs-joomla-62-yang-sudah-ada).
+
+Untuk server Linux Nginx, atur document root ke folder tempat Joomla dipasang dan
+arahkan seluruh permintaan ke `index.php`:
 
 ```nginx
 server {
@@ -140,7 +156,7 @@ server {
         fastcgi_pass unix:/run/php/php8.4-fpm.sock;
     }
 
-    location ~* /(cache|logs|tmp)/ {
+    location ~* /(cache|logs|tmp|administrator/logs)/ {
         deny all;
     }
 }
@@ -153,22 +169,23 @@ Prasyarat: PHP 8.4 (sesuai `composer.json` untuk tes dan pratinjau), Composer, M
 ```bash
 git clone <alamat-repositori> pa-starterpack
 cd pa-starterpack
-composer install                      # hanya untuk PHPUnit
+composer install                           # hanya untuk PHPUnit
 
-php tools/build.php                   # membangun dist/*.zip dari packages/
-vendor/bin/phpunit                    # tes logika murni (23 tes)
-python tools/assets.py --out=assets   # membuat ulang aset contoh
-php tools/preview.php                 # pratinjau statis tanpa Joomla
+php tools/build.php --docs --release       # membangun dist/*.zip, pkg_pastarter.zip, dan arsip ekstensi
+php tools/build-quickstart.php             # membangun dist/pa-starterpack-quickstart-joomla62-v1.0.0.zip
+vendor/bin/phpunit                         # tes logika murni & invarian manifest (26 tes, 58 asersi)
+python tools/assets.py --out=assets        # membuat ulang aset contoh
+php tools/preview.php                      # pratinjau statis tanpa Joomla
 ```
 
-Memasang paket ke situs uji dan menjalankan seeder lewat CLI Joomla:
+Memasang paket ke situs uji dan menjalankan seeder/audit lewat CLI Joomla (salin
+`tools/pa.php` ke `cli/pa.php` di folder situs uji, atau set variabel `JOOMLA_ROOT`):
 
 ```bash
-php cli/joomla.php extension:install --path=D:/projects/pa-starterpack/dist/tpl_pa_satker.zip
-php cli/joomla.php extension:install --path=D:/projects/pa-starterpack/dist/com_pastarter.zip
+php cli/joomla.php extension:install --path=/path/ke/pa-starterpack/dist/pkg_pastarter.zip
 
-PA_MANIFEST=D:/projects/pa-starterpack/manifest PA_REFRESH=1 php cli/pa.php seed
-PA_MANIFEST=D:/projects/pa-starterpack/manifest php cli/pa.php audit http://pa-contoh.test
+PA_MANIFEST=/path/ke/pa-starterpack/manifest PA_REFRESH=1 php cli/pa.php seed
+PA_MANIFEST=/path/ke/pa-starterpack/manifest php cli/pa.php audit http://pa-contoh.test
 ```
 
 `PA_REFRESH=1` menulis ulang isi artikel dan modul dari manifest, berguna saat
@@ -178,32 +195,36 @@ menyunting teks contoh. Tanpa variabel itu, seeder hanya mengisi data yang belum
 
 1. **System → Global Configuration → Site**: nama situs, meta description, dan
    alamat email resmi.
-2. **System → Site Templates → pa_satker**: unggah logo Mahkamah Agung RI dan logo
-   satker, lalu isi nama serta alamat pada parameter template.
-3. **Components → PA Starter → Audit**: lihat butir yang belum selesai, lengkapi
-   halaman yang masih memuat placeholder.
+2. **System → Site Template Styles → pa_satker - Default**: periksa logo Mahkamah Agung RI,
+   unggah logo satker, lalu isi baris instansi dan jam layanan pada parameter template.
+3. **Components → PA Starter → Audit Kesiapan SINOVA**: lihat butir yang belum selesai, lengkapi
+   halaman yang masih memuat placeholder (daftar URL tetap tersedia di `SINOVA-URL-MAP.csv`).
 4. **Content → Articles**: ganti artikel contoh dengan berita kegiatan satker.
-   Sertakan gambar utama agar kartu beranda tidak kosong.
+   Sertakan gambar utama (*Intro Image*) agar kartu beranda tidak kosong.
 5. **Menus → Main Menu**: sesuaikan label menu bila struktur satker berbeda.
    Alamat halaman indikator jangan diubah karena sudah dipakai sebagai bukti dukung
    di aplikasi SINOVA.
-6. **Modules**: isi agenda sidang, jam kerja, dan tautan survei pada posisi
+6. **Content → Site Modules**: isi agenda sidang, jam kerja, dan tautan survei pada posisi
    `home-side`, `home-agenda`, dan `footer-2`.
-7. **System → Manage → Plugins**: aktifkan `System - SEF` dan atur **System → Global
-   Configuration → Site → SEO** (URL SEF, tambahkan akhiran, dan sebagainya).
+7. **System → Manage → Plugins**: pastikan `System - SEF` aktif dan atur **System → Global
+   Configuration → Site → SEO** (*Search Engine Friendly URLs* dan *Use URL Rewriting* = Yes).
 8. Buka halaman beranda di ponsel untuk memastikan menu dan kartu berita tetap rapi.
 
 ## Memperbarui paket
 
+- **Dari rilis resmi:** unduh `pkg_pastarter.zip` versi terbaru dari halaman
+  [**Releases**](https://github.com/ariefcoolzz/pa-starterpack/releases/latest), lalu
+  unggah lewat **System → Install → Extensions**.
+- **Dari repositori Git:**
+
 ```bash
 git pull
-php tools/build.php
+php tools/build.php --docs --release
 ```
 
-Lalu unggah ulang paket yang berubah lewat **System → Install → Extensions**.
-Jangan mengunggah ulang `com_pastarter` bila tidak ingin menjalankan seeder lagi;
-data yang sudah ada tidak tertimpa karena seeder bersifat idempoten. Cadangkan
-database sebelum memperbarui.
+Lalu unggah ulang `dist/pkg_pastarter.zip` (atau berkas di `dist/` yang berubah) lewat
+**System → Install → Extensions**. Seeder bersifat idempoten sehingga konten yang sudah
+disunting tidak tertimpa. Cadangkan database sebelum memperbarui.
 
 ## Lupa kata sandi admin
 
@@ -251,15 +272,20 @@ manifest/
   *.html                 # fragmen HTML untuk modul kustom
 packages/
   tpl_pa_satker/         # template: index.php, css, js, override com_content, modul
-  com_pastarter/         # komponen admin: Seeder, Auditor, perender blok
+  com_pastarter/         # komponen admin: Seeder, Auditor, script auto-copy aset
+  pkg_pastarter/         # manifest paket gabungan 1x unggah
   mod_pa_agenda/         # jadwal sidang
   mod_pa_jamkerja/       # status jam layanan
   mod_pa_bahasa/         # alih bahasa
 assets/                  # gambar dan ikon hasil tools/assets.py
-tools/                   # build.php, assets.py, preview.php, split-intro.sql
-tests/                   # PHPUnit untuk logika murni
-docs/screenshots/        # gambar pratinjau untuk README
-dist/                    # hasil build (tidak masuk repositori)
+tools/                   # build.php, build-quickstart.php, pa.php, assets.py, preview.php, split-intro.sql
+tests/                   # PHPUnit untuk logika murni & invarian manifest
+docs/
+  PANDUAN-INSTALASI-EKSTENSI.txt
+  PANDUAN-INSTALASI-QUICKSTART.txt
+  SINOVA-URL-MAP.csv
+  screenshots/           # gambar pratinjau untuk README
+dist/                    # hasil build & arsip rilis .zip (tidak masuk repositori; tersedia di Releases)
 ```
 
 Menambah satu butir indikator:
@@ -284,12 +310,12 @@ Mengubah tampilan:
 | Bagian | Status |
 |---|---|
 | Manifest 35 butir + 5 seksi menu | selesai |
-| Logika murni dan tes (23 tes, 38 asersi) | selesai |
+| Logika murni & invarian manifest (26 tes, 58 asersi) | selesai |
 | Template `pa_satker`: beranda, daftar kategori, halaman artikel, halaman indikator | selesai |
-| Seeder idempoten: kategori, artikel, menu, modul | selesai |
+| Seeder idempoten: kategori, artikel + workflow, menu, modul | selesai |
 | Auditor 35 URL dan estimasi skor | selesai (35 URL 200, 11 halaman tanpa placeholder) |
-| Paket ekstensi `dist/*.zip` | selesai |
-| Quickstart Joomla 6.2 (inti + data + installer satu klik) | belum, direncanakan versi 1.1 |
+| Paket ekstensi & 1-klik (`pkg_pastarter.zip`, `pa-starterpack-ekstensi-v1.0.0.zip`) | selesai (rilis v1.0.0) |
+| Quickstart Joomla 6.2 (`pa-starterpack-quickstart-joomla62-v1.0.0.zip`) | selesai (rilis v1.0.0) |
 | Indeks pencarian `com_finder` | belum dibangun pada data contoh |
 | Cakupan PTA | belum, menunggu parameter `satker_type` pada versi 1.1 |
 
@@ -304,5 +330,6 @@ lisensi Joomla. Lihat berkas [LICENSE](LICENSE).
 
 Kredit: Joomla (GPL-2.0-or-later) sebagai inti aplikasi. Desain tampilan mengacu
 pada situs Direktorat Jenderal Badan Peradilan Agama dan situs satker yang sudah
-berjalan. Seluruh gambar contoh dibuat sendiri melalui `tools/assets.py`; logo
-Mahkamah Agung RI tidak disertakan dan diunggah oleh masing-masing satker.
+berjalan. Gambar contoh selain logo dibuat melalui `tools/assets.py`; logo resmi
+Mahkamah Agung RI disertakan untuk kebutuhan situs resmi satuan kerja, sedangkan
+logo masing-masing satker diunggah melalui panel admin.
