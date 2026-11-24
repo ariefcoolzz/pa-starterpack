@@ -74,4 +74,46 @@ final class IndicatorMapTest extends TestCase
         $this->expectException(\RuntimeException::class);
         IndicatorMap::fromFile(__DIR__ . '/fixtures/indicators-mini.json');
     }
+
+    public function testSemuaAliasManifestUnikGlobal(): void
+    {
+        $root = dirname(__DIR__);
+        $ind  = json_decode((string) file_get_contents($root . '/manifest/indicators.json'), true, 512, JSON_THROW_ON_ERROR);
+        $sec  = json_decode((string) file_get_contents($root . '/manifest/sections.json'), true, 512, JSON_THROW_ON_ERROR);
+
+        $aliases = array_merge(
+            array_column($sec['sections'] ?? [], 'alias'),
+            array_column($ind['indicators'] ?? [], 'path'),
+            array_column($sec['extras'] ?? [], 'path')
+        );
+
+        $this->assertCount(count($aliases), array_unique($aliases));
+    }
+
+    public function testBerkasKontenModulTersedia(): void
+    {
+        $manifestDir = dirname(__DIR__) . '/manifest';
+        $modules     = json_decode((string) file_get_contents($manifestDir . '/modules.json'), true, 512, JSON_THROW_ON_ERROR);
+
+        $checked = 0;
+        foreach ($modules['modules'] ?? [] as $mod) {
+            if (!empty($mod['content'])) {
+                $this->assertFileExists($manifestDir . '/' . $mod['content']);
+                $checked++;
+            }
+        }
+
+        $this->assertGreaterThan(0, $checked);
+    }
+
+    public function testBerkasRilisDanAdminUtamaTersedia(): void
+    {
+        $root = dirname(__DIR__);
+
+        $this->assertFileExists($root . '/packages/pkg_pastarter/pkg_pastarter.xml');
+        $this->assertFileExists($root . '/packages/com_pastarter/script.php');
+        $this->assertFileExists($root . '/packages/com_pastarter/admin/src/Controller/DisplayController.php');
+        $this->assertFileExists($root . '/docs/PANDUAN-INSTALASI-EKSTENSI.txt');
+        $this->assertFileExists($root . '/docs/PANDUAN-INSTALASI-QUICKSTART.txt');
+    }
 }

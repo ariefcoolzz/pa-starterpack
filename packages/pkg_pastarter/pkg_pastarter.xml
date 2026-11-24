@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" method="upgrade">
+    <name>PA Satker Starterpack</name>
+    <packagename>pastarter</packagename>
+    <version>1.0.0</version>
+    <creationDate>2026-11</creationDate>
+    <author>Ditjen Badan Peradilan Agama</author>
+    <authorEmail>badilag@mahkamahagung.go.id</authorEmail>
+    <authorUrl>https://badilag.mahkamahagung.go.id</authorUrl>
+    <copyright>(C) 2026 Mahkamah Agung RI</copyright>
+    <license>GNU General Public License version 2 or later</license>
+    <packager>PA Starterpack</packager>
+    <description>Paket lengkap Starterpack Website Satker Pengadilan Agama (Joomla 6.2) sesuai SK Dirjen Badilag Nomor 2722/DJA/SK.TI1/X/2026: template pa_satker, komponen com_pastarter (seeder + audit SINOVA + aset contoh), serta modul beranda.</description>
+    <files folder="packages">
+        <file type="template" id="pa_satker" client="site">tpl_pa_satker.zip</file>
+        <file type="component" id="com_pastarter">com_pastarter.zip</file>
+        <file type="module" id="mod_pa_agenda" client="site">mod_pa_agenda.zip</file>
+        <file type="module" id="mod_pa_jamkerja" client="site">mod_pa_jamkerja.zip</file>
+        <file type="module" id="mod_pa_bahasa" client="site">mod_pa_bahasa.zip</file>
+    </files>
+</extension>

@@ -1,0 +1,163 @@
+================================================================================
+PANDUAN INSTALASI — PA STARTERPACK (VERSI BUNDLE EKSTENSI JOOMLA 6.2)
+================================================================================
+Versi Paket : 1.0.0
+Acuan       : SK Dirjen Badilag Nomor 2722/DJA/SK.TI1/X/2026
+Lisensi     : GNU General Public License v2.0 atau lebih baru (lihat LICENSE.txt)
+
+Paket ini ditujukan bagi satuan kerja yang SUDAH memiliki instalasi Joomla 6.2
+(atau baru memasang Joomla 6.2 kosong) dan ingin memasang tampilan, struktur
+35 halaman indikator SINOVA, menu konsolidasi, serta modul beranda dalam satu
+kali unggah.
+
+--------------------------------------------------------------------------------
+1. ISI PAKET ZIP INI
+--------------------------------------------------------------------------------
+- PANDUAN-INSTALASI.txt   : Dokumen panduan ini
+- pkg_pastarter.zip       : Paket gabungan 1x unggah (berisi seluruh ekstensi
+                            + aset visual standar ke folder /images/)
+- ekstensi/               : 5 berkas ekstensi terpisah (cadangan bila server
+                            membatasi ukuran unggah atau ingin pasang bertahap):
+                            1. tpl_pa_satker.zip
+                            2. com_pastarter.zip
+                            3. mod_pa_agenda.zip
+                            4. mod_pa_jamkerja.zip
+                            5. mod_pa_bahasa.zip
+- SINOVA-URL-MAP.csv      : Daftar 35 URL indikator SINOVA + halaman tambahan
+- CHECKSUMS.sha256        : Hash SHA-256 berkas untuk verifikasi integritas
+- LICENSE.txt             : Salinan lisensi GPL-2.0-or-later
+
+--------------------------------------------------------------------------------
+2. PERSYARATAN SISTEM
+--------------------------------------------------------------------------------
+- CMS        : Joomla 6.2.x (sudah terpasang dan dapat login ke /administrator)
+- PHP        : PHP 8.3 atau 8.4 (disarankan PHP 8.4)
+- Ekstensi   : intl, mbstring, gd, mysqli (atau pdo_mysql), json, fileinfo, zip
+- Database   : MariaDB 10.4+ atau MySQL 8.0.13+
+- Web Server : Apache 2.4 (mod_rewrite aktif), Nginx, atau LiteSpeed
+- Upload PHP : upload_max_filesize >= 8M dan post_max_size >= 8M
+
+--------------------------------------------------------------------------------
+3. CARA INSTALASI (PILIH SESUAI LINGKUNGAN ANDA)
+--------------------------------------------------------------------------------
+
+A. MELALUI PANEL ADMIN JOOMLA (CPANEL / SHARED HOSTING / UMUM — TANPA TERMINAL)
+   1. Masuk ke panel admin Joomla: https://domain-satker.go.id/administrator/
+   2. Buka menu: System -> Install -> Extensions.
+   3. Pada tab "Upload Package File", seret atau pilih berkas:
+         pkg_pastarter.zip
+      (Jika batas unggah hosting di bawah 1 MB dan gagal mengunggah paket
+      gabungan, buka folder ekstensi/ lalu unggah kelima berkas zip satu per satu).
+   4. Pastikan kelima ekstensi terpasang tanpa galat. Aset gambar bawaan
+      otomatis disalin ke folder /images/ (berkas yang sudah ada milik satker
+      tidak akan ditimpa).
+   5. Aktifkan template:
+      Buka System -> Site Templates (atau Templates -> Styles), pilih
+      "pa_satker - Default", lalu klik tombol Default (ikon bintang).
+   6. Pasang konten awal (35 halaman indikator, menu, berita contoh, modul):
+      Buka Components -> PA Starter -> Pasang Konten Awal, lalu klik tombol
+      "Pasang konten awal".
+      Catatan: proses ini idempoten (aman diklik ulang, tidak menimpa artikel
+      yang sudah disunting).
+   7. Aktifkan URL SEF (WAJIB agar URL /profil/visi-misi dsb. berjalan):
+      - Di File Manager hosting, salin/ubah nama berkas "htaccess.txt" di root
+        Joomla menjadi ".htaccess" (untuk Apache/LiteSpeed).
+      - Di panel admin: System -> Global Configuration -> Site -> bagian SEO:
+          * Search Engine Friendly URLs : Yes
+          * Use URL Rewriting          : Yes
+        Klik Save & Close.
+      - Pastikan plugin "System - SEF" aktif (System -> Manage -> Plugins).
+
+B. MELALUI CLI DI VPS LINUX (SSH)
+   Misal root Joomla berada di /var/www/pa-contoh dan paket diekstrak di /tmp/pa:
+   1. Pasang paket gabungan:
+         php cli/joomla.php extension:install --path=/tmp/pa/pkg_pastarter.zip
+   2. Jalankan seeder:
+         php cli/joomla.php cache:clean
+      (atau salin tools/pa.php ke cli/pa.php bila menggunakan repositori git,
+      lalu jalankan: php cli/pa.php seed).
+      Atau langsung klik tombol "Pasang konten awal" di panel admin.
+   3. Pastikan kepemilikan berkas sesuai user web server (mis. www-data:www-data)
+      dan Nginx menggunakan blok rewrite:
+         location / {
+             try_files $uri $uri/ /index.php?$args;
+         }
+
+C. LINGKUNGAN LOKAL (XAMPP / LARAGON / LARAVEL HERD)
+   1. Siapkan database kosong (collation utf8mb4_unicode_ci) dan pasang Joomla
+      6.2 terlebih dahulu apabila belum ada.
+   2. Ikuti langkah A (panel admin web) atau B (CLI).
+   3. Di Windows XAMPP/Laragon, modul Apache mod_rewrite aktif secara baku dan
+      berkas ".htaccess" di root Joomla langsung dikenali.
+
+--------------------------------------------------------------------------------
+4. LANGKAH PERTAMA SETELAH INSTALASI
+--------------------------------------------------------------------------------
+1. IDENTITAS SATKER:
+   System -> Global Configuration -> Site:
+   - Ubah "Site Name" dari "Pengadilan Agama Contoh" menjadi nama resmi satker.
+   - Isi Meta Description dan alamat email resmi satker (Server -> Mail).
+2. LOGO & HEADER TEMPLATE:
+   System -> Site Template Styles -> pa_satker - Default -> tab Advanced:
+   - Periksa "Logo Mahkamah Agung" (default: images/logo/logo-ma.png).
+   - Unggah logo resmi satuan kerja pada field "Logo satker".
+   - Sesuaikan "Baris instansi header", "Jam layanan bilah atas", dan dasar
+     hukum footer bila diperlukan.
+3. AUDIT KESIAPAN SINOVA:
+   Buka Components -> PA Starter -> Audit Kesiapan SINOVA.
+   - Pastikan seluruh 35 butir berstatus HTTP 200.
+   - Halaman yang masih berkolom Placeholder > 0 perlu dilengkapi dokumennya.
+   - Penanda placeholder di HTML berbentuk <a href="#" data-pa-kosong="1">.
+     Ganti tautan "#" tersebut dengan tautan berkas PDF/dokumen resmi satker.
+   - Gunakan SINOVA-URL-MAP.csv sebagai acuan input URL ke aplikasi SINOVA.
+     JANGAN mengubah alias menu 35 butir penilaian agar URL tetap konsisten.
+4. BERITA & MODUL BERANDA:
+   - Content -> Articles: ganti berita & pengumuman contoh dengan kegiatan
+     satker (sertakan Intro Image agar kartu berita beranda rapi).
+   - Content -> Site Modules: sesuaikan modul Agenda Sidang (posisi home-agenda),
+     Jam Kerja PTSP (home-side), Survei Kepuasan, Statistik Kunjungan, dan
+     4 kolom Footer (footer-1 s.d. footer-4).
+5. INDEKS PENCARIAN (SMART SEARCH):
+   Buka Components -> Smart Search -> Index, lalu klik "Index" agar fitur
+   pencarian di header menampilkan seluruh halaman dan berita.
+
+--------------------------------------------------------------------------------
+5. LUPA KATA SANDI ADMIN
+--------------------------------------------------------------------------------
+1. Jalur resmi CLI (bila memiliki akses SSH/terminal):
+      php cli/joomla.php user:reset-password --username=admin
+2. Jalur web: klik "Forgot your login details?" pada halaman /administrator/
+   (membutuhkan konfigurasi SMTP email yang aktif).
+3. Jalur darurat phpMyAdmin: buat hash bcrypt dengan PHP
+   `password_hash('sandi-baru', PASSWORD_BCRYPT)` lalu perbarui kolom `password`
+   pada tabel `#__users` untuk akun admin.
+
+--------------------------------------------------------------------------------
+6. CHECKLIST KEAMANAN PRODUKSI
+--------------------------------------------------------------------------------
+[ ] Gunakan PHP 8.3/8.4 terbaru; matikan display_errors di produksi.
+[ ] Aktifkan HTTPS (TLS 1.2+) dan paksa pengalihan HTTP -> HTTPS.
+[ ] Gunakan akun database khusus dengan hak akses hanya ke DB situs satker.
+[ ] Simpan berkas configuration.php dengan permission ketat (0600 atau 0440).
+[ ] Batasi akses /administrator/ (allowlist IP/VPN atau Basic Auth tambahan).
+[ ] Pastikan folder cache/, logs/, tmp/ tidak dapat diakses/diindeks publik.
+[ ] Jadwalkan backup berkas dan database secara berkala di luar server.
+
+--------------------------------------------------------------------------------
+7. TROUBLESHOOTING SINGKAT
+--------------------------------------------------------------------------------
+- Mengklik menu profil/transparansi muncul 404 Not Found:
+  Pastikan .htaccess sudah ada (bukan masih htaccess.txt) dan "Use URL
+  Rewriting" di Global Configuration -> Site -> SEO sudah Yes. Pada Nginx,
+  pastikan `try_files $uri $uri/ /index.php?$args;` terpasang.
+- Unggah pkg_pastarter.zip gagal (Request Entity Too Large / file terlalu besar):
+  Naikkan upload_max_filesize dan post_max_size di php.ini (minimal 8M), atau
+  pasang kelima file di folder ekstensi/ satu per satu.
+- Gambar tidak muncul setelah instalasi:
+  Periksa apakah folder /images/slider/, /images/logo/, /images/ikon/,
+  /images/konten/, dan /images/flyer/ sudah terisi dan dapat dibaca web server.
+  Jika belum, jalankan ulang unggah com_pastarter.zip atau salin dari arsip.
+- Daftar artikel di Content -> Articles terlihat kosong padahal tampil di web:
+  Jalankan ulang tombol "Pasang konten awal" di Components -> PA Starter agar
+  asosiasi workflow Joomla 6 (#__workflow_associations) ikut terisi.
+================================================================================

@@ -1,0 +1,177 @@
+================================================================================
+PANDUAN INSTALASI — PA STARTERPACK (VERSI QUICKSTART JOOMLA 6.2.0)
+================================================================================
+Versi Paket : 1.0.0 (Joomla 6.2.0 + PA Starterpack)
+Acuan       : SK Dirjen Badilag Nomor 2722/DJA/SK.TI1/X/2026
+Lisensi     : GNU General Public License v2.0 atau lebih baru (lihat LICENSE.txt)
+
+Paket Quickstart ini berisi instalasi UTUH Joomla 6.2.0 beserta template
+pa_satker, komponen com_pastarter, 3 modul beranda, aset gambar standar, serta
+data awal 35 halaman indikator SINOVA. Cocok untuk membangun situs baru dari
+nol tanpa harus memasang ekstensi satu per satu.
+
+--------------------------------------------------------------------------------
+1. ISI PAKET ZIP INI
+--------------------------------------------------------------------------------
+- PANDUAN-INSTALASI.txt   : Dokumen panduan ini
+- joomla/                 : Seluruh berkas website Joomla 6.2 + PA Starterpack
+                            siap ekstrak ke document root (termasuk folder
+                            installation/ untuk wizard pemasangan)
+- SINOVA-URL-MAP.csv      : Daftar 35 URL indikator SINOVA + halaman tambahan
+- CHECKSUMS.sha256        : Hash SHA-256 verifikasi arsip & SQL custom
+- LICENSE.txt             : Salinan lisensi GPL-2.0-or-later
+
+--------------------------------------------------------------------------------
+2. PERSYARATAN SERVER / HOSTING
+--------------------------------------------------------------------------------
+- PHP        : PHP 8.3 atau 8.4 (disarankan PHP 8.4)
+- Ekstensi   : intl, mbstring, gd, mysqli (atau pdo_mysql), json, fileinfo, zip
+- Database   : MariaDB 10.4+ atau MySQL 8.0.13+ (collation utf8mb4_unicode_ci)
+- Web Server : Apache 2.4 (mod_rewrite aktif), Nginx, atau LiteSpeed
+
+--------------------------------------------------------------------------------
+3. CARA INSTALASI (PILIH SESUAI LINGKUNGAN ANDA)
+--------------------------------------------------------------------------------
+
+A. CPANEL / SHARED HOSTING (WIZARD BROWSER — TANPA TERMINAL)
+   1. Buat database kosong dan akun database khusus lewat menu MySQL Databases
+      di cPanel (catat nama DB, username, password, dan host; biasanya localhost).
+      Pastikan user memiliki ALL PRIVILEGES ke database tersebut.
+   2. Buka File Manager -> masuk ke folder tujuan domain (mis. public_html/).
+      Pastikan folder tujuan kosong dari instalasi website lama (backup dulu
+      bila ada).
+   3. Unggah paket zip ini atau ekstrak isi folder joomla/ langsung ke dalam
+      public_html/ (sehingga index.php, administrator/, installation/, images/
+      berada langsung di dalam public_html/, bukan di public_html/joomla/).
+   4. Ubah nama berkas "htaccess.txt" menjadi ".htaccess" di dalam public_html/
+      agar URL SEF langsung berjalan.
+   5. Buka alamat website Anda di browser (mis. https://pa-contoh.go.id).
+      Wizard instalasi Joomla 6 akan terbuka otomatis:
+      - Langkah 1 (Language & Site Name): pilih bahasa, isi Nama Situs resmi
+        (mis. "Pengadilan Agama Contoh").
+      - Langkah 2 (Login Data): isi Nama Lengkap, Username, Password kuat,
+        dan Email resmi Super User admin.
+      - Langkah 3 (Database Configuration):
+          * Database Type : MySQLi
+          * Host Name     : localhost (sesuai info hosting)
+          * Username      : <user database Anda>
+          * Password      : <sandi database Anda>
+          * Database Name : <nama database kosong>
+          * Table Prefix  : biarkan bawaan atau ganti acak (mis. pa_)
+      - Klik "Install Joomla". Sistem akan otomatis memasang inti Joomla 6.2,
+        template pa_satker, komponen PA Starter, modul beranda, menu, serta
+        seluruh 35 halaman indikator SINOVA.
+   6. Pada layar akhir pemasangan, klik tombol "Complete & Remove Installation
+      Folder" (jika gagal hapus otomatis, hapus folder "installation/" secara
+      manual lewat File Manager).
+
+B. VPS LINUX (UBUNTU / DEBIAN + NGINX ATAU APACHE)
+   1. Buat database & user MariaDB/MySQL khusus:
+         CREATE DATABASE db_pa_satker CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+         CREATE USER 'pa_web'@'127.0.0.1' IDENTIFIED BY 'SandiKuatAnda';
+         GRANT ALL PRIVILEGES ON db_pa_satker.* TO 'pa_web'@'127.0.0.1';
+         FLUSH PRIVILEGES;
+   2. Ekstrak folder joomla/* ke document root (mis. /var/www/pa-satker) dan
+      atur kepemilikan user web server:
+         chown -R www-data:www-data /var/www/pa-satker
+   3. Konfigurasi Nginx contoh:
+         server {
+             listen 443 ssl http2;
+             server_name pa-contoh.go.id;
+             root /var/www/pa-satker;
+             index index.php;
+             client_max_body_size 32m;
+
+             location / {
+                 try_files $uri $uri/ /index.php?$args;
+             }
+
+             location ~ \.php$ {
+                 include snippets/fastcgi-php.conf;
+                 fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+             }
+
+             location ~* /(cache|logs|tmp|administrator/logs)/ {
+                 deny all;
+             }
+         }
+   4. Anda dapat menyelesaikan instalasi lewat browser (seperti langkah A.5-A.6)
+      atau lewat CLI dari dalam /var/www/pa-satker:
+         php installation/joomla.php install \
+           --site-name="Pengadilan Agama Contoh" \
+           --admin-user="Admin Satker" \
+           --admin-username="admin" \
+           --admin-password="GantiPasswordKuat" \
+           --admin-email="admin@pa-contoh.go.id" \
+           --db-type=mysqli \
+           --db-host=127.0.0.1 \
+           --db-user=pa_web \
+           --db-pass="SandiKuatAnda" \
+           --db-name=db_pa_satker
+      Lalu atur permission configuration.php: chmod 600 configuration.php.
+
+C. LOKAL (XAMPP / LARAGON / LARAVEL HERD)
+   1. Ekstrak isi folder joomla/ ke htdocs/pa-satker (XAMPP), www/pa-satker
+      (Laragon), atau folder situs Herd.
+   2. Pastikan PHP aktif versi 8.3 atau 8.4.
+   3. Buat database kosong di phpMyAdmin/DBeaver (utf8mb4_unicode_ci).
+   4. Salin htaccess.txt menjadi .htaccess, lalu buka situs di browser untuk
+      mengikuti wizard instalasi Joomla hingga menghapus folder installation/.
+
+--------------------------------------------------------------------------------
+4. AKTIFKAN SEF & URL REWRITING SETELAH INSTALASI
+--------------------------------------------------------------------------------
+1. Masuk ke /administrator/ memakai akun Super User yang baru dibuat.
+2. Buka System -> Global Configuration -> tab Site -> bagian SEO:
+   - Search Engine Friendly URLs : Yes
+   - Use URL Rewriting          : Yes (pastikan .htaccess sudah ada di Apache,
+     atau try_files pada Nginx sudah terpasang).
+3. Klik Save & Close.
+4. Uji membuka menu seperti /profil/visi-misi atau /transparansi/lkjip untuk
+   memastikan URL bersih (tanpa /index.php/) terbuka HTTP 200.
+
+--------------------------------------------------------------------------------
+5. LANGKAH PERTAMA KUSTOMISASI SATKER
+--------------------------------------------------------------------------------
+1. Nama Situs & Email:
+   System -> Global Configuration -> Site (Site Name) & Server (Mail Settings).
+2. Logo Mahkamah Agung & Logo Satker:
+   System -> Site Template Styles -> pa_satker - Default -> tab Advanced.
+   Logo MA default sudah terpasang (images/logo/logo-ma.png); unggah logo
+   satker pada "Logo satker" serta sesuaikan jam layanan & dasar hukum footer.
+3. Audit Kesiapan SINOVA:
+   Buka Components -> PA Starter -> Audit Kesiapan SINOVA.
+   Lengkapi seluruh halaman yang masih bertanda Placeholder > 0 (tanda
+   <a href="#" data-pa-kosong="1">). Gunakan SINOVA-URL-MAP.csv sebagai
+   daftar tautan tetap untuk dilaporkan ke aplikasi SINOVA.
+4. Ganti Konten Contoh:
+   - Content -> Articles: ganti berita, pengumuman, dan isi 35 halaman
+     indikator dengan dokumen/SK/laporan resmi satker.
+   - Content -> Site Modules: sesuaikan Agenda Sidang, Jam Kerja PTSP, Survei
+     Kepuasan, Statistik Kunjungan, dan informasi alamat pada Footer 1-4.
+5. Indeks Pencarian:
+   Buka Components -> Smart Search -> Index, lalu klik "Index".
+
+--------------------------------------------------------------------------------
+6. LUPA KATA SANDI ADMIN & KEAMANAN PRODUKSI
+--------------------------------------------------------------------------------
+- Reset sandi via CLI: php cli/joomla.php user:reset-password --username=admin
+- Checklist keamanan:
+  [ ] Folder installation/ sudah dihapus total.
+  [ ] configuration.php berizin ketat (0600 atau 0440) dan display_errors mati.
+  [ ] HTTPS aktif dan akun DB tidak memakai root.
+  [ ] /administrator/ dibatasi IP allowlist atau proteksi tambahan web server.
+  [ ] Backup berkas & database terjadwal di luar server produksi.
+
+--------------------------------------------------------------------------------
+7. TROUBLESHOOTING SINGKAT
+--------------------------------------------------------------------------------
+- Wizard berhenti atau gagal saat import SQL:
+  Pastikan database target benar-benar kosong, user punya hak CREATE/INSERT/
+  ALTER/INDEX penuh, dan versi MariaDB >= 10.4 atau MySQL >= 8.0.13.
+- Halaman depan terbuka tapi submenu mengarah ke 404:
+  Periksa berkas .htaccess (Apache) atau blok try_files (Nginx), serta opsi
+  "Use URL Rewriting = Yes" di Global Configuration -> SEO.
+- Halaman putih / error versi PHP saat membuka situs:
+  Pastikan domain/vhost memakai PHP 8.3 atau 8.4 (Joomla 6 menolak PHP <= 8.2).
+================================================================================

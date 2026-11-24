@@ -1,0 +1,42 @@
+﻿id,aspek,no,judul,url,kriteria
+wajib-1.1,wajib,1.1,"Visi dan Misi Pengadilan",/profil/visi-misi,"1. Visi Pengadilan; 2. Misi Pengadilan"
+wajib-1.2,wajib,1.2,"Tugas Pokok dan Fungsi Pengadilan",/profil/tugas-fungsi,"1. Tugas Pokok Pengadilan; 2. Fungsi Pengadilan"
+wajib-1.3,wajib,1.3,"Wilayah Yurisdiksi",/profil/wilayah-yurisdiksi,"1. Nama kecamatan; 2. Peta wilayah yurisdiksi"
+wajib-1.4,wajib,1.4,"Struktur Organisasi",/profil/struktur-organisasi,"1. Diagram struktur; 2. Nama pejabat; 3. Nama jabatan"
+wajib-1.5,wajib,1.5,"Alamat dan Kontak Pengadilan",/profil/alamat-kontak,"Alamat lengkap, email, URL situs, foto gedung kantor"
+wajib-2.1,wajib,2.1,"e-Court Mahkamah Agung RI",/layanan-hukum/ecourt,"1. Informasi/definisi e-Court; 2. Tautan ke e-Court"
+wajib-2.2,wajib,2.2,"Direktori Putusan Mahkamah Agung RI",/layanan-hukum/direktori-putusan,"1. Tautan Direktori Putusan; 2. Tautan khusus satuan kerja"
+wajib-2.3,wajib,2.3,"Prosedur Berperkara",/layanan-hukum/prosedur-berperkara,"Tingkat pertama, banding, kasasi, peninjauan kembali, pengambilan produk, gugatan sederhana"
+wajib-2.4,wajib,2.4,"Biaya Proses Berperkara",/layanan-hukum/panjar-biaya,"Rincian biaya proses berperkara"
+wajib-3.1,wajib,3.1,"Profil Pejabat dan Pegawai",/profil/pejabat-pegawai,"Daftar nama, foto, gelar, pangkat, TMT, pendidikan, riwayat jabatan"
+wajib-4.1,wajib,4.1,"Standar dan Maklumat Pelayanan",/layanan-publik/maklumat-pelayanan,"Standar pelayanan dan maklumat pelayanan pengadilan"
+berkala-1.1,berkala,1.1,"Rencana Aksi Kinerja",/transparansi/rencana-aksi-kinerja,"Daftar dan tautan Rencana Aksi Kinerja 5 tahun terakhir"
+berkala-1.2,berkala,1.2,"Laporan Pelaksanaan Kegiatan",/transparansi/laporan-tahunan,"Daftar dan tautan laporan tahunan 5 tahun terakhir"
+berkala-2.1,berkala,2.1,"Sistem Informasi Penelusuran Perkara (SIPP)",/layanan-hukum/sipp,"Tautan menuju aplikasi SIPP versi website satuan kerja"
+berkala-2.2,berkala,2.2,"Agenda dan Jadwal Persidangan",/layanan-hukum/jadwal-sidang,"Jadwal persidangan per hari"
+berkala-2.3,berkala,2.3,"Statistik Perkara",/layanan-hukum/statistik-perkara,"Sisa bulan lalu, masuk, putus, sisa saat ini"
+berkala-2.4,berkala,2.4,"Panggilan Ghaib",/layanan-hukum/panggilan-ghaib,"Nama pihak, nomor perkara, tanggal sidang, tautan relaas"
+berkala-2.5,berkala,2.5,"Laporan Penggunaan Biaya Perkara",/layanan-hukum/biaya-perkara,"Rincian penggunaan biaya perkara per bulan"
+berkala-2.6,berkala,2.6,"Laporan Pengembalian Sisa Panjar",/layanan-hukum/sisa-panjar,"Rincian pengembalian sisa panjar per bulan"
+berkala-3.1,berkala,3.1,"Laporan Harta Kekayaan Penyelenggara Negara",/transparansi/lhkpn,"Daftar pejabat, tahun lapor, tautan ikhtisar kekayaan minimal 2 tahun"
+berkala-3.2,berkala,3.2,"Daftar Isian Pelaksanaan Anggaran (DIPA)",/transparansi/dipa,"DIPA, rencana penggunaan anggaran, realisasi DIPA"
+berkala-3.3,berkala,3.3,"Laporan Realisasi Anggaran (LRA)",/transparansi/lra,"Laporan Realisasi Anggaran"
+berkala-3.4,berkala,3.4,"Catatan atas Laporan Keuangan (CALK)",/transparansi/calk,"Catatan atas Laporan Keuangan"
+berkala-3.5,berkala,3.5,"Pengadaan Barang dan Jasa",/transparansi/pengadaan,"Rencana Umum Pengadaan Barang dan Jasa"
+berkala-3.6,berkala,3.6,"Rencana Strategis (Renstra)",/transparansi/renstra,"Rancangan/Renstra/Reviu Renstra minimal 5 tahun terakhir"
+berkala-3.7,berkala,3.7,"Rencana Kinerja Tahunan (RKT)",/transparansi/rkt,"RKT minimal 5 tahun terakhir"
+berkala-3.8,berkala,3.8,"Rencana Aksi Kinerja Tahun Berjalan",/transparansi/rencana-aksi-tahun-berjalan,"Rencana Aksi Kinerja minimal tahun saat ini"
+berkala-3.9,berkala,3.9,"Perjanjian Kinerja (PK)",/transparansi/perjanjian-kinerja,"PK minimal 5 tahun terakhir"
+berkala-3.10,berkala,3.10,"Indikator Kinerja Utama (IKU) dan Reviu IKU",/transparansi/iku,"IKU atau Reviu IKU minimal 5 tahun terakhir"
+berkala-3.11,berkala,3.11,"Laporan Kinerja Instansi Pemerintah (LKjIP)",/transparansi/lkjip,"LKjIP minimal 5 tahun terakhir"
+berkala-4.1,berkala,4.1,"Laporan Akses Informasi Publik",/layanan-publik/laporan-akses-informasi,"Jumlah permohonan, waktu pelayanan, dikabulkan/ditolak, alasan penolakan"
+berkala-4.2,berkala,4.2,"Rekapitulasi Pengaduan Masyarakat",/layanan-publik/rekapitulasi-pengaduan,"Inisial pelapor, jenis pelanggaran, deskripsi, tindak lanjut, hukuman disiplin"
+berkala-4.3,berkala,4.3,"Hukuman Disiplin Hasil Pengawasan",/layanan-publik/hukuman-disiplin,"Inisial, jenis pelanggaran, deskripsi, tindak lanjut, hukuman disiplin"
+berkala-4.4,berkala,4.4,"Survei Pelayanan Masyarakat",/layanan-publik/survei,"Nilai dan laporan SKM, SPAK, SPKP"
+berkala-5.1,berkala,5.1,"Statistik Kunjungan Website",/statistik-kunjungan,"Statistik pengunjung website dengan rentang waktu tertentu"
+extra-hak,tambahan,,"Hak Pencari Keadilan",/layanan-hukum/hak-pencari-keadilan,
+extra-ppid,tambahan,,"Layanan Informasi (PPID)",/layanan-publik/ppid,
+extra-disabilitas,tambahan,,"Layanan Kelompok Rentan",/layanan-publik/disabilitas,
+extra-inovasi,tambahan,,"Inovasi Layanan",/berita/inovasi,
+extra-opini,tambahan,,"Opini dan Gagasan",/berita/opini,
+extra-peta,tambahan,,"Peta Kesiapan SINOVA",/peta-sinova,
